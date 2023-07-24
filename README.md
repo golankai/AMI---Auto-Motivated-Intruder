@@ -1,5 +1,5 @@
 # Auto-Intruder
-Automatic De-identifying tool
+Automatic Re-identifying tool
 
 ## Tasks
 
