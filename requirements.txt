@@ -1,6 +1,8 @@
 langchain
+transformers
 
 # Not sure if needed
 openai
 llamaapi
 langchain_experimental
+pytorch

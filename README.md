@@ -14,6 +14,10 @@ Automatic Re-identifying tool
 
 4. Report
 
+5. Add google search: https://python.langchain.com/docs/integrations/tools/google_search
+
+6. Add Wikipedia: https://python.langchain.com/docs/integrations/tools/wikipedia
+
 ### Code
 1. Intruder - prompting about the anonymized text
 1.1 Scoring and identifying key factors
