@@ -1,2 +1,6 @@
 langchain
+
+# Not sure if needed
 openai
+llamaapi
+langchain_experimental
