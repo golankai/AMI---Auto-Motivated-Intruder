@@ -6,6 +6,7 @@ Automatic Re-identifying tool
 ### Organization
 1. check LLMs API and costs
 1.1 Langchain
+1.2 OpenAI-cost money. Llama2 - Asked for access.
 
 2. Try Prompting 2-3 persons
 
