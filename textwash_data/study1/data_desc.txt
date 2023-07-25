@@ -1,0 +1,10 @@
+Data description of study 1
+
+In person_descriptions/[anon|orig] are files with the following name structure:
+
+CAT_W_d_C_I
+
+CAT - Category - famous, fict(ional), semifamous
+W - writer's id, 1-410
+C - CAT in number 1 (famous), 2 (fictional), 3 (semifamous)
+I - item number, the person of the text, 1-10
