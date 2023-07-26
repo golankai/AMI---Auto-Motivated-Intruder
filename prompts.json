@@ -5,7 +5,7 @@
         "re-identified": "Please supply the information that helped you re-identify the person."
     },
     "flanT5": {
-        "pls_de_identify": "Task: please re-identify the person in the following anonymized text.\n {anon_text}",
+        "pls_de_identify": "Task: please re-identify the person in the following anonymized text. If you can, answer 'Person: name'. Else say No.\n {anon_text}",
         "fail2re-identify": "Task: please provide critical characteristics about the person and 5 specific Google searches you'd submit to re-identify this person.\nRules: Both the characteristics and the Google search prompts should include no placeholders such as PERSON_FIRSTNAME_1, LOCATION_1, OCCUPATION_1, etc, as we don't know them.",
         "re-identified": "Please supply the information that helped you re-identify the person."
     }
