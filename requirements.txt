@@ -5,4 +5,4 @@ transformers
 openai
 llamaapi
 langchain_experimental
-pytorch
+torch
