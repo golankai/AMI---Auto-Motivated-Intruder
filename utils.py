@@ -2,6 +2,8 @@ import json
 import os
 import pandas as pd
 
+
+
 def get_local_keys():
     """Get local keys from a local keys.json file."""
     with open("keys.json", "r") as f:
@@ -29,4 +31,15 @@ def read_data(dir: str) -> pd.DataFrame:
     df["file_name"] = files
     df["anon_text"] = anon_texts
     return df
+
+def get_repo_id(llm: str):
+    match llm:
+        case "flan-t5":
+            repo_id = "google/flan-t5-xxl"
+        case "llama2":
+            repo_id = "meta-llama/Llama-2-70b-hf"
+        case _:
+            # raise an exception
+            raise ValueError("llm name is not valid") 
+    return repo_id
     
