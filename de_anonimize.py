@@ -4,7 +4,7 @@ from utils import read_data
 from DeAnonimiser import DeAnonimiser
 
 # Path to anonimised text
-anon_text_path = "textwash_data/study2/person_descriptions/anon/adele_57.txt"
+anon_text_path = "textwash_data/study2/person_descriptions/orig/adele_57.txt"
 # anon_texts_path = "textwash_data/study2/person_descriptions/anon"
 
 # Read the data

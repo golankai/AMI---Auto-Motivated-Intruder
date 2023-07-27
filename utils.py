@@ -3,18 +3,19 @@ import os
 import pandas as pd
 
 
-
 def get_local_keys():
     """Get local keys from a local keys.json file."""
     with open("keys.json", "r") as f:
         keys = json.load(f)
     return keys
 
+
 def get_prompts_templates():
     """Get prompts template from a local prompts.json file."""
     with open("prompts.json", "r") as f:
         prompts = json.load(f)
     return prompts
+
 
 def read_data(dir: str) -> pd.DataFrame:
     """
@@ -25,12 +26,13 @@ def read_data(dir: str) -> pd.DataFrame:
     df = pd.DataFrame(columns=["file_name", "anon_text"])
     anon_texts = []
     for file in files:
-        with open(os.path.join(dir, file), "r", encoding='utf-8') as f:
+        with open(os.path.join(dir, file), "r", encoding="utf-8") as f:
             anon_texts.append(f.read())
 
     df["file_name"] = files
     df["anon_text"] = anon_texts
     return df
+
 
 def get_repo_id(llm: str):
     match llm:
@@ -40,6 +42,5 @@ def get_repo_id(llm: str):
             repo_id = "meta-llama/Llama-2-70b-hf"
         case _:
             # raise an exception
-            raise ValueError("llm name is not valid") 
+            raise ValueError("llm name is not valid")
     return repo_id
-    
