@@ -2,6 +2,8 @@ import json
 import os
 import pandas as pd
 
+from langchain.agents import load_tools
+
 
 def get_local_keys():
     """Get local keys from a local keys.json file."""
@@ -44,3 +46,12 @@ def get_repo_id(llm: str):
             # raise an exception
             raise ValueError("llm name is not valid")
     return repo_id
+
+def load_google_search_tool():
+    """
+    Load the google search tool.
+    """
+    keys = get_local_keys()
+    search = load_tools(["google-search"])[0]
+    search.description ="A wrapper around Google Search. Useful for when you need to answer questions about current events or look for people who answer a specific charachteristic. Input should be a search query."
+    return search

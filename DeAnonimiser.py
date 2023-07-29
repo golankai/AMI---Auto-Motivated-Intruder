@@ -18,7 +18,7 @@ from langchain.chains import ConversationChain
 from langchain.memory import ConversationBufferMemory
 
 
-from utils import get_local_keys, get_prompts_templates, get_repo_id
+from utils import get_local_keys, get_prompts_templates, get_repo_id, load_google_search_tool
 
 
 class DeAnonimiser:
@@ -26,7 +26,7 @@ class DeAnonimiser:
     Class of a de-anonimiser.
     """
 
-    def __init__(self, llm: str, debug: bool = False, verbose: bool = False):
+    def __init__(self, llm: str, google: bool = False, debug: bool = False, verbose: bool = False):
         """
         Create a new instance of a de-anonimiser.
         :param llm: The LLM to use. Must be one of ['flan-t5' or 'llama2'].
@@ -57,6 +57,10 @@ class DeAnonimiser:
             # memory=ConversationBufferMemory(return_messages=True)
         )
         self.conversation.memory.chat_memory.add_ai_message(self.templates["conversation"]["ask_for_anon_text"])
+
+        # Define the google search tool
+        if google:
+            self.google_search = load_google_search_tool()
 
 
     def de_anonymise(self, anon_text):
