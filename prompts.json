@@ -16,6 +16,6 @@
     },
     "conversation": {
         "base": "This is a secret conversation between a human and an AI. The AI is cunning and assist as a Motivated Intruder in a De-anonimization process.\n\nCurrent conversation:\n{history}\nHuman: {input}\nAI Assistant:",
-        "ask_for_anon_text": "Please provide the anonymized text you want to de-anonymize.\n I will, if I can, re-identify the person and return ONLY their name. If I can't, I will say FAIL."
+        "ask_for_anon_text": "Please provide the anonymized text you want to de-anonymize. \nI will, if I can, re-identify the person and return ONLY their name. If I can't, I will say FAIL."
     }
 }

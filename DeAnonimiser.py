@@ -1,6 +1,7 @@
 import os
 
 from huggingface_hub import notebook_login
+import langchain
 from langchain import HuggingFacePipeline
 from langchain.llms import OpenAI, HuggingFaceHub, Cohere
 from langchain.prompts.chat import (
@@ -25,13 +26,15 @@ class DeAnonimiser:
     Class of a de-anonimiser.
     """
 
-    def __init__(self, llm: str):
+    def __init__(self, llm: str, debug: bool = False, verbose: bool = False):
         """
         Create a new instance of a de-anonimiser.
         :param llm: The LLM to use. Must be one of ['flan-t5' or 'llama2'].
         """
 
         # Accesses and keys
+        langchain.debug = debug
+        langchain.verbose = verbose
         self.llm_name = llm
         keys = get_local_keys()
         os.environ["HUGGINGFACEHUB_API_TOKEN"] = keys["huggingface_hub_token"]

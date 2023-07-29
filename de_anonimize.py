@@ -14,7 +14,7 @@ with open(anon_text_path, "r") as f:
 # df = df.head(10)
 
 # Set up the de-anonimiser
-de_anonimiser = DeAnonimiser(llm="flan-t5")
+de_anonimiser = DeAnonimiser(llm="flan-t5", verbose=True)
 
 # Run the de-anonimiser
 result = de_anonimiser.de_anonymise(anon_text)
