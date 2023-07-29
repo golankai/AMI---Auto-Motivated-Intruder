@@ -51,7 +51,7 @@ class DeAnonimiser:
             prompt=conv_prompt,
             llm=self.llm,
             verbose=True,
-            memory=ConversationBufferMemory(return_messages=True)
+            # memory=ConversationBufferMemory(return_messages=True)
         )
         self.conversation.memory.chat_memory.add_ai_message(self.templates["conversation"]["ask_for_anon_text"])
 
@@ -70,6 +70,5 @@ class DeAnonimiser:
         # result = llm_chain.run(anon_text)
 
         # Run the conversation
-        # result = self.conversation.run(anon_text)
-        result = self.conversation.predict(input="Hi, how are you?")
+        result = self.conversation.run(anon_text)
         return result

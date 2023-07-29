@@ -1,6 +1,6 @@
 black
 
-pytorch
+torch
 transformers
 
 langchain
