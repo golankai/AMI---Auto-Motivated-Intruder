@@ -1,10 +1,17 @@
+# General
 black
 
+# NLP
 torch
 transformers
 
+# LangChain
 langchain
 langchain_experimental
 
+# Models
 openai
 llamaapi
+
+# Others
+google-api-python-client
