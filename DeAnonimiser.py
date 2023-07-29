@@ -58,10 +58,10 @@ class DeAnonimiser:
 
     def de_anonymise(self, anon_text):
         # Define prompts
-        prompt = PromptTemplate(
-            template=self.templates[self.llm_name]["pls_de_identify"],
-            input_variables=["anon_text"],
-        )
+        # prompt = PromptTemplate(
+        #     template=self.templates[self.llm_name]["pls_de_identify"],
+        #     input_variables=["anon_text"],
+        # )
         
         # Define the chain
         # llm_chain = LLMChain(prompt=prompt, llm=self.llm)
@@ -70,5 +70,6 @@ class DeAnonimiser:
         # result = llm_chain.run(anon_text)
 
         # Run the conversation
-        result = self.conversation.run(anon_text)
+        # result = self.conversation.run(anon_text)
+        result = self.conversation.predict(input="Hi, how are you?")
         return result
