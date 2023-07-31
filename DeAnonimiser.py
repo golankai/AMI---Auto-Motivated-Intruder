@@ -18,7 +18,8 @@ from langchain.chains import ConversationChain
 from langchain.memory import ConversationBufferMemory
 
 
-from utils import get_local_keys, get_prompts_templates, get_repo_id, load_google_search_tool
+from utils import get_local_keys, get_prompts_templates, load_model, load_google_search_tool
+from PromptBuilder import PromptBuilder
 
 
 class DeAnonimiser:
@@ -26,7 +27,7 @@ class DeAnonimiser:
     Class of a de-anonimiser.
     """
 
-    def __init__(self, llm: str, google: bool = False, debug: bool = False, verbose: bool = False):
+    def __init__(self, llm: str, self_guide: bool = False, google: bool = False, debug: bool = False, verbose: bool = False):
         """
         Create a new instance of a de-anonimiser.
         :param llm: The LLM to use. Must be one of ['flan-t5' or 'llama2'].
@@ -39,43 +40,46 @@ class DeAnonimiser:
         keys = get_local_keys()
         os.environ["HUGGINGFACEHUB_API_TOKEN"] = keys["huggingface_hub_token"]
 
-        # Define the templates
-        self.templates = get_prompts_templates()
+        # Define the PromptBuilder
+        self.prompt_builder = PromptBuilder(self.llm_name)
 
         # Define the LLM
-        repo_id = get_repo_id(self.llm_name)
-        self.llm = llm = HuggingFaceHub(
-            repo_id=repo_id, model_kwargs={"temperature": 0.5, "max_length": 512}
-        )
+        self.llm = load_model(self.llm_name)
 
         # Define the ConversationChain
-        conv_prompt = PromptTemplate(input_variables=["history", "input"], template=self.templates["conversation"]["base"])
+        conv_prompt = PromptTemplate(input_variables=["history", "input"], template=self.prompt_builder.get_template("base"))
         self.conversation = ConversationChain(
             prompt=conv_prompt,
             llm=self.llm,
             verbose=True,
-            # memory=ConversationBufferMemory(return_messages=True)
+            memory=ConversationBufferMemory(verbose=verbose),
         )
-        self.conversation.memory.chat_memory.add_ai_message(self.templates["conversation"]["ask_for_anon_text"])
 
+        # Define self-guide
+        self.self_guide = self_guide
         # Define the google search tool
-        if google:
-            self.google_search = load_google_search_tool()
+        self.google = load_google_search_tool() if google else None
 
 
     def de_anonymise(self, anon_text):
         # Define prompts
-        # prompt = PromptTemplate(
-        #     template=self.templates[self.llm_name]["pls_de_identify"],
-        #     input_variables=["anon_text"],
-        # )
+        prompt, output_parser = self.prompt_builder.get_prompt("pls_de_identify")
         
-        # Define the chain
-        # llm_chain = LLMChain(prompt=prompt, llm=self.llm)
-
-        # Run the chain
-        # result = llm_chain.run(anon_text)
+        answers = {}
 
         # Run the conversation
-        result = self.conversation.run(anon_text)
-        return result
+        _input = prompt.format_prompt(anon_text=anon_text)
+        first_answer = self.conversation(_input)["response"]
+        answers["first_answer"] = first_answer
+        # if first_answer != "FAIL":
+        #     return answers
+        
+        # Couldn't identify immidiately, use further methods
+        # if self.self_guide:
+        #     # Use self-guide
+        #     characteristics_cands = self.conversation(self.templates[self.llm_name]["characteristics"])["response"]
+        #     answers["characteristics"] = characteristics
+        #     cands = self.conversation(self.templates[self.llm_name]["cands"])["response"]
+
+        
+        return answers
