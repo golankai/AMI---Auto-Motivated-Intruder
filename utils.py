@@ -3,6 +3,7 @@ import os
 import pandas as pd
 
 from langchain.agents import load_tools
+from langchain.llms import OpenAI, HuggingFaceHub, Cohere
 
 
 def get_local_keys():
@@ -36,8 +37,11 @@ def read_data(dir: str) -> pd.DataFrame:
     return df
 
 
-def get_repo_id(llm: str):
-    match llm:
+def load_model(llm_name: str):
+    """
+    Load the LLM model.
+    """
+    match llm_name:
         case "flan-t5":
             repo_id = "google/flan-t5-xxl"
         case "llama2":
@@ -45,7 +49,11 @@ def get_repo_id(llm: str):
         case _:
             # raise an exception
             raise ValueError("llm name is not valid")
-    return repo_id
+    llm = HuggingFaceHub(
+        repo_id=repo_id, model_kwargs={"temperature": 0.1, "max_length": 1024}
+    )
+    return llm
+
 
 def load_google_search_tool():
     """
@@ -53,5 +61,5 @@ def load_google_search_tool():
     """
     keys = get_local_keys()
     search = load_tools(["google-search"])[0]
-    search.description ="A wrapper around Google Search. Useful for when you need to answer questions about current events or look for people who answer a specific charachteristic. Input should be a search query."
+    search.description = "A wrapper around Google Search. Useful for when you need to answer questions about current events or look for people who answer a specific charachteristic. Input should be a search query."
     return search
