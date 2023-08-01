@@ -68,8 +68,12 @@ class DeAnonimiser:
         answers = {}
 
         # Run the conversation
-        _input = prompt.format_prompt(anon_text=anon_text)
-        first_answer = self.conversation(_input)["response"]
+        # _input = prompt.format_prompt(anon_text=anon_text)
+        # first_answer = output_parser.parse(self.conversation(_input.to_string())["response"])
+        first_answer = self.conversation.predict_and_parse(anon_text=anon_text)["response"]
+
+        print(first_answer)
+        print(type(first_answer))
         answers["first_answer"] = first_answer
         # if first_answer != "FAIL":
         #     return answers
