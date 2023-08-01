@@ -47,6 +47,7 @@ class DeAnonimiser:
         self.llm = load_model(self.llm_name)
 
         # Define the ConversationChain
+        base_vonv_prompt = self.prompt_builder.get_prompt("base")
         conv_prompt = PromptTemplate(input_variables=["history", "input"], template=self.prompt_builder.get_template("base"))
         self.conversation = ConversationChain(
             prompt=conv_prompt,
@@ -62,15 +63,15 @@ class DeAnonimiser:
 
 
     def de_anonymise(self, anon_text):
-        # Define prompts
-        prompt, output_parser = self.prompt_builder.get_prompt("pls_de_identify")
-        
         answers = {}
 
-        # Run the conversation
-        # _input = prompt.format_prompt(anon_text=anon_text)
+        # First try to identify
+        prompt, output_parser = self.prompt_builder.get_prompt("pls_de_identify")
+        _input = prompt.format_prompt(anon_text=anon_text)
+        first_answer = self.conversation.predict(input=_input.to_string())
+
+
         # first_answer = output_parser.parse(self.conversation(_input.to_string())["response"])
-        first_answer = self.conversation.predict_and_parse(anon_text=anon_text)["response"]
 
         print(first_answer)
         print(type(first_answer))

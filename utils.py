@@ -45,7 +45,7 @@ def load_model(llm_name: str):
         case "flan-t5":
             repo_id = "declare-lab/flan-alpaca-large"
         case "llama2":
-            repo_id = "meta-llama/Llama-2-7b-hf"
+            repo_id = "meta-llama/Llama-2-13b-hf"
         case _:
             # raise an exception
             raise ValueError("llm name is not valid")
