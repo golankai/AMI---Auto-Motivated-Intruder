@@ -43,14 +43,14 @@ def load_model(llm_name: str):
     """
     match llm_name:
         case "flan-t5":
-            repo_id = "google/flan-t5-xxl"
+            repo_id = "declare-lab/flan-alpaca-large"
         case "llama2":
-            repo_id = "meta-llama/Llama-2-70b-hf"
+            repo_id = "meta-llama/Llama-2-7b-hf"
         case _:
             # raise an exception
             raise ValueError("llm name is not valid")
     llm = HuggingFaceHub(
-        repo_id=repo_id, model_kwargs={"temperature": 0.1, "max_length": 1024}
+        repo_id=repo_id, model_kwargs={"temperature": 0.1, "max_length": 512}
     )
     return llm
 
