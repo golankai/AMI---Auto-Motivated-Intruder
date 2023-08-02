@@ -3,7 +3,8 @@ import os
 import pandas as pd
 
 from langchain.agents import load_tools
-from langchain.llms import OpenAI, HuggingFaceHub, Cohere
+from langchain.llms import HuggingFaceHub, Cohere, OpenAI
+from langchain.chat_models import ChatOpenAI
 
 
 def get_local_keys():
@@ -42,10 +43,12 @@ def load_model(llm_name: str):
     Load the LLM model.
     """
     match llm_name:
+        case "chat-gpt":
+            return ChatOpenAI(model="gpt-3.5-turbo", temperature=0.5, max_tokens=512)
         case "flan-t5":
             repo_id = "declare-lab/flan-alpaca-large"
         case "llama2":
-            repo_id = "meta-llama/Llama-2-13b-hf"
+            repo_id = "meta-llama/Llama-2-70b-chat-hf"
         case _:
             # raise an exception
             raise ValueError("llm name is not valid")

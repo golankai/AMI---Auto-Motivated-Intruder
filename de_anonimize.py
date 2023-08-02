@@ -14,7 +14,7 @@ with open(anon_text_path, "r") as f:
 # df = df.head(10)
 
 # Set up the de-anonimiser
-de_anonimiser = DeAnonimiser(llm="llama2", self_guide=True, verbose=True)
+de_anonimiser = DeAnonimiser(llm="chat-gpt", self_guide=True, verbose=True)
 
 # Run the de-anonimiser
 answers = de_anonimiser.de_anonymise(anon_text)
