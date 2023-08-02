@@ -27,7 +27,7 @@ class DeAnonimiser:
     Class of a de-anonimiser.
     """
 
-    def __init__(self, llm: str, self_guide: bool = False, google: bool = False, debug: bool = False, verbose: bool = False):
+    def __init__(self, llm_name: str, self_guide: bool = False, google: bool = False, debug: bool = False, verbose: bool = False):
         """
         Create a new instance of a de-anonimiser.
         :param llm: The LLM to use.
@@ -36,16 +36,16 @@ class DeAnonimiser:
         # Accesses and keys
         langchain.debug = debug
         langchain.verbose = verbose
-        self.llm_name = llm
+        self.llm_name = llm_name
         keys = get_local_keys()
         os.environ["HUGGINGFACEHUB_API_TOKEN"] = keys["huggingface_hub_token"]
         os.environ["OPENAI_API_KEY"]=keys["openai_api_key"]
 
         # # Define the PromptBuilder
-        # self.prompt_builder = PromptBuilder(self.llm_name)
+        self.prompt_builder = PromptBuilder(self.llm_name)
 
         # # Define the LLM
-        # self.llm = load_model(self.llm_name)
+        self.llm = load_model(self.llm_name)
 
         # # Define the ConversationChain
         # base_vonv_prompt = self.prompt_builder.get_prompt("base")
@@ -67,9 +67,11 @@ class DeAnonimiser:
         answers = {}
 
         # First try to identify
-        prompt, output_parser = self.prompt_builder.get_prompt("pls_de_identify")
-        _input = prompt.format_prompt(anon_text=anon_text)
-        first_answer = self.conversation.predict_and_parse(input=_input.to_string())
+        # prompt, output_parser = self.prompt_builder.get_prompt("pls_de_identify")
+        prompt = self.prompt_builder.get_prompt("pls_de_identify")
+        # _input = prompt.format_prompt(anon_text=anon_text)
+        # first_answer = self.conversation.predict_and_parse(input=_input.to_string())
+        first_answer = self.llm(prompt)
 
 
         # first_answer = output_parser.pred(self.conversation(_input.to_string())["response"])
