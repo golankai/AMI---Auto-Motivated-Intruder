@@ -30,7 +30,7 @@ class DeAnonimiser:
     def __init__(self, llm: str, self_guide: bool = False, google: bool = False, debug: bool = False, verbose: bool = False):
         """
         Create a new instance of a de-anonimiser.
-        :param llm: The LLM to use. Must be one of ['flan-t5' or 'llama2'].
+        :param llm: The LLM to use.
         """
 
         # Accesses and keys
@@ -39,22 +39,23 @@ class DeAnonimiser:
         self.llm_name = llm
         keys = get_local_keys()
         os.environ["HUGGINGFACEHUB_API_TOKEN"] = keys["huggingface_hub_token"]
+        os.environ["OPENAI_API_KEY"]=keys["openai_api_key"]
 
-        # Define the PromptBuilder
-        self.prompt_builder = PromptBuilder(self.llm_name)
+        # # Define the PromptBuilder
+        # self.prompt_builder = PromptBuilder(self.llm_name)
 
-        # Define the LLM
-        self.llm = load_model(self.llm_name)
+        # # Define the LLM
+        # self.llm = load_model(self.llm_name)
 
-        # Define the ConversationChain
-        base_vonv_prompt = self.prompt_builder.get_prompt("base")
-        conv_prompt = PromptTemplate(input_variables=["history", "input"], template=self.prompt_builder.get_template("base"))
-        self.conversation = ConversationChain(
-            prompt=conv_prompt,
-            llm=self.llm,
-            verbose=True,
-            memory=ConversationBufferMemory(verbose=verbose),
-        )
+        # # Define the ConversationChain
+        # base_vonv_prompt = self.prompt_builder.get_prompt("base")
+        # conv_prompt = PromptTemplate(input_variables=["history", "input"], template=self.prompt_builder.get_template("base"))
+        # self.conversation = ConversationChain(
+        #     prompt=conv_prompt,
+        #     llm=self.llm,
+        #     verbose=True,
+        #     memory=ConversationBufferMemory(verbose=verbose),
+        # )
 
         # Define self-guide
         self.self_guide = self_guide
@@ -68,10 +69,10 @@ class DeAnonimiser:
         # First try to identify
         prompt, output_parser = self.prompt_builder.get_prompt("pls_de_identify")
         _input = prompt.format_prompt(anon_text=anon_text)
-        first_answer = self.conversation.predict(input=_input.to_string())
+        first_answer = self.conversation.predict_and_parse(input=_input.to_string())
 
 
-        # first_answer = output_parser.parse(self.conversation(_input.to_string())["response"])
+        # first_answer = output_parser.pred(self.conversation(_input.to_string())["response"])
 
         print(first_answer)
         print(type(first_answer))

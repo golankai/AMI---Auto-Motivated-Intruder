@@ -17,8 +17,10 @@ class PromptBuilder:
         self.llm_name = llm_name
         self.templetes_llms = {
             "chat-gpt": {
-                "pls_de_identify": """Task: please re-identify the person in the following anonymized text. If you can, answer 'Person: name'. Else say No.
-            {anon_text}""",
+                "pls_de_identify": """Task: please re-identify the person in the following anonymized text.
+                The anonymized text is:
+                {anon_text}
+                """,
                 "fail2re-identify": "please provide critical characteristics about the person and 5 specific Google searches you'd submit to re-identify this person.\nRules: Both the characteristics and the Google search prompts should include no placeholders such as PERSON_FIRSTNAME_1, LOCATION_1, OCCUPATION_1, etc, as we don't know them.",
                 "re-identified": "Please supply the information that helped you re-identify the person.",
             },
@@ -85,9 +87,9 @@ class PromptBuilder:
 
     def _get_pls_de_identify_prompt(self) -> tuple[PromptTemplate, StructuredOutputParser]:
         class FirstTry(BaseModel):
-            # re_identifiable: bool = Field(description="Is it re-identifiable?")
+            re_identifiable: bool = Field(description="Is it re-identifiable?")
             name: str = Field(description="Name of the person or FAIL")
-            # score: float = Field(description="The score or re-identifiabilization, 0 is very easy to re-identidy and 1 is impossible")
+            score: float = Field(description="The score or re-identifiabilization, 0 is very easy to re-identidy and 1 is impossible")
 
         # Set up a parser + inject instructions into the prompt template.
         parser = PydanticOutputParser(pydantic_object=FirstTry)
