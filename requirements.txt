@@ -1,8 +1,17 @@
-langchain
+# General
+black
+
+# NLP
+torch
 transformers
 
-# Not sure if needed
+# LangChain
+langchain
+langchain_experimental
+
+# Models
 openai
 llamaapi
-langchain_experimental
-torch
+
+# Others
+google-api-python-client

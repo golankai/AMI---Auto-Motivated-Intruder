@@ -14,7 +14,7 @@ Automatic Re-identifying tool
 
 4. Report
 5. 
-6. Integrate [Memory]([url](https://python.langchain.com/docs/modules/memory/)) for chat-like communication 
+6. Integrate Memory for chat-like communication, https://python.langchain.com/docs/modules/memory/
 
 7. Add google search: https://python.langchain.com/docs/integrations/tools/google_search
 
