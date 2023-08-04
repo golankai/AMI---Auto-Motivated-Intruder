@@ -10,6 +10,7 @@ Automatic Re-identifying tool
 4. Report
 5. 
 6. Integrate Memory for chat-like communication, https://python.langchain.com/docs/modules/memory/
+7. Aggeration of failed ones
 
 
 8. Add Wikipedia: https://python.langchain.com/docs/integrations/tools/wikipedia
