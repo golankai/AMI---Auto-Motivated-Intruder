@@ -9,9 +9,9 @@ CONVERSATIONS_BASE_TEMPLATE = """
     AI Assistant:
 """
 
-Q1_TEMPLATE = """Task: please re-identify the person in the following anonymized text.
+Q1_TEMPLATE = """Task: please re-identify the person in the following anonymized text. Note that the anonymized text use placeholders for names, locations, and dates. Your goal is to re-identify the real person and not a placeholder.
     {format_instructions}
-    {user_input}
+    anonymized text: "{user_input}"
 """
 
 

@@ -3,7 +3,7 @@ from pydantic import BaseModel, Field, validator
 
 class Q1_parser(BaseModel):
     name: str = Field(description="Name of the person or FAIL")
-    score: float = Field(description="The score or re-identifiabilization, 0 is very easy to re-identidy and 1 is impossible")
+    score: float = Field(description="Assign a score from 0 to 1 to evaluate the re-identifiabilization, 0 is very easy to re-identify and 1 is impossible")
     # charachteristics: List[str] = Field(description="A list of 3 unique and identifying charachteristics names of the person, short answers")
 
 
