@@ -16,36 +16,40 @@ from conversations.templates import CONVERSATIONS_BASE_TEMPLATE, get_template
 
 class ConversationHandler:
     def __init__(self, llm_chat_model):
-        self.conversation_id = -1
+        self.process_number = -1
+        self.question_number = -1
+
         self.conversation = None
         
         self.llm_chat_model = llm_chat_model
         self.conv_base_prompt = PromptTemplate(input_variables=["history", "input"], template=CONVERSATIONS_BASE_TEMPLATE)
     
-    def start_conversation(self):
+    def start_conversation(self, process_number: int):
         # Code to start a new conversation with OpenAI API
-        self.conversation_id += 1
+        self.process_number = process_number
+        self.question_number = 1
         self.conversation = ConversationChain(
             llm=self.llm_chat_model,
             memory=ConversationBufferMemory(return_messages=True),
             prompt=self.conv_base_prompt
         )
 
-    def new_human_prompt(self, prompt_id: int, user_input: str):
+    def new_human_prompt(self, user_input: str):
         # Code to add a prompt to the current conversation
         # prompt_id is defined according to the process and the question numbers
         # e.g. "11" for the first question of the first process
-        
-        template = get_template(prompt_id)
-        parser = get_parser(prompt_id)
+        template = get_template(self.process_number, self.question_number)
+        parser = get_parser(self.process_number, self.question_number)
         human_prompt = HumanMessagePromptTemplate.from_template(template=template, output_parser=parser)
         human_prompt = human_prompt.format(user_input=user_input, format_instructions=parser.get_format_instructions())
         return human_prompt, parser
 
-    def send_new_message(self, prompt_id: int, user_input: str):
-        human_prompt, parser = self.new_human_prompt(prompt_id, user_input)
+    def send_new_message(self, user_input: str=""):
+        human_prompt, parser = self.new_human_prompt(user_input)
         # Code to send user input and get a response from OpenAI API
         response = self.conversation.predict(input=human_prompt.content)
+
+        self.question_number += 1
         return parser.parse(response)
 
     def end_conversation(self):

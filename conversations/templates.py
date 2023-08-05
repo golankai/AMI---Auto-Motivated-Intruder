@@ -14,15 +14,21 @@ Q1_TEMPLATE = """Task: please re-identify the person in the following anonymized
     anonymized text: "{user_input}"
 """
 
+P1_Q2_TEMPLATE = """
+{format_instructions}
+Suggest 5 Personas names for each characteristic. (only names)"
+{user_input}
+"""
 
-def get_template(prompt_id: int) -> str:
+
+def get_template(process: int, question: int) -> str:
     """
     Get a template.
     """
-    process = int(prompt_id / 10)
-    question = prompt_id % 10
-
-    if question == 1:
-        return Q1_TEMPLATE
-    else:
-        raise ValueError("process and question combination is not valid")
+    match process, question:
+        case 1, 1:
+            return Q1_TEMPLATE
+        case 1, 2:
+            return P1_Q2_TEMPLATE
+        case _:
+            raise ValueError("process and question combination is not valid")

@@ -1,21 +1,6 @@
 import os
-
-from huggingface_hub import notebook_login
 import langchain
-from langchain import HuggingFacePipeline
-from langchain.llms import OpenAI, HuggingFaceHub, Cohere
-from langchain.prompts.chat import (
-    PromptTemplate,
-    ChatPromptTemplate,
-    SystemMessagePromptTemplate,
-    HumanMessagePromptTemplate,
-)
-from langchain.chains import LLMChain
-from langchain.schema import BaseOutputParser
-from llamaapi import LlamaAPI
-from langchain_experimental.llms import ChatLlamaAPI
-from langchain.chains import ConversationChain
-from langchain.memory import ConversationBufferMemory
+import pandas as pd
 from conversations.conversation_handler import ConversationHandler
 
 from utils import get_local_keys, load_google_search_tool, load_model
@@ -26,12 +11,12 @@ class DeAnonymizer:
     Class of a de-anonimiser.
     """
 
-    def __init__(self, llm_name: str, self_guide: bool = False, google: bool = False, debug: bool = False, verbose: bool = False):
+    def __init__(self, llm_name: str, self_guide: bool = False, google: bool = False, debug: bool = False, verbose: bool = False, process_id=1):
         """
         Create a new instance of a de-anonymiser.
         :param llm: The LLM to use.
         """
-
+        self.process_id = process_id
         # Accesses and keys
         langchain.debug = debug
         langchain.verbose = verbose
@@ -50,29 +35,53 @@ class DeAnonymizer:
         self.google = load_google_search_tool() if google else None
 
 
-    def de_anonymise(self, anon_text):
-        self.conversation_handler.start_conversation()
-        response = self.conversation_handler.send_new_message(prompt_id=11, user_input=anon_text)
+    def re_identify(self, anon_text):
+        self.conversation_handler.start_conversation(self.process_id)
+        response = self.conversation_handler.send_new_message(user_input=anon_text)
 
-        print(response)
-        # first_answer = self.llm(prompt)
+        # if response.name != "Adele":
+        #     # keep asking for the name
+        #     response = self.conversation_handler.send_new_message()
+        #     print("Hi")
+        #     print(response.personas_1)
+            # char1_names = ""
+            # char2_names = ""
+            # char3_names = ""
+            # for i in range(5):
+            #     char1_names += f"{response.personas_1[i]}, "
+            #     char2_names += f"{response.personas_2[i]}, "
+            #     char3_names += f"{response.personas_3[i]}, "
 
-
-        # first_answer = output_parser.pred(self.conversation(_input.to_string())["response"])
-
-        # print(first_answer)
-        # print(type(first_answer))
-        # answers["first_answer"] = first_answer
-        # if first_answer != "FAIL":
-        #     return answers
-        
-        # Couldn't identify immidiately, use further methods
-        # if self.self_guide:
-        #     # Use self-guide
-        #     characteristics_cands = self.conversation(self.templates[self.llm_name]["characteristics"])["response"]
-        #     answers["characteristics"] = characteristics
-        #     cands = self.conversation(self.templates[self.llm_name]["cands"])["response"]
+            # print(f"Personas 1:, {char1_names}") 
+            # print(f"Personas 2:, {char2_names}") 
+            # print(f"Personas 3:, {char3_names}") 
 
         self.conversation_handler.end_conversation()
 
         return response
+    
+    def re_identify_list(self, study_dir_path, file_names):
+        """
+            
+        """
+        res_columns = {
+            1: ["Name", "Score", "Characteristic_1", "Characteristic_2", "Characteristic_3"], # process 1
+        }
+
+        df = pd.DataFrame(columns=res_columns[self.process_id])
+        for i, file_name in enumerate(file_names):
+            with open(os.path.join(study_dir_path, file_name), "r", encoding="utf-8") as f:
+                anon_text = f.read()
+
+            response = self.re_identify(anon_text)
+            new_row = {
+                "Name": response.name,
+                "Score": response.score,
+                "Characteristic_1": response.characteristics[0],
+                "Characteristic_2": response.characteristics[1],
+                "Characteristic_3": response.characteristics[2],
+            }
+            new_row_df = pd.DataFrame([new_row])
+            df = pd.concat([df, new_row_df], ignore_index=True)
+            
+        return df
