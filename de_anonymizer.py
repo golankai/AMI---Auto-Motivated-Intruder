@@ -16,20 +16,19 @@ from llamaapi import LlamaAPI
 from langchain_experimental.llms import ChatLlamaAPI
 from langchain.chains import ConversationChain
 from langchain.memory import ConversationBufferMemory
+from conversations.conversation_handler import ConversationHandler
+
+from utils import get_local_keys, load_google_search_tool, load_model
 
 
-from utils import get_local_keys, get_prompts_templates, load_model, load_google_search_tool
-from PromptBuilder import PromptBuilder
-
-
-class DeAnonimiser:
+class DeAnonymizer:
     """
     Class of a de-anonimiser.
     """
 
     def __init__(self, llm_name: str, self_guide: bool = False, google: bool = False, debug: bool = False, verbose: bool = False):
         """
-        Create a new instance of a de-anonimiser.
+        Create a new instance of a de-anonymiser.
         :param llm: The LLM to use.
         """
 
@@ -38,24 +37,12 @@ class DeAnonimiser:
         langchain.verbose = verbose
         self.llm_name = llm_name
         keys = get_local_keys()
-        os.environ["HUGGINGFACEHUB_API_TOKEN"] = keys["huggingface_hub_token"]
-        os.environ["OPENAI_API_KEY"]=keys["openai_api_key"]
+        # os.environ["HUGGINGFACEHUB_API_TOKEN"] = keys["huggingface_hub_token"]
+        os.environ["OPENAI_API_KEY"] = keys["openai_api_key"]
 
-        # # Define the PromptBuilder
-        self.prompt_builder = PromptBuilder(self.llm_name)
-
-        # # Define the LLM
+        # Define the LLM and the conversation handler
         self.llm = load_model(self.llm_name)
-
-        # # Define the ConversationChain
-        # base_vonv_prompt = self.prompt_builder.get_prompt("base")
-        # conv_prompt = PromptTemplate(input_variables=["history", "input"], template=self.prompt_builder.get_template("base"))
-        # self.conversation = ConversationChain(
-        #     prompt=conv_prompt,
-        #     llm=self.llm,
-        #     verbose=True,
-        #     memory=ConversationBufferMemory(verbose=verbose),
-        # )
+        self.conversation_handler = ConversationHandler(self.llm)
 
         # Define self-guide
         self.self_guide = self_guide
@@ -64,21 +51,18 @@ class DeAnonimiser:
 
 
     def de_anonymise(self, anon_text):
-        answers = {}
+        self.conversation_handler.start_conversation()
+        response = self.conversation_handler.send_new_message(prompt_id=11, user_input=anon_text)
 
-        # First try to identify
-        # prompt, output_parser = self.prompt_builder.get_prompt("pls_de_identify")
-        prompt = self.prompt_builder.get_prompt("pls_de_identify")
-        # _input = prompt.format_prompt(anon_text=anon_text)
-        # first_answer = self.conversation.predict_and_parse(input=_input.to_string())
-        first_answer = self.llm(prompt)
+        print(response)
+        # first_answer = self.llm(prompt)
 
 
         # first_answer = output_parser.pred(self.conversation(_input.to_string())["response"])
 
-        print(first_answer)
-        print(type(first_answer))
-        answers["first_answer"] = first_answer
+        # print(first_answer)
+        # print(type(first_answer))
+        # answers["first_answer"] = first_answer
         # if first_answer != "FAIL":
         #     return answers
         
@@ -89,5 +73,6 @@ class DeAnonimiser:
         #     answers["characteristics"] = characteristics
         #     cands = self.conversation(self.templates[self.llm_name]["cands"])["response"]
 
-        
-        return answers
+        self.conversation_handler.end_conversation()
+
+        return response
