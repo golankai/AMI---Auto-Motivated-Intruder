@@ -4,19 +4,14 @@ Automatic Re-identifying tool
 ## Tasks
 
 ### Organization
-1. check LLMs API and costs
-1.1 Langchain
-1.2 OpenAI-cost money. Llama2 - Asked for access.
-
-2. Try Prompting 2-3 persons
-
-3. Data description and analysis EDA
-
+1. Memory
+2. Implement in DeAnonimizer
+2. Run on 10 Adele's description
 4. Report
 5. 
 6. Integrate Memory for chat-like communication, https://python.langchain.com/docs/modules/memory/
+7. Aggeration of failed ones
 
-7. Add google search: https://python.langchain.com/docs/integrations/tools/google_search
 
 8. Add Wikipedia: https://python.langchain.com/docs/integrations/tools/wikipedia
 
