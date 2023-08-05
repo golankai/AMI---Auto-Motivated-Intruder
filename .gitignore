@@ -1,6 +1,7 @@
 .*.pt
 .*.pth
-venv.*
+venv/
+env/
 
 __pycache__
 keys.json
