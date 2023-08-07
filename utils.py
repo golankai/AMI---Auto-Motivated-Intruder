@@ -13,7 +13,7 @@ import torch as th
 from torch.optim import AdamW
 from torch.utils.data import Dataset, DataLoader
 
-from transformers import RobertaTokenizer, RobertaForSequenceClassification, RobertaConfig
+from transformers import RobertaTokenizerFast, RobertaForSequenceClassification, RobertaConfig
 from transformers import Trainer, TrainingArguments
 
 
@@ -88,28 +88,30 @@ def load_google_search_tool():
 
 from torch.utils.data import Dataset
 class GraderDataset(Dataset):
-    def __init__(self, inputs, labels):
+    def __init__(self, inputs, labels, device):
         self.input_ids = inputs['input_ids']
         self.attention_mask = inputs['attention_mask']
         self.labels = labels
+        self.device = device
     
     def __len__(self):
         return len(self.labels)
     
     def __getitem__(self, index):
-        input_ids = th.tensor(self.input_ids[index]).squeeze()
-        attention_mask = th.tensor(self.attention_mask[index]).squeeze()
-        labels = th.tensor(self.labels[index]).squeeze()
+        input_ids = self.input_ids[index].squeeze().to(self.device)
+        attention_mask = self.attention_mask[index].squeeze().to(self.device)
+        labels = th.tensor(self.labels[index]).squeeze().to(self.device)
         
         return {"input_ids": input_ids, "attention_mask": attention_mask, "labels": labels}
 
-def train_grader_model(data: pd.DataFrame, seed: int, training_args: TrainingArguments, trained_model_path: str):
+def train_grader_model(data: pd.DataFrame, seed: int, training_args: TrainingArguments, trained_model_path: str, device):
     """
     Train the grader model.
     :param data: the data to train on
     :param seed: the seed for the random state
     :param training_args: the training arguments
     :param trained_model_path: the path to save the trained model
+    :param device: the device to train on
     :return: the trained model and tokenizer
     """
     # Preprocessing
@@ -118,24 +120,20 @@ def train_grader_model(data: pd.DataFrame, seed: int, training_args: TrainingArg
     labels = data['re_identify'].tolist()
 
     # Split the data into train and validation sets
-    train_texts, val_texts, train_labels, val_labels = train_test_split(texts, labels, test_size=0.2, random_state=seed)
+    train_texts, val_texts, train_labels, val_labels = train_test_split(texts, labels, test_size=0.5, random_state=seed)
 
     # Load pre-trained RoBERTa tokenizer and model
-    tokenizer = RobertaTokenizer.from_pretrained('roberta-base')
+    tokenizer = RobertaTokenizerFast.from_pretrained('roberta-base')
     config = RobertaConfig.from_pretrained('roberta-base', num_labels=1)  # Regression has 1 label (continuous value)
-    model = RobertaForSequenceClassification.from_pretrained('roberta-base', config=config)
+    model = RobertaForSequenceClassification.from_pretrained('roberta-base', config=config).to(device)
 
     # Tokenize input texts
-    train_encodings = tokenizer(train_texts, truncation=True, padding=True)
-    val_encodings = tokenizer(val_texts, truncation=True, padding=True)
-
-    # Convert labels to tensors
-    train_labels = th.tensor(train_labels, dtype=th.float32)
-    val_labels = th.tensor(val_labels, dtype=th.float32)
+    train_encodings = tokenizer(train_texts, truncation=True, padding=True, return_tensors='pt')
+    val_encodings = tokenizer(val_texts, truncation=True, padding=True, return_tensors='pt')
 
     # Create dataset objects
-    train_dataset = GraderDataset(train_encodings, train_labels)
-    val_dataset = GraderDataset(val_encodings, val_labels)
+    train_dataset = GraderDataset(train_encodings, train_labels, device)
+    val_dataset = GraderDataset(val_encodings, val_labels, device)
 
     # Instantiate the Trainer class
     trainer = Trainer(
