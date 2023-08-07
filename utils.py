@@ -1,10 +1,20 @@
 import json
 import os
 import pandas as pd
+from sklearn.model_selection import train_test_split
+import tqdm
 
 from langchain.agents import load_tools
 from langchain.llms import HuggingFaceHub, Cohere, OpenAI
 from langchain.chat_models import ChatOpenAI
+
+
+import torch as th
+from torch.optim import AdamW
+from torch.utils.data import Dataset, DataLoader
+
+from transformers import RobertaTokenizer, RobertaForSequenceClassification, RobertaConfig
+from transformers import Trainer, TrainingArguments
 
 
 def get_local_keys():
@@ -27,6 +37,7 @@ def read_data(dir: str):
     """
 
     files = os.listdir(dir)
+    files.remove(".DS_Store")
     df = pd.DataFrame(columns=["file_name", "anon_text"])
     anon_texts = []
     for file in files:
@@ -36,7 +47,6 @@ def read_data(dir: str):
     df["file_name"] = files
     df["anon_text"] = anon_texts
     return df
-
 
 def load_model(llm_name: str):
     """
@@ -69,3 +79,80 @@ def load_google_search_tool():
     search = load_tools(["google-search"])[0]
     search.description = "A wrapper around Google Search. Useful for when you need to answer questions about current events or look for people who answer a specific charachteristic. Input should be a search query."
     return search
+
+
+
+######################################
+###   Grader Functions
+######################################
+
+from torch.utils.data import Dataset
+class GraderDataset(Dataset):
+    def __init__(self, inputs, labels):
+        self.input_ids = inputs['input_ids']
+        self.attention_mask = inputs['attention_mask']
+        self.labels = labels
+    
+    def __len__(self):
+        return len(self.labels)
+    
+    def __getitem__(self, index):
+        input_ids = th.tensor(self.input_ids[index]).squeeze()
+        attention_mask = th.tensor(self.attention_mask[index]).squeeze()
+        labels = th.tensor(self.labels[index]).squeeze()
+        
+        return {"input_ids": input_ids, "attention_mask": attention_mask, "labels": labels}
+
+def train_grader_model(data: pd.DataFrame, seed: int, training_args: TrainingArguments, trained_model_path: str):
+    """
+    Train the grader model.
+    :param data: the data to train on
+    :param seed: the seed for the random state
+    :param training_args: the training arguments
+    :param trained_model_path: the path to save the trained model
+    :return: the trained model and tokenizer
+    """
+    # Preprocessing
+
+    texts = data['text'].tolist()
+    labels = data['re_identify'].tolist()
+
+    # Split the data into train and validation sets
+    train_texts, val_texts, train_labels, val_labels = train_test_split(texts, labels, test_size=0.2, random_state=seed)
+
+    # Load pre-trained RoBERTa tokenizer and model
+    tokenizer = RobertaTokenizer.from_pretrained('roberta-base')
+    config = RobertaConfig.from_pretrained('roberta-base', num_labels=1)  # Regression has 1 label (continuous value)
+    model = RobertaForSequenceClassification.from_pretrained('roberta-base', config=config)
+
+    # Tokenize input texts
+    train_encodings = tokenizer(train_texts, truncation=True, padding=True)
+    val_encodings = tokenizer(val_texts, truncation=True, padding=True)
+
+    # Convert labels to tensors
+    train_labels = th.tensor(train_labels, dtype=th.float32)
+    val_labels = th.tensor(val_labels, dtype=th.float32)
+
+    # Create dataset objects
+    train_dataset = GraderDataset(train_encodings, train_labels)
+    val_dataset = GraderDataset(val_encodings, val_labels)
+
+    # Instantiate the Trainer class
+    trainer = Trainer(
+        model=model,
+        args=training_args,
+        train_dataset=train_dataset,
+        eval_dataset=val_dataset,
+    )
+
+    # Train the model with tqdm progress bar
+    with tqdm.trange(training_args.num_train_epochs, desc="Epoch") as t:
+        for epoch in t:
+            trainer.train()
+            t.set_description(f"Epoch {epoch}")
+
+    # save model
+    th.save(model.state_dict(), trained_model_path)
+
+    return model, tokenizer
+    
