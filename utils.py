@@ -21,7 +21,7 @@ def get_prompts_templates():
     return prompts
 
 
-def read_data(dir: str) -> pd.DataFrame:
+def read_data(dir: str):
     """
     Read data from a directory to a panda DataFrame.
     """
@@ -42,20 +42,21 @@ def load_model(llm_name: str):
     """
     Load the LLM model.
     """
-    match llm_name:
-        case "chat-gpt":
-            return ChatOpenAI(model="gpt-3.5-turbo", temperature=0.5, max_tokens=512)
-        case "flan-t5":
-            repo_id = "declare-lab/flan-alpaca-large"
-        case "llama2":
-            repo_id = "meta-llama/Llama-2-70b-chat-hf"
-        case _:
-            # raise an exception
-            raise ValueError("llm name is not valid")
-    llm = HuggingFaceHub(
-        repo_id=repo_id, model_kwargs={"temperature": 0.1, "max_length": 512}
-    )
-    return llm
+    # match llm_name:
+    #     case "chat-gpt":
+    #         return ChatOpenAI(model="gpt-3.5-turbo", temperature=0.5, max_tokens=512)
+    #     case "flan-t5":
+    #         repo_id = "declare-lab/flan-alpaca-large"
+    #     case "llama2":
+    #         repo_id = "meta-llama/Llama-2-70b-chat-hf"
+    #     case _:
+    #         # raise an exception
+    #         raise ValueError("llm name is not valid")
+    
+    # llm = HuggingFaceHub(
+    #     repo_id=repo_id, model_kwargs={"temperature": 0.1, "max_length": 512}
+    # )
+    return ChatOpenAI(model="gpt-3.5-turbo", temperature=0.5, max_tokens=512)
 
 
 def load_google_search_tool():

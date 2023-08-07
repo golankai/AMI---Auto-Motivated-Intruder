@@ -1,5 +1,6 @@
 # General
 black
+pandas
 
 # NLP
 torch
