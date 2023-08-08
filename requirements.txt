@@ -20,3 +20,4 @@ llamaapi
 
 # Others
 google-api-python-client
+clearml

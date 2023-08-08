@@ -8,11 +8,20 @@ import torch as th
 from transformers import TrainingArguments
 from transformers import RobertaTokenizerFast, RobertaForSequenceClassification, RobertaConfig
 
+from clearml import Task
+
 
 from utils import train_grader_model, prepare_grader_data
 
+            
+  
+  
+
+
 
 # Set up environment
+task = Task.init(project_name="AnonGrader", task_name="my task")
+
 DEVICE = "cuda" if th.cuda.is_available() else "cpu"
 DEBUG = True
 study_number = 1

@@ -9,4 +9,3 @@ keys.json
 .*.swp
 .*.swo
 .*.sh
-SLURM_output.txt
