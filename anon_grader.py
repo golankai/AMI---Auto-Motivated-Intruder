@@ -53,7 +53,8 @@ raw_data = pd.read_csv(data_dir, usecols=columns_to_read).rename(columns={"got_n
 
 
 # Aggregate by file_id and calculate the rate of re-identification
-data = raw_data.groupby(["type", "file_id", "name", "text"]).agg({"human_rate": "mean"}).reset_index()
+data = raw_data.groupby(["type", "file_id", "name", "text"]).agg({"re_identify": "mean"}).reset_index()
+data.rename(columns={"re_identify": "human_rate"}, inplace=True)
 
 # Use only type famous
 data = data[data["type"] == "famous"]
