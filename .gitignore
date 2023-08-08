@@ -3,6 +3,7 @@
 .*bin
 venv/
 env/
+logs/
 
 __pycache__
 keys.json

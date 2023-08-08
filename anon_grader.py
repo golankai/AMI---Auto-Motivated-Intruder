@@ -20,7 +20,7 @@ from utils import train_grader_model, prepare_grader_data
 
 
 # Set up environment
-task = Task.init(project_name="AnonGrader", task_name="my task")
+task = Task.init(project_name="Kai/AMI", task_name="first train")
 
 DEVICE = "cuda" if th.cuda.is_available() else "cpu"
 DEBUG = True
