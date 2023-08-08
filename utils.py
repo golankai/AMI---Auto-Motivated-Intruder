@@ -3,6 +3,9 @@ import os
 import pandas as pd
 from sklearn.model_selection import train_test_split
 import tqdm
+from typing import List, Dict, Any, Optional, Union, Tuple
+from re import sub, match
+
 
 from langchain.agents import load_tools
 from langchain.llms import HuggingFaceHub, Cohere, OpenAI
@@ -104,36 +107,35 @@ class GraderDataset(Dataset):
         
         return {"input_ids": input_ids, "attention_mask": attention_mask, "labels": labels}
 
-def train_grader_model(data: pd.DataFrame, seed: int, training_args: TrainingArguments, trained_model_path: str, device):
+def train_grader_model(datasets: dict[str, GraderDataset], seed: int, training_args: TrainingArguments, trained_model_path: str, device):
     """
     Train the grader model.
-    :param data: the data to train on
+    :param datasets: the data to train and validate on
     :param seed: the seed for the random state
     :param training_args: the training arguments
     :param trained_model_path: the path to save the trained model
     :param device: the device to train on
     :return: the trained model and tokenizer
     """
-    # Preprocessing
+    # Extract the train and validation datasets
+    train_dataset, val_dataset = datasets['train'], datasets['val']
 
-    texts = data['text'].tolist()
-    labels = data['re_identify'].tolist()
-
-    # Split the data into train and validation sets
-    train_texts, val_texts, train_labels, val_labels = train_test_split(texts, labels, test_size=0.5, random_state=seed)
-
-    # Load pre-trained RoBERTa tokenizer and model
-    tokenizer = RobertaTokenizerFast.from_pretrained('roberta-base')
-    config = RobertaConfig.from_pretrained('roberta-base', num_labels=1)  # Regression has 1 label (continuous value)
-    model = RobertaForSequenceClassification.from_pretrained('roberta-base', config=config).to(device)
-
-    # Tokenize input texts
-    train_encodings = tokenizer(train_texts, truncation=True, padding=True, return_tensors='pt')
-    val_encodings = tokenizer(val_texts, truncation=True, padding=True, return_tensors='pt')
-
-    # Create dataset objects
-    train_dataset = GraderDataset(train_encodings, train_labels, device)
-    val_dataset = GraderDataset(val_encodings, val_labels, device)
+    # Load the model
+    model = RobertaForSequenceClassification.from_pretrained("roberta-base", num_labels=1).to(device)
+    
+    # Set the training optimizer
+    params = model.named_parameters()
+    top_layer_params = []
+    for name, para in params:
+        # require grad only for top layer
+        # if match(r'classifier.*|roberta.encoder.layer.11.*', name):
+        if match(r'classifier.*', name):
+            para.requires_grad = True
+            top_layer_params.append(para)
+        else:
+            para.requires_grad = False
+    
+    optimizer = AdamW(top_layer_params, lr=1e-4)
 
     # Instantiate the Trainer class
     trainer = Trainer(
@@ -141,6 +143,7 @@ def train_grader_model(data: pd.DataFrame, seed: int, training_args: TrainingArg
         args=training_args,
         train_dataset=train_dataset,
         eval_dataset=val_dataset,
+        optimizers=(optimizer, None)
     )
 
     # Train the model with tqdm progress bar
@@ -152,5 +155,40 @@ def train_grader_model(data: pd.DataFrame, seed: int, training_args: TrainingArg
     # save model
     th.save(model.state_dict(), trained_model_path)
 
-    return model, tokenizer
+    return model
+
+
+def prepare_grader_data(data: pd.DataFrame, seed: int, device) -> Tuple[dict[str, GraderDataset], RobertaTokenizerFast]:
+    """
+    Create train, validation, test datasets and tokenizer for the grader model.
+    :param data: the data to train on
+    :param seed: the seed for the random state
+    :param device: the device to train on
+    :return: the trained model and tokenizer
+    """
+    # Preprocessing
+    texts = data['text'].tolist()
+    labels = data['re_identify'].tolist()
+
+    # Split the data into train and test sets
+    train_texts, test_texts, train_labels, test_labels = train_test_split(texts, labels, test_size=0.2, random_state=seed)
+
+    # Split the data into train and validation sets
+    val_texts, test_texts, val_labels, test_labels = train_test_split(test_texts, test_labels, test_size=0.5, random_state=seed)
+
+    # Load pre-trained RoBERTa tokenizer and model
+    tokenizer = RobertaTokenizerFast.from_pretrained('roberta-base')
+
+    # Tokenize input texts
+    train_encodings = tokenizer(train_texts, truncation=True, padding=True, return_tensors='pt')
+    val_encodings = tokenizer(val_texts, truncation=True, padding=True, return_tensors='pt')
+    test_encodings = tokenizer(test_texts, truncation=True, padding=True, return_tensors='pt')
+
+    # Create dataset objects
+    train_dataset = GraderDataset(train_encodings, train_labels, device)
+    val_dataset = GraderDataset(val_encodings, val_labels, device)
+    test_dataset = GraderDataset(test_encodings, test_labels, device)
+
+    return {"train": train_dataset, "val": val_dataset, "test": test_dataset}, tokenizer
+
     
