@@ -3,6 +3,7 @@ black
 pandas
 datasets
 tqdm
+scikit-learn
 
 # NLP
 torch

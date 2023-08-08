@@ -40,7 +40,8 @@ training_args = TrainingArguments(
     save_total_limit=1,
     save_strategy='epoch',
     load_best_model_at_end=True,
-    report_to="tensorboard"
+    report_to="tensorboard",
+    dataloader_pin_memory = False,
     )
 
 
@@ -52,7 +53,7 @@ raw_data = pd.read_csv(data_dir, usecols=columns_to_read).rename(columns={"got_n
 
 
 # Aggregate by file_id and calculate the rate of re-identification
-data = raw_data.groupby(["type", "file_id", "name", "text"]).agg({"re_identify": "mean"}).reset_index()
+data = raw_data.groupby(["type", "file_id", "name", "text"]).agg({"human_rate": "mean"}).reset_index()
 
 # Use only type famous
 data = data[data["type"] == "famous"]

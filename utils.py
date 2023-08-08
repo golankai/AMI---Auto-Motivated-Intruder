@@ -153,7 +153,7 @@ def train_grader_model(datasets: dict[str, GraderDataset], seed: int, training_a
         train_dataset=train_dataset,
         eval_dataset=val_dataset,
         optimizers=(optimizer, scheduler),
-        compute_metrics=compute_metrics
+        compute_metrics=compute_metrics,
     )
 
     # Train the model with tqdm progress bar
@@ -175,7 +175,7 @@ def prepare_grader_data(data: pd.DataFrame, seed: int, device) -> Tuple[DatasetD
     """
     # Preprocessing
     texts = data['text'].tolist()
-    labels = data['re_identify'].tolist()
+    labels = data['human_rate'].tolist()
 
     # Split the data into train and test sets
     train_texts, test_texts, train_labels, test_labels = train_test_split(texts, labels, test_size=0.2, random_state=seed)
