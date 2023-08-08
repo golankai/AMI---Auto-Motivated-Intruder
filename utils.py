@@ -1,6 +1,7 @@
 import json
 import os
 import pandas as pd
+from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
 import tqdm
 from typing import List, Dict, Any, Optional, Union, Tuple
@@ -15,9 +16,12 @@ from langchain.chat_models import ChatOpenAI
 import torch as th
 from torch.optim import AdamW
 from torch.utils.data import Dataset, DataLoader
+from datasets import DatasetDict
 
 from transformers import RobertaTokenizerFast, RobertaForSequenceClassification, RobertaConfig
 from transformers import Trainer, TrainingArguments
+from transformers import get_linear_schedule_with_warmup
+
 
 
 def get_local_keys():
@@ -137,13 +141,19 @@ def train_grader_model(datasets: dict[str, GraderDataset], seed: int, training_a
     
     optimizer = AdamW(top_layer_params, lr=1e-4)
 
+    # Set the scheduler
+    total_steps = len(train_dataset) * training_args.num_train_epochs
+    scheduler = get_linear_schedule_with_warmup(optimizer,       
+                 num_warmup_steps=0, num_training_steps=total_steps)
+
     # Instantiate the Trainer class
     trainer = Trainer(
         model=model,
         args=training_args,
         train_dataset=train_dataset,
         eval_dataset=val_dataset,
-        optimizers=(optimizer, None)
+        optimizers=(optimizer, scheduler),
+        compute_metrics=compute_metrics
     )
 
     # Train the model with tqdm progress bar
@@ -152,13 +162,10 @@ def train_grader_model(datasets: dict[str, GraderDataset], seed: int, training_a
             trainer.train()
             t.set_description(f"Epoch {epoch}")
 
-    # save model
-    th.save(model.state_dict(), trained_model_path)
-
     return model
 
 
-def prepare_grader_data(data: pd.DataFrame, seed: int, device) -> Tuple[dict[str, GraderDataset], RobertaTokenizerFast]:
+def prepare_grader_data(data: pd.DataFrame, seed: int, device) -> Tuple[DatasetDict, RobertaTokenizerFast]:
     """
     Create train, validation, test datasets and tokenizer for the grader model.
     :param data: the data to train on
@@ -189,6 +196,9 @@ def prepare_grader_data(data: pd.DataFrame, seed: int, device) -> Tuple[dict[str
     val_dataset = GraderDataset(val_encodings, val_labels, device)
     test_dataset = GraderDataset(test_encodings, test_labels, device)
 
-    return {"train": train_dataset, "val": val_dataset, "test": test_dataset}, tokenizer
-
+    return DatasetDict({"train": train_dataset, "val": val_dataset, "test": test_dataset}), tokenizer
     
+def compute_metrics(eval_pred):
+    predictions, labels = eval_pred
+    mse = mean_squared_error(labels, predictions, squared=False)
+    return {"mse": mse}
