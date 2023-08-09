@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 
-from de_anonymizer import DeAnonymizer
+from de_anonymizer.de_anonymizer import DeAnonymizer
 
 # env parameters
 single_text = False
