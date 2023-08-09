@@ -60,7 +60,7 @@ class DeAnonymizer:
 
         return response
     
-    def re_identify_list(self, study_dir_path, file_names):
+    def re_identify_list(self, study_dir_path, file_names, study_number):
         """
             
         """
@@ -75,6 +75,8 @@ class DeAnonymizer:
 
             response = self.re_identify(anon_text)
             new_row = {
+                "Study": study_number,
+                "File": file_name,
                 "Name": response.name,
                 "Score": response.score,
                 "Characteristic_1": response.characteristics[0],
