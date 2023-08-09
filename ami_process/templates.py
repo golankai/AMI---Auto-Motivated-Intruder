@@ -19,3 +19,9 @@ P1_Q2_TEMPLATE = """
 Suggest 5 Personas names for each characteristic. (only names)"
 {user_input}
 """
+
+P2_Q1_TEMPLATE = """
+    Task: please re-identify the person in the following anonymized text. Note that the anonymized text use placeholders for names, locations, and dates. Your goal is to re-identify the real person and not a placeholder.
+    {format_instructions}
+    anonymized text: "{user_input}"
+"""

@@ -3,7 +3,8 @@ import os
 
 from de_anonymizer.de_anonymizer import DeAnonymizer
 
-# env parameters
+# Env parameters
+process_id = 1
 single_text = False
 run_all = False
 study_number = 2
@@ -21,7 +22,7 @@ if run_all:
 else:
     texts_file_names = [f"{persona_name}_{text_number}.txt" for text_number in text_lists]
 
-de_anonymiser = DeAnonymizer(llm_name="chat-gpt", self_guide=True, verbose=True)
+de_anonymiser = DeAnonymizer(llm_name="chat-gpt",process_id=process_id, self_guide=True, verbose=True)
 
 if single_text:
     with open(f'{texts_dir}/{persona_name}_{single_text_number}.txt', "r") as f:

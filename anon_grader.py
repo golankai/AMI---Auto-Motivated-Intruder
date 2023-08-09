@@ -54,17 +54,17 @@ training_args = TrainingArguments(
     dataloader_pin_memory = False,
     )
 
-
+    
 
 # Read the data
-columns_to_read = ["type", "text", "file_id", "name", "got_name_truth_q1"]
-raw_data = pd.read_csv(data_dir, usecols=columns_to_read).rename(columns={"got_name_truth_q1": "re_identify"})
+columns_to_read = ["type", "text", "file_id", "name", "got_name_truth_q2"]
+raw_data = pd.read_csv(data_dir, usecols=columns_to_read)
 
 
 
 # Aggregate by file_id and calculate the rate of re-identification
-data = raw_data.groupby(["type", "file_id", "name", "text"]).agg({"re_identify": "mean"}).reset_index()
-data.rename(columns={"re_identify": "human_rate"}, inplace=True)
+data = raw_data.groupby(["type", "file_id", "name", "text"]).agg({"got_name_truth_q2": "mean"}).reset_index()
+data.rename(columns={"got_name_truth_q2": "human_rate"}, inplace=True)
 
 # Use only type famous
 data = data[data["type"] == "famous"]
