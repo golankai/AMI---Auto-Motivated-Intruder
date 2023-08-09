@@ -165,7 +165,7 @@ def train_grader_model(datasets: dict[str, GraderDataset], seed: int, training_a
     return model
 
 
-def prepare_grader_data(data: pd.DataFrame, seed: int, device) -> Tuple[DatasetDict, RobertaTokenizerFast]:
+def prepare_grader_data(data: pd.DataFrame, seed: int, device) -> DatasetDict:
     """
     Create train, validation, test datasets and tokenizer for the grader model.
     :param data: the data to train on
@@ -196,7 +196,7 @@ def prepare_grader_data(data: pd.DataFrame, seed: int, device) -> Tuple[DatasetD
     val_dataset = GraderDataset(val_encodings, val_labels, device)
     test_dataset = GraderDataset(test_encodings, test_labels, device)
 
-    return DatasetDict({"train": train_dataset, "val": val_dataset, "test": test_dataset}), tokenizer
+    return DatasetDict({"train": train_dataset, "val": val_dataset, "test": test_dataset})
     
 def compute_metrics(eval_pred):
     predictions, labels = eval_pred

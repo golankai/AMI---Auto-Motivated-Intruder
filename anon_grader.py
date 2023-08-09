@@ -14,21 +14,22 @@ from clearml import Task
 from utils import train_grader_model, prepare_grader_data
 
             
-  
-  
-
-
+# Define constants
+DEBUG = True
+EXPERIMENT_NAME = "famous"
+SUDY_NUMBER = 1
 
 # Set up environment
 task = Task.init(project_name="Kai/AMI", task_name="first train")
 
+trained_model_path = f"./trained_models/study_{SUDY_NUMBER}_{EXPERIMENT_NAME}.pt"
+
+data_dir = f"textwash_data/study{SUDY_NUMBER}/intruder_test/full_data_study.csv"
+
 DEVICE = "cuda" if th.cuda.is_available() else "cpu"
-DEBUG = True
-study_number = 1
-data_dir = f"textwash_data/study{study_number}/intruder_test/full_data_study.csv"
-trained_model_path = f"./trained_models/anon_grader.pt"
 # Cancel wandb logging
 os.environ["WANDB_DISABLED"] = "true"
+
 
 # Set seeds
 SEED = 42
@@ -68,12 +69,10 @@ data.rename(columns={"re_identify": "human_rate"}, inplace=True)
 # Use only type famous
 data = data[data["type"] == "famous"]
 
-datasets, tokenizer = prepare_grader_data(data, SEED, DEVICE)
+datasets = prepare_grader_data(data, SEED, DEVICE)
 
 
 model = train_grader_model(datasets, SEED, training_args, trained_model_path, DEVICE)
-
-
 
 # save model
 th.save(model.state_dict(), trained_model_path)
