@@ -72,17 +72,28 @@ class DeAnonymizer:
         for i, file_name in enumerate(file_names):
             with open(os.path.join(study_dir_path, file_name), "r", encoding="utf-8") as f:
                 anon_text = f.read()
-
-            response = self.re_identify(anon_text)
-            new_row = {
-                "Study": study_number,
-                "File": file_name,
-                "Name": response.name,
-                "Score": response.score,
-                "Characteristic_1": response.characteristics[0],
-                "Characteristic_2": response.characteristics[1],
-                "Characteristic_3": response.characteristics[2],
-            }
+            try:
+                response = self.re_identify(anon_text)
+                new_row = {
+                    "Study": study_number,
+                    "File": file_name,
+                    "Name": response.name,
+                    "Score": response.score,
+                    "Characteristic_1": response.characteristics[0],
+                    "Characteristic_2": response.characteristics[1],
+                    "Characteristic_3": response.characteristics[2],
+                }
+            except Exception as e:
+                # print(e)
+                new_row = {
+                    "Study": study_number,
+                    "File": file_name,
+                    "Name": "Error",
+                    "Score": "",
+                    "Characteristic_1": "",
+                    "Characteristic_2": "",
+                    "Characteristic_3": "",
+                }
             new_row_df = pd.DataFrame([new_row])
             df = pd.concat([df, new_row_df], ignore_index=True)
             

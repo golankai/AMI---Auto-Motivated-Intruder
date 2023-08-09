@@ -8,9 +8,9 @@ single_text = False
 run_all = False
 study_number = 2
 persona_name = "adele"
-single_text_number = 178
+single_text_number = 576
 text_lists = [43, 47, 57, 61, 97, 112, 147, 157, 178, 197, 201, 209, 216, 242, 271, 287, 297, 302, 323, 357, 366, 377, 397, 423, 442, 468, 491, 497, 503, 547, 558, 576]
-result_csv_path = "third"
+result_csv_path = "pre-study/adele/forth"
 
 texts_dir = f"textwash_data/study{study_number}/person_descriptions/anon"
 
