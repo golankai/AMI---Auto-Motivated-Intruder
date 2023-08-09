@@ -12,7 +12,15 @@ class DeAnonymizer:
     Class of a de-anonimiser.
     """
 
-    def __init__(self, llm_name: str, self_guide: bool = False, google: bool = False, debug: bool = False, verbose: bool = False, process_id=1):
+    def __init__(
+        self,
+        llm_name: str,
+        self_guide: bool = False,
+        google: bool = False,
+        debug: bool = False,
+        verbose: bool = False,
+        process_id=1,
+    ):
         """
         Create a new instance of a de-anonymiser.
         :param llm: The LLM to use.
@@ -37,13 +45,14 @@ class DeAnonymizer:
         # Define the google search tool
         self.google = load_google_search_tool() if google else None
 
-
     def re_identify(self, anon_text):
         self.conversation_handler.start_conversation()
         self.process_handler.new_process()
 
         template, parser = next(self.process_handler)
-        response = self.conversation_handler.send_new_message(template, parser, user_input=anon_text)
+        response = self.conversation_handler.send_new_message(
+            template, parser, user_input=anon_text
+        )
 
         # if response.name != "Adele":
         #     # keep asking for the name
@@ -51,31 +60,31 @@ class DeAnonymizer:
         #     response = self.conversation_handler.send_new_message()
         #     print("Hi")
         #     print(response.personas_1)
-            # char1_names = ""
-            # char2_names = ""
-            # char3_names = ""
-            # for i in range(5):
-            #     char1_names += f"{response.personas_1[i]}, "
-            #     char2_names += f"{response.personas_2[i]}, "
-            #     char3_names += f"{response.personas_3[i]}, "
+        # char1_names = ""
+        # char2_names = ""
+        # char3_names = ""
+        # for i in range(5):
+        #     char1_names += f"{response.personas_1[i]}, "
+        #     char2_names += f"{response.personas_2[i]}, "
+        #     char3_names += f"{response.personas_3[i]}, "
 
-            # print(f"Personas 1:, {char1_names}") 
-            # print(f"Personas 2:, {char2_names}") 
-            # print(f"Personas 3:, {char3_names}") 
+        # print(f"Personas 1:, {char1_names}")
+        # print(f"Personas 2:, {char2_names}")
+        # print(f"Personas 3:, {char3_names}")
 
         self.conversation_handler.end_conversation()
 
         return response
-    
+
     def re_identify_list(self, study_dir_path, file_names, study_number):
-        """
-            
-        """
+        """ """
         res_columns = self.process_handler.get_res_columns()
         df = pd.DataFrame(columns=res_columns)
-        
+
         for i, file_name in enumerate(file_names):
-            with open(os.path.join(study_dir_path, file_name), "r", encoding="utf-8") as f:
+            with open(
+                os.path.join(study_dir_path, file_name), "r", encoding="utf-8"
+            ) as f:
                 anon_text = f.read()
             # try:
             response = self.re_identify(anon_text)
@@ -101,5 +110,5 @@ class DeAnonymizer:
             #     }
             new_row_df = pd.DataFrame([new_row])
             df = pd.concat([df, new_row_df], ignore_index=True)
-            
+
         return df

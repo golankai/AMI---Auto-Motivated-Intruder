@@ -64,7 +64,9 @@ class PromptBuilder:
         else:
             return self.templetes_llms[self.llm_name][template_name]
 
-    def get_prompt(self, prompt_name: str) -> tuple[PromptTemplate, StructuredOutputParser]:
+    def get_prompt(
+        self, prompt_name: str
+    ) -> tuple[PromptTemplate, StructuredOutputParser]:
         """
         Get a prompt template.
         """
@@ -76,7 +78,7 @@ class PromptBuilder:
             case _:
                 # raise an exception
                 raise ValueError("prompt name is not valid")
-            
+
     def _get_base_prompt(self) -> tuple[PromptTemplate]:
         prompt = PromptTemplate(
             template=self.get_template("base"),
@@ -84,12 +86,15 @@ class PromptBuilder:
         )
         return prompt
 
-
-    def _get_pls_de_identify_prompt(self) -> tuple[PromptTemplate, StructuredOutputParser]:
+    def _get_pls_de_identify_prompt(
+        self,
+    ) -> tuple[PromptTemplate, StructuredOutputParser]:
         class FirstTry(BaseModel):
             re_identifiable: bool = Field(description="Is it re-identifiable?")
             name: str = Field(description="Name of the person or FAIL")
-            score: float = Field(description="The score or re-identifiabilization, 0 is very easy to re-identidy and 1 is impossible")
+            score: float = Field(
+                description="The score or re-identifiabilization, 0 is very easy to re-identidy and 1 is impossible"
+            )
 
         # Set up a parser + inject instructions into the prompt template.
         parser = PydanticOutputParser(pydantic_object=FirstTry)

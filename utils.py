@@ -18,10 +18,13 @@ from torch.optim import AdamW
 from torch.utils.data import Dataset, DataLoader
 from datasets import DatasetDict
 
-from transformers import RobertaTokenizerFast, RobertaForSequenceClassification, RobertaConfig
+from transformers import (
+    RobertaTokenizerFast,
+    RobertaForSequenceClassification,
+    RobertaConfig,
+)
 from transformers import Trainer, TrainingArguments
 from transformers import get_linear_schedule_with_warmup
-
 
 
 def get_local_keys():
@@ -55,6 +58,7 @@ def read_data(dir: str):
     df["anon_text"] = anon_texts
     return df
 
+
 def load_model(llm_name: str):
     """
     Load the LLM model.
@@ -69,7 +73,7 @@ def load_model(llm_name: str):
     #     case _:
     #         # raise an exception
     #         raise ValueError("llm name is not valid")
-    
+
     # llm = HuggingFaceHub(
     #     repo_id=repo_id, model_kwargs={"temperature": 0.1, "max_length": 512}
     # )
@@ -88,30 +92,40 @@ def load_google_search_tool():
     return search
 
 
-
 ######################################
 ###   Grader Functions
 ######################################
 
 from torch.utils.data import Dataset
+
+
 class GraderDataset(Dataset):
     def __init__(self, inputs, labels, device):
-        self.input_ids = inputs['input_ids']
-        self.attention_mask = inputs['attention_mask']
+        self.input_ids = inputs["input_ids"]
+        self.attention_mask = inputs["attention_mask"]
         self.labels = labels
         self.device = device
-    
+
     def __len__(self):
         return len(self.labels)
-    
+
     def __getitem__(self, index):
         input_ids = self.input_ids[index].squeeze().to(self.device)
         attention_mask = self.attention_mask[index].squeeze().to(self.device)
         labels = th.tensor(self.labels[index]).squeeze().to(self.device)
-        
-        return {"input_ids": input_ids, "attention_mask": attention_mask, "labels": labels}
 
-def train_grader_model(datasets: dict[str, GraderDataset], seed: int, training_args: TrainingArguments, trained_model_path: str, device):
+        return {
+            "input_ids": input_ids,
+            "attention_mask": attention_mask,
+            "labels": labels,
+        }
+
+
+def train_grader_model(
+    datasets: dict[str, GraderDataset],
+    training_args: TrainingArguments,
+    device,
+):
     """
     Train the grader model.
     :param datasets: the data to train and validate on
@@ -122,29 +136,32 @@ def train_grader_model(datasets: dict[str, GraderDataset], seed: int, training_a
     :return: the trained model and tokenizer
     """
     # Extract the train and validation datasets
-    train_dataset, val_dataset = datasets['train'], datasets['val']
+    train_dataset, val_dataset = datasets["train"], datasets["val"]
 
     # Load the model
-    model = RobertaForSequenceClassification.from_pretrained("roberta-base", num_labels=1).to(device)
-    
+    model = RobertaForSequenceClassification.from_pretrained(
+        "roberta-base", num_labels=1
+    ).to(device)
+
     # Set the training optimizer
     params = model.named_parameters()
     top_layer_params = []
     for name, para in params:
         # require grad only for top layer
         # if match(r'classifier.*|roberta.encoder.layer.11.*', name):
-        if match(r'classifier.*', name):
+        if match(r"classifier.*", name):
             para.requires_grad = True
             top_layer_params.append(para)
         else:
             para.requires_grad = False
-    
+
     optimizer = AdamW(top_layer_params, lr=1e-4)
 
     # Set the scheduler
     total_steps = len(train_dataset) * training_args.num_train_epochs
-    scheduler = get_linear_schedule_with_warmup(optimizer,       
-                 num_warmup_steps=0, num_training_steps=total_steps)
+    scheduler = get_linear_schedule_with_warmup(
+        optimizer, num_warmup_steps=0, num_training_steps=total_steps
+    )
 
     # Instantiate the Trainer class
     trainer = Trainer(
@@ -174,30 +191,43 @@ def prepare_grader_data(data: pd.DataFrame, seed: int, device) -> DatasetDict:
     :return: the trained model and tokenizer
     """
     # Preprocessing
-    texts = data['text'].tolist()
-    labels = data['human_rate'].tolist()
+    texts = data["text"].tolist()
+    labels = data["human_rate"].tolist()
 
     # Split the data into train and test sets
-    train_texts, test_texts, train_labels, test_labels = train_test_split(texts, labels, test_size=0.2, random_state=seed)
+    train_texts, test_texts, train_labels, test_labels = train_test_split(
+        texts, labels, test_size=0.2, random_state=seed
+    )
 
     # Split the data into train and validation sets
-    val_texts, test_texts, val_labels, test_labels = train_test_split(test_texts, test_labels, test_size=0.5, random_state=seed)
+    val_texts, test_texts, val_labels, test_labels = train_test_split(
+        test_texts, test_labels, test_size=0.5, random_state=seed
+    )
 
     # Load pre-trained RoBERTa tokenizer and model
-    tokenizer = RobertaTokenizerFast.from_pretrained('roberta-base')
+    tokenizer = RobertaTokenizerFast.from_pretrained("roberta-base")
 
     # Tokenize input texts
-    train_encodings = tokenizer(train_texts, truncation=True, padding=True, return_tensors='pt')
-    val_encodings = tokenizer(val_texts, truncation=True, padding=True, return_tensors='pt')
-    test_encodings = tokenizer(test_texts, truncation=True, padding=True, return_tensors='pt')
+    train_encodings = tokenizer(
+        train_texts, truncation=True, padding=True, return_tensors="pt"
+    )
+    val_encodings = tokenizer(
+        val_texts, truncation=True, padding=True, return_tensors="pt"
+    )
+    test_encodings = tokenizer(
+        test_texts, truncation=True, padding=True, return_tensors="pt"
+    )
 
     # Create dataset objects
     train_dataset = GraderDataset(train_encodings, train_labels, device)
     val_dataset = GraderDataset(val_encodings, val_labels, device)
     test_dataset = GraderDataset(test_encodings, test_labels, device)
 
-    return DatasetDict({"train": train_dataset, "val": val_dataset, "test": test_dataset})
-    
+    return DatasetDict(
+        {"train": train_dataset, "val": val_dataset, "test": test_dataset}
+    )
+
+
 def compute_metrics(eval_pred):
     predictions, labels = eval_pred
     mse = mean_squared_error(labels, predictions, squared=False)
