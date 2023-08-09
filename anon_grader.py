@@ -6,11 +6,6 @@ from sklearn.model_selection import train_test_split
 import torch as th
 
 from transformers import TrainingArguments
-from transformers import (
-    RobertaTokenizerFast,
-    RobertaForSequenceClassification,
-    RobertaConfig,
-)
 
 from clearml import Task
 
