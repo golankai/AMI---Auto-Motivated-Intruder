@@ -1,0 +1,33 @@
+Name,Score,Characteristic_1,Characteristic_2,Characteristic_3,Study,File
+PERSON_FIRSTNAME_1,0.8,incredible voice,genre: soul and pop,divorced recently,2.0,adele_43.txt
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,singer,songwriter,philanthropist,2.0,adele_47.txt
+Adele,0.8,singer,songwriter,famous worldwide,2.0,adele_57.txt
+PERSON_FIRSTNAME_1,0.7,singer,songwriter,award-winning,2.0,adele_61.txt
+PERSON_FIRSTNAME_3 PERSON_LASTNAME_3,0.8,singer/songwriter,Grammys winner,weight loss transformation,2.0,adele_97.txt
+PERSON_FIRSTNAME_1,0.8,singer,from LOCATION_1,lost a lot of weight,2.0,adele_112.txt
+Alice Smith,0.8,fiery red hair,works as a scientist,visited the island several times,2.0,adele_147.txt
+PERSON_FIRSTNAME_1,0.8,singer,songwriter,married to an entrepreneur,2.0,adele_157.txt
+Adele,0.9,English singer-songwriter,Sold over 60 million records,Partner: Simon Konecki,2.0,adele_178.txt
+PERSON_LASTNAME_1,0.7,powerful voice,impressive ballads,stage fright,2.0,adele_197.txt
+PERSON_FIRSTNAME_2,0.8,British singer and songwriter,Known for multiple albums,Supportive of LGBT community,2.0,adele_201.txt
+PERSON_FIRSTNAME_1,0.8,LOCATION_2 singer,ORGANIZATION_1 school attendee,successful artist,2.0,adele_209.txt
+Taylor Swift,0.8,musician,famous,heartbreak,2.0,adele_216.txt
+PERSON_FIRSTNAME_2,0.8,singer,famous since around DATE_3,pop music,2.0,adele_242.txt
+PERSON_FIRSTNAME_2,0.8,singer,married,Grammy awards,2.0,adele_271.txt
+PERSON_FIRSTNAME_3 PERSON_LASTNAME_1,0.8,singer and songwriter,graduated in arts,divorced from PERSON_FIRSTNAME_1 PERSON_LASTNAME_2,2.0,adele_287.txt
+Adele,0.8,female singer,best selling album,theme tune writer,2.0,adele_297.txt
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,award winning singer,graduated from ORGANIZATION_1 school,covered in tabloid press,2.0,adele_302.txt
+Adele,0.8,singer,white with brown hair,supporter of ORGANIZATION_1,2.0,adele_323.txt
+PERSON_FIRSTNAME_4,0.8,british singer/songwriter,best selling artist,Grammy award winner,2.0,adele_357.txt
+PERSON_FIRSTNAME_1,0.8,singer,songwriter,has a son,2.0,adele_366.txt
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,singer and songwriter,MBE recipient,top selling music artist,2.0,adele_377.txt
+Taylor Swift,0.8,singer,Brit Award winner,Grammy winner,2.0,adele_397.txt
+Adele,0.9,singer,pop and power ballads,rich,2.0,adele_423.txt
+Taylor Swift,0.8,singer/songwriter,world's best selling music artist,released theme song for a movie,2.0,adele_442.txt
+PERSON_FIRSTNAME_2,0.8,female,single,won critics choice award,2.0,adele_468.txt
+PERSON_FIRSTNAME_1,0.8,famous singer songwriter,born in LOCATION_1,sold over NUMERIC_7 million records,2.0,adele_491.txt
+PERSON_FIRSTNAME_1,0.8,talented,awarded an OTHER_IDENTIFYING_ATTRIBUTE_2 for PRONOUN services to popular music,criticised and praised over PRONOUN body image,2.0,adele_497.txt
+Taylor Swift,0.8,singer,ginger hair,married to PERSON_FIRSTNAME_1 PERSON_LASTNAME_1 since DATE_1,2.0,adele_503.txt
+Taylor Swift,0.9,singer,Grammy winner,voice of an angel,2.0,adele_547.txt
+PERSON_FIRSTNAME_1,0.7,sings about broken past relationships,wrote a song for a bond film,lost an incredible amount of weight,2.0,adele_558.txt
+Taylor Swift,0.8,singer,won Grammy awards,kind and considerate,2.0,adele_576.txt

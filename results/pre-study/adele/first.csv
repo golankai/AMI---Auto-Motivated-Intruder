@@ -1,0 +1,33 @@
+Name,Score,Characteristic_1,Characteristic_2,Characteristic_3,,study,File
+Adele,0.8,incredible voice,Grammy Awards,recently divorced,,2,adele_43
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,singer,songwriter,philanthropist,,2,adele_47
+Adele,0.8,Songwriter,Singer,Famous worldwide,,2,adele_57
+PERSON_FIRSTNAME_1,0.8,singer songwriter,attended LOCATION_1 arts school,record breaking albums,,2,adele_61
+PERSON_FIRSTNAME_3 PERSON_LASTNAME_3,0.8,successful singer/songwriter,awards winner,recent weight loss,,2,adele_97
+PERSON_FIRSTNAME_1,0.8,singer,from LOCATION_1,has had a lot of commercial success,,2,adele_112
+PERSON_FIRSTNAME_1,0.8,fiery red hair,freckles,works as a scientist,,2,adele_147
+PERSON_FIRSTNAME_1,0.8,singer,songwriter,married to an entrepreneur,,2,adele_157
+Adele,0.8,English singer-songwriter,Sold over 6 million records,Known for powerful voice and impressive ballads,,2,adele_178
+PERSON_LASTNAME_1,0.8,singer,powerful voice,stage fright,,2,adele_197
+Adele,0.8,British,Singer,Supportive of LGBT community,,2,adele_201
+PERSON_FIRSTNAME_1,0.5,singer,song writer,award-winning,,2,adele_209
+Taylor Swift,0.9,musician,famous worldwide,writes about heartbreak,,2,adele_216
+Taylor Swift,0.8,singer,pop music,MBE award,,2,adele_242
+PERSON_FIRSTNAME_2,0.8,singer,married,Grammy awards,,2,adele_271
+PERSON_FIRSTNAME_3 PERSON_LASTNAME_1,0.8,singer,divorced,vocal chord damage,,2,adele_287
+PERSON_FIRSTNAME_1,0.7,female singer,debut album success,theme tune writer,,2,adele_297
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,award-winning singer,graduated from ORGANIZATION_1 school,covered in tabloid press,,2,adele_302
+Adele,0.9,Singer,White with brown hair,Supports LGBTQ+ rights,,2,adele_323
+PERSON_FIRSTNAME_4,0.8,british singer/songwriter,best selling artist,Grammy award winner,,2,adele_357
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.75,LOCATION_1 singer songwriter,NUMERIC_1 son,PRONOUN divorced in DATE_2,,2,adele_366
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,singer,MBE,top selling artist,,2,adele_377
+PERSON_FIRSTNAME_1,0.8,singer,married,Grammy winner,,2,adele_397
+Adele,0.8,singer,pop and power ballads,postpartum depression,,2,adele_423
+Taylor Swift,0.8,singer/songwriter,world's best selling music artist,officiated and planned marriages,,2,adele_442
+Taylor Swift,0.8,female,singer,Grammy winner,,2,adele_468
+PERSON_FIRSTNAME_1,0.9,famous singer songwriter,born in LOCATION_1,sold over NUMERIC_7 million records,,2,adele_491
+PERSON_FIRSTNAME_1,0.8,talented,awarded an OTHER_IDENTIFYING_ATTRIBUTE_2 for PRONOUN services to popular music,criticized and praised over PRONOUN body image,,2,adele_497
+Taylor Swift,0.8,singer,ginger hair,married to PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,,2,adele_503
+PERSON_LASTNAME_1,0.8,beautiful,world's best selling artist,lost over NUMERIC_6 stone,,2,adele_547
+PERSON_FIRSTNAME_1,0.8,sings about broken past relationships,wrote a song for a bond film,lost an incredible amount of weight,,2,adele_558
+Taylor Swift,0.8,singer,songwriter,Grammy winner,,2,adele_576
