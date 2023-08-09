@@ -1,11 +1,12 @@
 .*.pt
 .*.pth
+.*bin
 venv/
 env/
+logs/
 
 __pycache__
 keys.json
 .*.swp
 .*.swo
 .*.sh
-SLURM_output.txt

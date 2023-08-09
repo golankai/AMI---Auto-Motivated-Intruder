@@ -1,10 +1,27 @@
 import json
 import os
 import pandas as pd
+from sklearn.metrics import mean_squared_error
+from sklearn.model_selection import train_test_split
+import tqdm
+from typing import List, Dict, Any, Optional, Union, Tuple
+from re import sub, match
+
 
 from langchain.agents import load_tools
 from langchain.llms import HuggingFaceHub, Cohere, OpenAI
 from langchain.chat_models import ChatOpenAI
+
+
+import torch as th
+from torch.optim import AdamW
+from torch.utils.data import Dataset, DataLoader
+from datasets import DatasetDict
+
+from transformers import RobertaTokenizerFast, RobertaForSequenceClassification, RobertaConfig
+from transformers import Trainer, TrainingArguments
+from transformers import get_linear_schedule_with_warmup
+
 
 
 def get_local_keys():
@@ -27,6 +44,7 @@ def read_data(dir: str):
     """
 
     files = os.listdir(dir)
+    files.remove(".DS_Store")
     df = pd.DataFrame(columns=["file_name", "anon_text"])
     anon_texts = []
     for file in files:
@@ -36,7 +54,6 @@ def read_data(dir: str):
     df["file_name"] = files
     df["anon_text"] = anon_texts
     return df
-
 
 def load_model(llm_name: str):
     """
@@ -69,3 +86,119 @@ def load_google_search_tool():
     search = load_tools(["google-search"])[0]
     search.description = "A wrapper around Google Search. Useful for when you need to answer questions about current events or look for people who answer a specific charachteristic. Input should be a search query."
     return search
+
+
+
+######################################
+###   Grader Functions
+######################################
+
+from torch.utils.data import Dataset
+class GraderDataset(Dataset):
+    def __init__(self, inputs, labels, device):
+        self.input_ids = inputs['input_ids']
+        self.attention_mask = inputs['attention_mask']
+        self.labels = labels
+        self.device = device
+    
+    def __len__(self):
+        return len(self.labels)
+    
+    def __getitem__(self, index):
+        input_ids = self.input_ids[index].squeeze().to(self.device)
+        attention_mask = self.attention_mask[index].squeeze().to(self.device)
+        labels = th.tensor(self.labels[index]).squeeze().to(self.device)
+        
+        return {"input_ids": input_ids, "attention_mask": attention_mask, "labels": labels}
+
+def train_grader_model(datasets: dict[str, GraderDataset], seed: int, training_args: TrainingArguments, trained_model_path: str, device):
+    """
+    Train the grader model.
+    :param datasets: the data to train and validate on
+    :param seed: the seed for the random state
+    :param training_args: the training arguments
+    :param trained_model_path: the path to save the trained model
+    :param device: the device to train on
+    :return: the trained model and tokenizer
+    """
+    # Extract the train and validation datasets
+    train_dataset, val_dataset = datasets['train'], datasets['val']
+
+    # Load the model
+    model = RobertaForSequenceClassification.from_pretrained("roberta-base", num_labels=1).to(device)
+    
+    # Set the training optimizer
+    params = model.named_parameters()
+    top_layer_params = []
+    for name, para in params:
+        # require grad only for top layer
+        # if match(r'classifier.*|roberta.encoder.layer.11.*', name):
+        if match(r'classifier.*', name):
+            para.requires_grad = True
+            top_layer_params.append(para)
+        else:
+            para.requires_grad = False
+    
+    optimizer = AdamW(top_layer_params, lr=1e-4)
+
+    # Set the scheduler
+    total_steps = len(train_dataset) * training_args.num_train_epochs
+    scheduler = get_linear_schedule_with_warmup(optimizer,       
+                 num_warmup_steps=0, num_training_steps=total_steps)
+
+    # Instantiate the Trainer class
+    trainer = Trainer(
+        model=model,
+        args=training_args,
+        train_dataset=train_dataset,
+        eval_dataset=val_dataset,
+        optimizers=(optimizer, scheduler),
+        compute_metrics=compute_metrics,
+    )
+
+    # Train the model with tqdm progress bar
+    with tqdm.trange(training_args.num_train_epochs, desc="Epoch") as t:
+        for epoch in t:
+            trainer.train()
+            t.set_description(f"Epoch {epoch}")
+
+    return model
+
+
+def prepare_grader_data(data: pd.DataFrame, seed: int, device) -> Tuple[DatasetDict, RobertaTokenizerFast]:
+    """
+    Create train, validation, test datasets and tokenizer for the grader model.
+    :param data: the data to train on
+    :param seed: the seed for the random state
+    :param device: the device to train on
+    :return: the trained model and tokenizer
+    """
+    # Preprocessing
+    texts = data['text'].tolist()
+    labels = data['human_rate'].tolist()
+
+    # Split the data into train and test sets
+    train_texts, test_texts, train_labels, test_labels = train_test_split(texts, labels, test_size=0.2, random_state=seed)
+
+    # Split the data into train and validation sets
+    val_texts, test_texts, val_labels, test_labels = train_test_split(test_texts, test_labels, test_size=0.5, random_state=seed)
+
+    # Load pre-trained RoBERTa tokenizer and model
+    tokenizer = RobertaTokenizerFast.from_pretrained('roberta-base')
+
+    # Tokenize input texts
+    train_encodings = tokenizer(train_texts, truncation=True, padding=True, return_tensors='pt')
+    val_encodings = tokenizer(val_texts, truncation=True, padding=True, return_tensors='pt')
+    test_encodings = tokenizer(test_texts, truncation=True, padding=True, return_tensors='pt')
+
+    # Create dataset objects
+    train_dataset = GraderDataset(train_encodings, train_labels, device)
+    val_dataset = GraderDataset(val_encodings, val_labels, device)
+    test_dataset = GraderDataset(test_encodings, test_labels, device)
+
+    return DatasetDict({"train": train_dataset, "val": val_dataset, "test": test_dataset}), tokenizer
+    
+def compute_metrics(eval_pred):
+    predictions, labels = eval_pred
+    mse = mean_squared_error(labels, predictions, squared=False)
+    return {"mse": mse}
