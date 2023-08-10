@@ -11,20 +11,25 @@ from transformers import TrainingArguments
 from clearml import Task
 
 
-from utils import train_grader_model, prepare_grader_data
+from utils import train_grader_model, prepare_grader_data, choose_data
 
 
-# Define constants
+# Define constants#
+hyperparams = {
+    "epochs": 1,
+    "data_used": "famous",
+    "layers_trained": "class",
+}
+
 DEBUG = True
 SUDY_NUMBER = 1
-EPOCHS = 5
-data_used = "famous"
-layers_trained = "classifier_and_11"
 
-EXPERIMENT_NAME = f'study_{SUDY_NUMBER}_{data_used}_{layers_trained}_epochs_{EPOCHS}'
+EXPERIMENT_NAME = f'study_{SUDY_NUMBER}_{hyperparams["data_used"]}_{hyperparams["layers_trained"]}_epochs_{hyperparams["epochs"]}'
 
 # Set up environment
-task = Task.init(project_name="Kai/AMI", task_name=EXPERIMENT_NAME)
+task = Task.init(project_name="Kai/AMI", task_name=EXPERIMENT_NAME, reuse_last_task_id=False)
+task.connect(hyperparams)
+
 trained_model_path = f"./anon_grader/trained_models/{EXPERIMENT_NAME}.pt"
 data_dir = f"textwash_data/study{SUDY_NUMBER}/intruder_test/full_data_study.csv"
 results_dir = "./anon_grader/logs"
@@ -46,7 +51,7 @@ th.manual_seed(SEED)
 training_args = TrainingArguments(
     output_dir=results_dir,
     overwrite_output_dir = True,
-    num_train_epochs=EPOCHS,
+    num_train_epochs=hyperparams["epochs"],
     per_device_train_batch_size=64,
     per_device_eval_batch_size=64,
     logging_strategy="epoch",
@@ -73,13 +78,13 @@ data = (
 data.rename(columns={"got_name_truth_q2": "human_rate"}, inplace=True)
 
 # Define population to use
-data = data[data["type"].isin(["famous"])]
+data = choose_data(data, hyperparams["data_used"])
 
 # Preprocess the data
 datasets = prepare_grader_data(data, SEED, DEVICE)
 
 # Train the model
-model = train_grader_model(datasets,training_args, DEVICE)
+model = train_grader_model(datasets, training_args, hyperparams["layers_trained"], DEVICE)
 
 # save model
 th.save(model.state_dict(), trained_model_path)

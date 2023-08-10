@@ -123,6 +123,7 @@ class GraderDataset(Dataset):
 def train_grader_model(
     datasets: Dict[str, GraderDataset],
     training_args: TrainingArguments,
+    layers_trained: str,
     device,
 ):
     """
@@ -131,6 +132,7 @@ def train_grader_model(
     :param seed: the seed for the random state
     :param training_args: the training arguments
     :param trained_model_path: the path to save the trained model
+    :param layers_trained: the layers to train
     :param device: the device to train on
     :return: the trained model and tokenizer
     """
@@ -146,9 +148,9 @@ def train_grader_model(
     params = model.named_parameters()
     top_layer_params = []
     for name, para in params:
-        # require grad only for top layer
-        if match(r'classifier.*|roberta.encoder.layer.11.*', name):
-        # if match(r"classifier.*", name):
+        # require grad only for needed layers
+        pattern = get_layer_pattern(layers_trained)
+        if match(pattern, name):
             para.requires_grad = True
             top_layer_params.append(para)
         else:
@@ -231,3 +233,32 @@ def compute_metrics(eval_pred):
     predictions, labels = eval_pred
     mse = mean_squared_error(labels, predictions, squared=False)
     return {"mse": mse}
+
+def choose_data(data: pd.DataFrame, data_used : str) -> pd.DataFrame:
+    '''
+    Choose the data to use based on the types.
+    :param data: the data to choose from.
+    :param data_used: the type of data to use.
+    :return: the data to use.
+    '''
+    if data_used == "all":
+        return data
+    elif data_used == "famous":
+        return data[data["type"].isin(["famous"])]
+    elif data_used == "famous_and_semi":
+        return data[data["type"].isin(["famous", "semifamous"])]
+    else:
+        raise Exception("Invalid data type.")
+    
+def get_layer_pattern(layers_trained: str) -> str:
+    '''
+    Get the pattern for the layers to train.
+    :param layers_trained: the layers to train.
+    :return: the pattern for the layers to train.
+    '''
+    if layers_trained == "class":
+        return r"classifier.*"
+    elif layers_trained == "class_and_11":
+        return r'classifier.*|roberta.encoder.layer.11.*'
+    else:
+        raise Exception("Invalid layers trained.")
