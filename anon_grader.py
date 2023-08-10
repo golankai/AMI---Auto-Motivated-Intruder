@@ -13,6 +13,7 @@ from clearml import Task
 
 from utils import train_grader_model, prepare_grader_data, choose_data
 
+os.environ["CUDA_VISIBLE_DEVICES"] = "3"
 
 # Define constants#
 hyperparams = {
