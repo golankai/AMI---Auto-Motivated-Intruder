@@ -17,11 +17,11 @@ from utils import train_grader_model, prepare_grader_data
 # Define constants
 DEBUG = True
 SUDY_NUMBER = 1
-
+EPOCHS = 5
 data_used = "famous_and_semi"
 layers_trained = "classifier"
 
-EXPERIMENT_NAME = f'study_{SUDY_NUMBER}_{data_used}_{layers_trained}'
+EXPERIMENT_NAME = f'study_{SUDY_NUMBER}_{data_used}_{layers_trained}_epochs_{EPOCHS}'
 
 # Set up environment
 task = Task.init(project_name="Kai/AMI", task_name=EXPERIMENT_NAME)
@@ -46,7 +46,7 @@ th.manual_seed(SEED)
 training_args = TrainingArguments(
     output_dir=results_dir,
     overwrite_output_dir = True,
-    num_train_epochs=5,
+    num_train_epochs=EPOCHS,
     per_device_train_batch_size=64,
     per_device_eval_batch_size=64,
     logging_strategy="epoch",
