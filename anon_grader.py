@@ -18,7 +18,7 @@ from utils import train_grader_model, prepare_grader_data
 DEBUG = True
 SUDY_NUMBER = 1
 
-data_used = "famous"
+data_used = "famous_and_semi"
 layers_trained = "classifier"
 
 EXPERIMENT_NAME = f'study_{SUDY_NUMBER}_{data_used}_{layers_trained}'
@@ -31,7 +31,7 @@ results_dir = "./anon_grader/logs"
 
 DEVICE = "cuda" if th.cuda.is_available() else "cpu"
 
-logging.info(f'Woeking on device: {DEVICE}')
+logging.info(f'Working on device: {DEVICE}')
 # Cancel wandb logging
 os.environ["WANDB_DISABLED"] = "true"
 
@@ -72,8 +72,8 @@ data = (
 )
 data.rename(columns={"got_name_truth_q2": "human_rate"}, inplace=True)
 
-# Use only type famous
-data = data[data["type"] == "famous"]
+# Define population to use
+data = data[data["type"].isin(["famous", "semifamous"])]
 
 # Preprocess the data
 datasets = prepare_grader_data(data, SEED, DEVICE)

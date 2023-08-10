@@ -121,7 +121,7 @@ class GraderDataset(Dataset):
 
 
 def train_grader_model(
-    datasets: dict[str, GraderDataset],
+    datasets: Dict[str, GraderDataset],
     training_args: TrainingArguments,
     device,
 ):
