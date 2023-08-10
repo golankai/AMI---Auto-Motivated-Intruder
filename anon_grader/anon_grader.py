@@ -25,9 +25,10 @@ EXPERIMENT_NAME = f'study_{SUDY_NUMBER}_{data_used}_{layers_trained}'
 
 # Set up environment
 task = Task.init(project_name="Kai/AMI", task_name=EXPERIMENT_NAME)
-trained_model_path = f"./trained_models/{EXPERIMENT_NAME}.pt"
+trained_model_path = f"./anon_grader/trained_models/{EXPERIMENT_NAME}.pt"
 data_dir = f"textwash_data/study{SUDY_NUMBER}/intruder_test/full_data_study.csv"
-results_dir = "./results/anon_grader"
+results_dir = "./anon_grader/logs"
+
 DEVICE = "cuda" if th.cuda.is_available() else "cpu"
 
 logging.info(f'Woeking on device: {DEVICE}')
@@ -74,9 +75,10 @@ data.rename(columns={"got_name_truth_q2": "human_rate"}, inplace=True)
 # Use only type famous
 data = data[data["type"] == "famous"]
 
+# Preprocess the data
 datasets = prepare_grader_data(data, SEED, DEVICE)
 
-
+# Train the model
 model = train_grader_model(datasets,training_args, DEVICE)
 
 # save model
