@@ -18,8 +18,8 @@ from utils import train_grader_model, prepare_grader_data
 DEBUG = True
 SUDY_NUMBER = 1
 EPOCHS = 5
-data_used = "famous_and_semi"
-layers_trained = "classifier"
+data_used = "famous"
+layers_trained = "classifier_and_11"
 
 EXPERIMENT_NAME = f'study_{SUDY_NUMBER}_{data_used}_{layers_trained}_epochs_{EPOCHS}'
 
@@ -73,7 +73,7 @@ data = (
 data.rename(columns={"got_name_truth_q2": "human_rate"}, inplace=True)
 
 # Define population to use
-data = data[data["type"].isin(["famous", "semifamous"])]
+data = data[data["type"].isin(["famous"])]
 
 # Preprocess the data
 datasets = prepare_grader_data(data, SEED, DEVICE)

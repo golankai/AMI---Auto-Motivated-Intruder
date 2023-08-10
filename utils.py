@@ -147,8 +147,8 @@ def train_grader_model(
     top_layer_params = []
     for name, para in params:
         # require grad only for top layer
-        # if match(r'classifier.*|roberta.encoder.layer.11.*', name):
-        if match(r"classifier.*", name):
+        if match(r'classifier.*|roberta.encoder.layer.11.*', name):
+        # if match(r"classifier.*", name):
             para.requires_grad = True
             top_layer_params.append(para)
         else:
