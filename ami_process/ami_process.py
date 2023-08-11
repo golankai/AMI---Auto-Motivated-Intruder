@@ -1,8 +1,7 @@
-from ami_process.parsers import Q1_parser, Q2_parser
 from langchain.output_parsers import PydanticOutputParser
 
-from ami_process.process_data.process_1 import process_1_data
-from ami_process.process_data.process_2 import process_2_data
+from ami_process.process_data.processes.process_1 import process_1_data
+from ami_process.process_data.processes.process_2 import process_2_data
 
 
 
