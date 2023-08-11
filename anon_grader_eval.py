@@ -9,18 +9,18 @@ from torch.utils.data import DataLoader, Dataset
 
 from transformers import TrainingArguments, RobertaForSequenceClassification
 
+from clearml import Task
+
 
 from utils import prepare_grader_data, compute_metrics
 
 # Define constants
 SUDY_NUMBER = 1
-
 data_used = "famous_and_semi"
+EXPERIMENT_NAME = f'eval_study_{SUDY_NUMBER}_{data_used}'
 
-models_names = [
-    "study_1_famous_and_semi_class_epochs_1.pt",
-    "study_1_famous_and_semi_class_and_11_epochs_5.pt"
-]
+task = Task.init(project_name="AMI", task_name=EXPERIMENT_NAME, reuse_last_task_id=False, task_type=Task.TaskTypes.testing)
+
 # Set up environment
 trained_models_path = f"./anon_grader/trained_models/"
 data_dir = f"textwash_data/study{SUDY_NUMBER}/intruder_test/full_data_study.csv"
@@ -68,6 +68,7 @@ test_dataloader = DataLoader(
 )
 
 models_names = os.listdir(trained_models_path)
+
 # Predict with all models
 for model_name in models_names:
     # Create a copy of the data
@@ -81,8 +82,7 @@ for model_name in models_names:
     logging.info(f"Loading model from {model_name}")
 
     model_path = os.path.join(trained_models_path, model_name)
-    model = RobertaForSequenceClassification.from_pretrained(model_path)
-    model.eval()
+    model = th.load(model_path)
 
     # Prediction
     predictions = []
@@ -96,6 +96,7 @@ for model_name in models_names:
 
 # Save predictions
 data.to_csv(PRED_PATH)
+task.upload_artifact("Predictions df", artifact_object=data)
 
 # Calculate the overall mse for each model
 results = {
@@ -106,3 +107,4 @@ results = {
 # Save the results
 results_df = pd.DataFrame.from_dict(results, orient="index", columns=["mse"])
 results_df.to_csv(RESULTS_PATH)
+task.upload_artifact("Results df", artifact_object=results_df)
