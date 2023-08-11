@@ -68,11 +68,12 @@ class DeAnonymizer:
             #     conv_responses_object[key] = value
         
         if df is not None:
-            self.add_row_to_csv(df, conv_responses_object, file_name)
+            df = self.add_row_to_csv(df, conv_responses_object, file_name)
         else:
             print(response)    
 
         self.conversation_handler.end_conversation()
+        return df
     
 
     def add_row_to_csv(self, df, conv_responses_object, file_name):
@@ -93,6 +94,6 @@ class DeAnonymizer:
                 os.path.join(study_dir_path, file_name), "r", encoding="utf-8"
             ) as f:
                 anon_text = f.read()
-            self.re_identify(anon_text, df, file_name)
+            df = self.re_identify(anon_text, df, file_name)
             
         return df

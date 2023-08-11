@@ -1,26 +1,41 @@
+from langchain import PromptTemplate
 from ami_process.process_data.process_data import ProcessData, QueryData
 from typing import List
 from pydantic import BaseModel, Field
+from langchain.output_parsers import PydanticOutputParser
+
 
 P2_CONVERSATIONS_BASE_TEMPLATE = """
-    bla bla bla
+    This is a secret conversation between a human and an AI. The AI is helping the user validate their anonymization process, mimicking an intruder
+
+    Current conversation:
+    {history}
+    Human: {input}
+    AI Assistant:
 """
 
 P2_Q1_TEMPLATE = """
-    Task: please re-identify the person in the following anonymized text. Note that the anonymized text use placeholders for names, locations, and dates. Your goal is to re-identify the real person and not a placeholder.
+    Task: Based on the anonymized text, guess 3 optional personas:. Note that the anonymized text use placeholders for names, locations, and dates. Your goal is to re-identify the real person and not a placeholder.
     {format_instructions}
     anonymized text: "{user_input}"
 """
 
-P2_RES_COLUMNS = [""]
+P2_RES_COLUMNS = ["File",
+                    "Persona_1",
+                    "Confidence_1",
+                    "Persona_2",
+                    "Confidence_2",
+                    "Persona_3",
+                    "Confidence_3"]
 
 class P2Q1Parser(BaseModel):
-    score: str = Field(description="bla bla bla")
+    personas: List[str] = Field(description="3 optional personas names based on the anonymized text")
+    score: List[float] = Field(description="your confidence score for each guess between 0-1 where 1 is the most confident")
 
 process_2_data = ProcessData (
-    base=P2_CONVERSATIONS_BASE_TEMPLATE,
+    base=PromptTemplate(input_variables=["history", "input"], template=P2_CONVERSATIONS_BASE_TEMPLATE),
     queries=[
-        QueryData(P2_Q1_TEMPLATE, P2Q1Parser),
+        QueryData(P2_Q1_TEMPLATE, PydanticOutputParser(pydantic_object=P2Q1Parser)),
     ],
     res_columns=P2_RES_COLUMNS
 )

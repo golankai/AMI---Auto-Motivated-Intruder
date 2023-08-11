@@ -72,7 +72,16 @@ class AMI_process_handler():
             case 1, 2:
                 return {}
             case 2, 1:
-                return {}
+                print('here', conv_responses)
+                return {
+                    "File": file_name,
+                    "Persona_1": conv_responses.personas[0],
+                    "Confidence_1": conv_responses.score[0],
+                    "Persona_2": conv_responses.personas[1],
+                    "Confidence_2": conv_responses.score[1],
+                    "Persona_3": conv_responses.personas[2],
+                    "Confidence_3": conv_responses.score[2],
+                }
             case _:
                 return None
     
