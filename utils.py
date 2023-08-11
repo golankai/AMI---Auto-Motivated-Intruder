@@ -176,50 +176,32 @@ def train_grader_model(
     return model
 
 
-def prepare_grader_data(data: pd.DataFrame, seed: int, device) -> DatasetDict:
+def prepare_grader_data(data_splits: Dict[str, pd.DataFrame], device) -> DatasetDict:
     """
     Create train, validation, test datasets and tokenizer for the grader model.
-    :param data: the data to train on
-    :param seed: the seed for the random state
+    :param data: the data splits to process
     :param device: the device to train on
     :return: the trained model and tokenizer
     """
-    # Preprocessing
-    texts = data["text"].tolist()
-    labels = data["human_rate"].tolist()
-
-    # Split the data into train and test sets
-    train_texts, test_texts, train_labels, test_labels = train_test_split(
-        texts, labels, test_size=0.2, random_state=seed
-    )
-
-    # Split the data into train and validation sets
-    val_texts, test_texts, val_labels, test_labels = train_test_split(
-        test_texts, test_labels, test_size=0.5, random_state=seed
-    )
-
     # Load pre-trained RoBERTa tokenizer and model
     tokenizer = RobertaTokenizerFast.from_pretrained("roberta-base")
+    
+    datasets = {}
+    for split, data in data_splits.items():
+        # Preprocessing
+        texts = data["text"].tolist()
+        labels = data["human_rate"].tolist()
 
-    # Tokenize input texts
-    train_encodings = tokenizer(
-        train_texts, truncation=True, padding=True, return_tensors="pt"
-    )
-    val_encodings = tokenizer(
-        val_texts, truncation=True, padding=True, return_tensors="pt"
-    )
-    test_encodings = tokenizer(
-        test_texts, truncation=True, padding=True, return_tensors="pt"
-    )
+        
+        # Tokenize input texts
+        encodings = tokenizer(
+            texts, truncation=True, padding=True, return_tensors="pt"
+        )
 
-    # Create dataset objects
-    train_dataset = GraderDataset(train_encodings, train_labels, device)
-    val_dataset = GraderDataset(val_encodings, val_labels, device)
-    test_dataset = GraderDataset(test_encodings, test_labels, device)
+        # Create dataset objects
+        datasets[split] = GraderDataset(encodings, labels, device)
 
-    return DatasetDict(
-        {"train": train_dataset, "val": val_dataset, "test": test_dataset}
-    )
+    return DatasetDict(datasets)
 
 
 def compute_metrics(eval_pred):

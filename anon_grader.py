@@ -81,7 +81,18 @@ data.rename(columns={"got_name_truth_q2": "human_rate"}, inplace=True)
 data = choose_data(data, hyperparams["data_used"])
 
 # Preprocess the data
-datasets = prepare_grader_data(data, SEED, DEVICE)
+# Split the data into training and remaining data
+train_data, val_data = train_test_split(data, test_size=0.2, random_state=SEED)
+
+# Split the remaining data into validation and test data
+val_data, test_data = train_test_split(val_data, test_size=0.5, random_state=SEED)
+
+datasets = prepare_grader_data({
+        "train": train_data,
+        "val": val_data,
+    },
+    DEVICE
+)
 
 # Train the model
 model = train_grader_model(datasets, training_args, hyperparams["layers_trained"], DEVICE)

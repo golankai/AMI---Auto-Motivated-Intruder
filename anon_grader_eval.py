@@ -57,7 +57,13 @@ data.rename(columns={"got_name_truth_q2": "human_rate"}, inplace=True)
 data = data[data["type"].isin(["famous", "semifamous"])]
 
 # Preprocess the data
-test_dataset = prepare_grader_data(data, SEED, DEVICE)['test']
+# Split the data into training and remaining data
+train_data, val_data = train_test_split(data, test_size=0.2, random_state=SEED)
+
+# Split the remaining data into validation and test data
+val_data, test_data = train_test_split(val_data, test_size=0.5, random_state=SEED)
+
+test_dataset = prepare_grader_data({"test": test_data}, DEVICE)['test']
 
 # Create a DataLoader for the test dataset
 test_dataloader = DataLoader(
@@ -90,16 +96,16 @@ for model_name in models_names:
         predictions.extend(regression_values)
     print(f'Pred: {len(predictions)}')
     # Add predictions to the data
-    print(len(data))
-    data[f"model_{model_name}"] = predictions
+    print(len(test_data))
+    test_data[f"model_{model_name}"] = predictions
 
-data.to_csv(PRED_PATH)
+test_data.to_csv(PRED_PATH)
 task.upload_artifact("Predictions df", artifact_object=data)
 
 # Calculate the overall mse for each model
 results = {
-    model_name: compute_metrics((data[model_name], data["human_rate"]))["mse"]
-    for model_name in data.columns[7:]
+    model_name: compute_metrics((test_data[model_name], test_data["human_rate"]))["mse"]
+    for model_name in test_data.columns[7:]
 }
 
 # Save the results
