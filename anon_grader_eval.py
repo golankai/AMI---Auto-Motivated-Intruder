@@ -24,7 +24,8 @@ models_names = [
 # Set up environment
 trained_models_path = f"./anon_grader/trained_models/"
 data_dir = f"textwash_data/study{SUDY_NUMBER}/intruder_test/full_data_study.csv"
-results_dir = "./anon_grader"
+PRED_PATH = "./anon_grader/results/predictions_" + data_used + ".csv"
+RESULTS_PATH = "./anon_grader/results/results_" + data_used + ".csv"
 
 DEVICE = "cuda" if th.cuda.is_available() else "cpu"
 
@@ -88,15 +89,15 @@ for model_name in models_names:
     # Add predictions to the data
     data[f"model_{model_name}"] = predictions
 
-    # Calculate the overall mse for each model
+# Save predictions
+data.to_csv(PRED_PATH)
+
+# Calculate the overall mse for each model
 results = {
     model_name: compute_metrics((data[model_name], data["human_rate"]))["mse"]
     for model_name in data.columns[7:]
 }
 
-# Save predictions
-data.to_csv(os.path.join(results_dir, "predictions.csv"))
-
 # Save the results
 results_df = pd.DataFrame.from_dict(results, orient="index", columns=["mse"])
-results_df.to_csv(os.path.join(results_dir, "results.csv"))
+results_df.to_csv(RESULTS_PATH)
