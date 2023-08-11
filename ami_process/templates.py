@@ -1,5 +1,3 @@
-
-
 CONVERSATIONS_BASE_TEMPLATE = """
     This is a secret conversation between a human and an AI. The AI is helping the user validate their anonymization process, mimicking an intruder
 
