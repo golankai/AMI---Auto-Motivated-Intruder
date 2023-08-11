@@ -3,7 +3,8 @@
 .*bin
 venv/
 env/
-logs/
+anon_grader/trained_models/*
+anon_grader/logs/*
 
 __pycache__
 keys.json

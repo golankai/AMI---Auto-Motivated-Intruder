@@ -1,7 +1,7 @@
 import os
 import langchain
 import pandas as pd
-from ami_process.ami_process import AMI_process
+from ami_process.ami_process import AMI_process_handler
 from conversations.conversation_handler import ConversationHandler
 
 from utils import get_local_keys, load_google_search_tool, load_model
@@ -12,13 +12,20 @@ class DeAnonymizer:
     Class of a de-anonimiser.
     """
 
-    def __init__(self, llm_name: str, self_guide: bool = False, google: bool = False, debug: bool = False, verbose: bool = False, process_id=1):
+    def __init__(
+        self,
+        llm_name: str,
+        self_guide: bool = False,
+        google: bool = False,
+        debug: bool = False,
+        verbose: bool = False,
+        process_id=1,
+    ):
         """
         Create a new instance of a de-anonymiser.
         :param llm: The LLM to use.
         """
-        self.process_handler = AMI_process(process_id)
-        self.question_number = 1
+        self.process_handler = AMI_process_handler(process_id)
 
         # Accesses and keys
         langchain.debug = debug
@@ -38,68 +45,54 @@ class DeAnonymizer:
         self.google = load_google_search_tool() if google else None
 
 
-    def re_identify(self, anon_text):
-        self.conversation_handler.start_conversation()
+    def re_identify(self, anon_text, df=None, file_name=None):
+        """
+        Re-identify a single text.
+        :param anon_text: The anonymized text.
+        :df : The dataframe to save the results to. If None, the results are not saved.
+        """
+        self.conversation_handler.start_conversation(self.process_handler.get_base_template())
         self.process_handler.new_process()
+        response = ""
+        
+        for query in self.process_handler:
+            conv_responses_object = {}
+            response = self.conversation_handler.send_new_message(query, user_input=anon_text)
+            # update the process handler with the last response. So, it enables the process to decide whether to keep going or not. (based on the last response)
+            self.process_handler.set_last_response(response) 
 
-        template, parser = next(self.process_handler)
-        response = self.conversation_handler.send_new_message(template, parser, user_input=anon_text)
-
-        # if response.name != "Adele":
-        #     # keep asking for the name
-        # template, parser = next(self.process_handler)
-        #     response = self.conversation_handler.send_new_message()
-        #     print("Hi")
-        #     print(response.personas_1)
-            # char1_names = ""
-            # char2_names = ""
-            # char3_names = ""
-            # for i in range(5):
-            #     char1_names += f"{response.personas_1[i]}, "
-            #     char2_names += f"{response.personas_2[i]}, "
-            #     char3_names += f"{response.personas_3[i]}, "
-
-            # print(f"Personas 1:, {char1_names}") 
-            # print(f"Personas 2:, {char2_names}") 
-            # print(f"Personas 3:, {char3_names}") 
+            conv_responses_object = response
+            # currently, we support add_row only for one question.
+            # TODO: support more than one question (add_row for all the questions of the process dataß)
+            # for key, value in response.items():
+            #     conv_responses_object[key] = value
+        
+        if df is not None:
+            self.add_row_to_csv(df, conv_responses_object, file_name)
+        else:
+            print(response)    
 
         self.conversation_handler.end_conversation()
-
-        return response
     
-    def re_identify_list(self, study_dir_path, file_names, study_number):
-        """
+
+    def add_row_to_csv(self, df, conv_responses_object, file_name):
+        new_row = self.process_handler.get_df_row(conv_responses_object, file_name)
+        new_row_df = pd.DataFrame([new_row])
+        df = pd.concat([df, new_row_df], ignore_index=True)
+        return df
             
-        """
-        res_columns = self.process_handler.get_res_columns()
-        df = pd.DataFrame(columns=res_columns)
+        
+    def re_identify_list(self, study_dir_path, file_names, save_to_csv=False):
+        df = None
+        if save_to_csv:
+            res_columns = self.process_handler.get_res_columns()
+            df = pd.DataFrame(columns=res_columns)
         
         for i, file_name in enumerate(file_names):
-            with open(os.path.join(study_dir_path, file_name), "r", encoding="utf-8") as f:
+            with open(
+                os.path.join(study_dir_path, file_name), "r", encoding="utf-8"
+            ) as f:
                 anon_text = f.read()
-            # try:
-            response = self.re_identify(anon_text)
-            new_row = {
-                "Study": study_number,
-                "File": file_name,
-                "Name": response.name,
-                "Score": response.score,
-                "Characteristic_1": response.characteristics[0],
-                "Characteristic_2": response.characteristics[1],
-                "Characteristic_3": response.characteristics[2],
-            }
-            # except Exception as e:
-            #     # print(e)
-            #     new_row = {
-            #         "Study": study_number,
-            #         "File": file_name,
-            #         "Name": "Error",
-            #         "Score": "",
-            #         "Characteristic_1": "",
-            #         "Characteristic_2": "",
-            #         "Characteristic_3": "",
-            #     }
-            new_row_df = pd.DataFrame([new_row])
-            df = pd.concat([df, new_row_df], ignore_index=True)
+            self.re_identify(anon_text, df, file_name)
             
         return df
