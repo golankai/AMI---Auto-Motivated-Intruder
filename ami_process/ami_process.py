@@ -1,59 +1,78 @@
-from ami_process.parsers import Q1_parser, Q2_parser
-from langchain.output_parsers import StructuredOutputParser, PydanticOutputParser
+from langchain.output_parsers import PydanticOutputParser
 
-from ami_process.templates import Q1_TEMPLATE, P1_Q2_TEMPLATE
+from ami_process.process_data.processes.process_1 import process_1_data
+from ami_process.process_data.processes.process_2 import process_2_data
 
 
-class AMI_process:
-    def __init__(self, process) -> None:
-        self.process_id = process
-        self.question_number = 1
+
+class AMI_process_handler():
+    def __init__(self, process_id) -> None:
+        if process_id not in [1, 2]:
+            raise ValueError("process must be 1 or 2")
+        self.process_id = process_id
+        def get_process_data(process_id):
+            match process_id:
+                case 1:
+                    return process_1_data
+                case 2:
+                    return process_2_data
+                case _:
+                    return None
+                
+        self.process_data = get_process_data(self.process_id)
+        self.num_queries = len(self.process_data.queries)
+        self.last_response = ""
+        self.query_number = 0
+
 
     def new_process(self):
-        self.question_number = 1
+        self.query_number = 0
+        
+
+    def get_base_template(self): 
+        return self.process_data.get_base_template()
+    
 
     def get_res_columns(self):
-        res_columns = {
-            1: [
-                "Name",
-                "Score",
-                "Characteristic_1",
-                "Characteristic_2",
-                "Characteristic_3",
-            ],  # process 1
-        }
-
-        return res_columns[self.process_id]
+        return self.process_data.get_res_columns()
 
     def __iter__(self):
         return self
-
-    def get_parser(self):
-        match self.process_id, self.question_number:
-            case 1, 1:
-                return PydanticOutputParser(pydantic_object=Q1_parser)
-            case 1, 2:
-                return PydanticOutputParser(pydantic_object=Q2_parser)
-            case _:
-                # raise ValueError("process and question combination is not valid")
-                return None
-
-    def get_template(self):
-        match self.process_id, self.question_number:
-            case 1, 1:
-                return Q1_TEMPLATE
-            case 1, 2:
-                return P1_Q2_TEMPLATE
-            case _:
-                # raise ValueError("process and question combination is not valid")
-                return None
+    
+    def set_last_response(self, last_response):
+        self.last_response = last_response
 
     def __next__(self):
-        template = self.get_template()
-        parser = self.get_parser()
-
-        if template is None or parser is None:
+        if  self.query_number >= self.num_queries:
             raise StopIteration
+        
+        query = self.process_data.queries[self.query_number]
 
-        self.question_number += 1
-        return template, parser
+        # I want that the ami process will decide if keep going or not by using the last response and the process_data  (handle_conditions)
+        # self.process_data?.handle_conditions(self.query_number, self.last_response)
+
+        if query is None:
+            raise StopIteration
+        
+        self.query_number += 1
+        return query
+    
+
+    def get_df_row(self, conv_responses, file_name):
+        match self.process_id, self.query_number:
+            case 1, 1:
+                return {
+                    "File": file_name,
+                    "Name": conv_responses.name,
+                    "Score": conv_responses.score,
+                    "Characteristic_1": conv_responses.characteristics[0],
+                    "Characteristic_2": conv_responses.characteristics[1],
+                    "Characteristic_3": conv_responses.characteristics[2],
+                }
+            case 1, 2:
+                return {}
+            case 2, 1:
+                return {}
+            case _:
+                return None
+    

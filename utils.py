@@ -33,13 +33,6 @@ def get_local_keys():
     return keys
 
 
-def get_prompts_templates():
-    """Get prompts template from a local prompts.json file."""
-    with open("prompts.json", "r") as f:
-        prompts = json.load(f)
-    return prompts
-
-
 def read_data(dir: str):
     """
     Read data from a directory to a panda DataFrame.
@@ -92,7 +85,7 @@ def load_google_search_tool():
 
 
 ######################################
-###   Grader Functions
+###   Grader Functions  
 ######################################
 
 from torch.utils.data import Dataset
