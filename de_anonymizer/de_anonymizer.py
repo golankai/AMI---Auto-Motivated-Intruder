@@ -48,19 +48,23 @@ class DeAnonymizer:
         response = ""
         
         for query in self.process_handler:
+            conv_responses_object = {}
             response = self.conversation_handler.send_new_message(query, user_input=anon_text)
             # update the process handler with the last response. So, it enables the process to decide whether to keep going or not. (based on the last response)
             self.process_handler.set_last_response(response) 
+            for key, value in response.items():
+                conv_responses_object[key] = value
+            
             if df is not None:
-                self.add_row_to_csv(df, response, file_name)
+                self.add_row_to_csv(df, conv_responses_object, file_name)
             else:
                 print(response)
 
         self.conversation_handler.end_conversation()
     
 
-    def add_row_to_csv(self, df, response, file_name):
-        new_row = self.process_handler.get_df_row(response, file_name)
+    def add_row_to_csv(self, df, conv_responses_object, file_name):
+        new_row = self.process_handler.get_df_row(conv_responses_object, file_name)
         new_row_df = pd.DataFrame([new_row])
         df = pd.concat([df, new_row_df], ignore_index=True)
         return df

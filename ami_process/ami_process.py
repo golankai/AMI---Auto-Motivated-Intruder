@@ -62,16 +62,16 @@ class AMI_process_handler():
         return query
     
 
-    def get_df_row(self, response, file_name):
+    def get_df_row(self, conv_responses, file_name):
         match self.process_id, self.query_number:
             case 1, 1:
                 return {
                     "File": file_name,
-                    "Name": response.name,
-                    "Score": response.score,
-                    "Characteristic_1": response.characteristics[0],
-                    "Characteristic_2": response.characteristics[1],
-                    "Characteristic_3": response.characteristics[2],
+                    "Name": conv_responses.name,
+                    "Score": conv_responses.score,
+                    "Characteristic_1": conv_responses.characteristics[0],
+                    "Characteristic_2": conv_responses.characteristics[1],
+                    "Characteristic_3": conv_responses.characteristics[2],
                 }
             case 1, 2:
                 return {}
