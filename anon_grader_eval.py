@@ -17,10 +17,14 @@ SUDY_NUMBER = 1
 
 data_used = "famous_and_semi"
 
+models_names = [
+    "study_1_famous_and_semi_class_epochs_1.pt",
+    "study_1_famous_and_semi_class_and_11_epochs_5.pt"
+]
 # Set up environment
-trained_models_path = f"./anon_grader/trained_models"
+trained_models_path = f"./anon_grader/trained_models/"
 data_dir = f"textwash_data/study{SUDY_NUMBER}/intruder_test/full_data_study.csv"
-results_dir = "./anon_grader/logs"
+results_dir = "./anon_grader"
 
 DEVICE = "cuda" if th.cuda.is_available() else "cpu"
 
@@ -62,27 +66,37 @@ test_dataloader = DataLoader(
     num_workers=4,
 )
 
+models_names = os.listdir(trained_models_path)
 # Predict with all models
-for file in os.listdir(trained_models_path):
+for model_name in models_names:
+    # Create a copy of the data
+    test_dataloader_copy = test_dataloader.copy()
+    # Load the model
+    logging.info(f"Loading model from {model_name}")
 
-    if file.endswith(".pt"):
-        model_path = os.path.join(trained_models_path, file)
-        model = RobertaForSequenceClassification.from_pretrained(model_path).to(DEVICE)
-        model.eval()
-        logging.info(f"Loading model from {model_path}")
+    model_path = os.path.join(trained_models_path, model_name)
+    model = RobertaForSequenceClassification.from_pretrained(model_path)
+    model.eval()
 
     # Prediction
     predictions = []
-    for batch in test_dataloader:
+    for batch in test_dataloader_copy:
         with th.no_grad():
             regression_values = model(**batch).logits.squeeze().cpu().tolist()
         predictions.extend(regression_values)
 
     # Add predictions to the data
-    data[f"model_{file}"] = predictions
+    data[f"model_{model_name}"] = predictions
 
-# Calculate the overall mse for each model
+    # Calculate the overall mse for each model
 results = {
     model_name: compute_metrics((data[model_name], data["human_rate"]))["mse"]
     for model_name in data.columns[7:]
 }
+
+# Save predictions
+data.to_csv(os.path.join(results_dir, "predictions.csv"))
+
+# Save the results
+results_df = pd.DataFrame.from_dict(results, orient="index", columns=["mse"])
+results_df.to_csv(os.path.join(results_dir, "results.csv"))
