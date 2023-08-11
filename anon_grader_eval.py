@@ -71,7 +71,12 @@ models_names = os.listdir(trained_models_path)
 # Predict with all models
 for model_name in models_names:
     # Create a copy of the data
-    test_dataloader_copy = test_dataloader.copy()
+    test_dataloader = DataLoader(
+        test_dataset,
+        batch_size=64,
+        shuffle=False,
+        num_workers=4,
+    )
     # Load the model
     logging.info(f"Loading model from {model_name}")
 
@@ -81,7 +86,7 @@ for model_name in models_names:
 
     # Prediction
     predictions = []
-    for batch in test_dataloader_copy:
+    for batch in test_dataloader:
         with th.no_grad():
             regression_values = model(**batch).logits.squeeze().cpu().tolist()
         predictions.extend(regression_values)
