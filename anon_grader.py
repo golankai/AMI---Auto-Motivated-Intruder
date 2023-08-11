@@ -13,12 +13,12 @@ from clearml import Task
 
 from utils import train_grader_model, prepare_grader_data, choose_data
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "3"
+
 
 # Define constants#
 hyperparams = {
-    "epochs": 1,
-    "data_used": "famous",
+    "epochs": 20,
+    "data_used": "famous_and_semi",
     "layers_trained": "class",
 }
 
@@ -28,7 +28,7 @@ SUDY_NUMBER = 1
 EXPERIMENT_NAME = f'study_{SUDY_NUMBER}_{hyperparams["data_used"]}_{hyperparams["layers_trained"]}_epochs_{hyperparams["epochs"]}'
 
 # Set up environment
-task = Task.init(project_name="Kai/AMI", task_name=EXPERIMENT_NAME, reuse_last_task_id=False)
+task = Task.init(project_name="AMI", task_name=EXPERIMENT_NAME, reuse_last_task_id=False)
 task.connect(hyperparams)
 
 trained_model_path = f"./anon_grader/trained_models/{EXPERIMENT_NAME}.pt"
@@ -51,7 +51,6 @@ th.manual_seed(SEED)
 # Set up the training arguments
 training_args = TrainingArguments(
     output_dir=results_dir,
-    overwrite_output_dir = True,
     num_train_epochs=hyperparams["epochs"],
     per_device_train_batch_size=64,
     per_device_eval_batch_size=64,
