@@ -52,13 +52,17 @@ class DeAnonymizer:
             response = self.conversation_handler.send_new_message(query, user_input=anon_text)
             # update the process handler with the last response. So, it enables the process to decide whether to keep going or not. (based on the last response)
             self.process_handler.set_last_response(response) 
-            for key, value in response.items():
-                conv_responses_object[key] = value
-            
-            if df is not None:
-                self.add_row_to_csv(df, conv_responses_object, file_name)
-            else:
-                print(response)
+
+            conv_responses_object = response
+            # currently, we support add_row only for one question.
+            # TODO: support more than one question (add_row for all the questions of the process dataß)
+            # for key, value in response.items():
+            #     conv_responses_object[key] = value
+        
+        if df is not None:
+            self.add_row_to_csv(df, conv_responses_object, file_name)
+        else:
+            print(response)    
 
         self.conversation_handler.end_conversation()
     

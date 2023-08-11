@@ -7,7 +7,6 @@ from ami_process.process_data.processes.process_2 import process_2_data
 
 class AMI_process_handler():
     def __init__(self, process_id) -> None:
-        print("AMI_process_handler", process_id)
         if process_id not in [1, 2]:
             raise ValueError("process must be 1 or 2")
         self.process_id = process_id
@@ -27,7 +26,6 @@ class AMI_process_handler():
 
 
     def new_process(self):
-        ("new_process")
         self.query_number = 0
         
 
@@ -45,7 +43,6 @@ class AMI_process_handler():
         self.last_response = last_response
 
     def __next__(self):
-        print("AMI_process_handler.__next__", self.query_number, self.num_queries)
         if  self.query_number >= self.num_queries:
             raise StopIteration
         

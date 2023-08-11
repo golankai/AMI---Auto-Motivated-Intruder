@@ -36,15 +36,6 @@ class ProcessData:
     base: PromptTemplate
     queries: list[QueryData]
     res_columns: list[str]
-
-    def __len__(self) -> int:
-        return len(self.queries)
-    
-    def __getitem__(self, index) -> QueryData:
-        if index >= len(self.queries):
-            raise StopIteration
-        else:
-            return self.queries[index]
         
     def get_res_columns(self) -> list[str]:
         return self.res_columns
