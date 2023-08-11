@@ -64,37 +64,35 @@ test_dataloader = DataLoader(
     test_dataset,
     batch_size=64,
     shuffle=False,
-    num_workers=4,
 )
 
 models_names = os.listdir(trained_models_path)
 
 # Predict with all models
 for model_name in models_names:
-    # Create a copy of the data
-    test_dataloader = DataLoader(
-        test_dataset,
-        batch_size=64,
-        shuffle=False,
-        num_workers=4,
-    )
+    predictions = []
+
     # Load the model
     logging.info(f"Loading model from {model_name}")
 
     model_path = os.path.join(trained_models_path, model_name)
-    model = th.load(model_path)
+    model = RobertaForSequenceClassification.from_pretrained("roberta-base", num_labels=1).to(DEVICE)
+    model.load_state_dict(th.load(model_path))
+    model.eval()
 
     # Prediction
-    predictions = []
     for batch in test_dataloader:
         with th.no_grad():
-            regression_values = model(**batch).logits.squeeze().cpu().tolist()
+            
+            outputs = model(**batch)          
+            regression_values = outputs["logits"].squeeze().cpu().tolist()
+            
         predictions.extend(regression_values)
-
+    print(f'Pred: {len(predictions)}')
     # Add predictions to the data
+    print(len(data))
     data[f"model_{model_name}"] = predictions
 
-# Save predictions
 data.to_csv(PRED_PATH)
 task.upload_artifact("Predictions df", artifact_object=data)
 
