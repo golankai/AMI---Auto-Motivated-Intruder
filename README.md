@@ -26,6 +26,13 @@ Automatic Re-identifying tool
 4. solution - general approach (maybe ?)
 
 
+# Goals 
+
+1. Intruder that is good as humans
+2. Test the power of aggregation of data (more than one text)
+3. Give a score for a given anonymized text
+
+
 
 ### Code
 1. Intruder - prompting about the anonymized text
