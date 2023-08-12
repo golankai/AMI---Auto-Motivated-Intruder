@@ -7,8 +7,6 @@ from langchain.output_parsers import PydanticOutputParser
 
 
 
-P1_RES_COLUMNS = ["Name", "Score", "Characteristic_1", "Characteristic_2", "Characteristic_3"]
-
 P1_CONVERSATIONS_BASE_TEMPLATE = """
     This is a secret conversation between a human and an AI. The AI is helping the user validate their anonymization process, mimicking an intruder
 
@@ -48,5 +46,4 @@ process_1_data = ProcessData(
         QueryData(P1_Q1_TEMPLATE, PydanticOutputParser(pydantic_object=P1Q1Parser)),
         # QueryData(P1_Q2_TEMPLATE, PydanticOutputParser(pydantic_object=P1Q2Parser))
     ],
-    res_columns=P1_RES_COLUMNS,
 )

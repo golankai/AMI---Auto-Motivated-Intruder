@@ -20,14 +20,6 @@ P2_Q1_TEMPLATE = """
     anonymized text: "{user_input}"
 """
 
-P2_RES_COLUMNS = ["File",
-                    "Persona_1",
-                    "Confidence_1",
-                    "Persona_2",
-                    "Confidence_2",
-                    "Persona_3",
-                    "Confidence_3"]
-
 class P2Q1Parser(BaseModel):
     personas: List[str] = Field(description="3 optional personas names based on the anonymized text")
     score: List[float] = Field(description="your confidence score for each guess between 0-1 where 1 is the most confident")
@@ -37,5 +29,4 @@ process_2_data = ProcessData (
     queries=[
         QueryData(P2_Q1_TEMPLATE, PydanticOutputParser(pydantic_object=P2Q1Parser)),
     ],
-    res_columns=P2_RES_COLUMNS
 )
