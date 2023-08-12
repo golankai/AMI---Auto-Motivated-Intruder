@@ -1,0 +1,33 @@
+File,Persona_1,Confidence_1,Persona_2,Confidence_2,Persona_3,Confidence_3
+adele_43.txt,Adele,0.9,Beyonce,0.8,Taylor Swift,0.7
+adele_47.txt,John Smith,0.8,Emma Johnson,0.6,Michael Brown,0.7
+adele_57.txt,Adele,0.9,London,0.8,British accent,0.7
+adele_61.txt,Taylor Swift,0.9,Adele,0.8,Ed Sheeran,0.7
+adele_97.txt,Adele,0.9,Simon Konecki,0.8,Angelo Adkins,0.7
+adele_112.txt,Adele,0.8,Taylor Swift,0.6,Beyonce,0.7
+adele_147.txt,Sarah,0.8,Emily,0.7,Jessica,0.6
+adele_157.txt,Taylor Swift,0.8,Adele,0.7,Ed Sheeran,0.6
+adele_178.txt,Adele,0.9,Simon Konecki,0.8,Angelo Adkins,0.7
+adele_197.txt,Adele,0.8,Mariah Carey,0.6,Celine Dion,0.7
+adele_201.txt,Adele,0.9,Ed Sheeran,0.8,Sam Smith,0.7
+adele_209.txt,Taylor Swift,0.8,Adele,0.7,Beyonce,0.6
+adele_216.txt,Taylor Swift,0.8,Adele,0.6,Beyonce,0.7
+adele_242.txt,Taylor Swift,0.9,Adele,0.8,Beyonce,0.7
+adele_271.txt,Adele,0.9,Taylor Swift,0.8,Beyonce,0.7
+adele_287.txt,Taylor Swift,0.8,Adele,0.6,Beyonce,0.7
+adele_297.txt,Adele,0.9,Taylor Swift,0.8,Beyonce,0.7
+adele_302.txt,Taylor Swift,0.9,Adele,0.8,Beyoncé,0.7
+adele_323.txt,Adele,0.9,Sam Smith,0.7,Ed Sheeran,0.6
+adele_357.txt,Adele,0.9,Ed Sheeran,0.8,Taylor Swift,0.7
+adele_366.txt,Taylor Swift,0.8,Adele,0.6,Beyonce,0.7
+adele_377.txt,Adele,0.9,Ed Sheeran,0.8,Taylor Swift,0.7
+adele_397.txt,Adele,0.9,Taylor Swift,0.8,Beyonce,0.7
+adele_423.txt,Adele,0.9,London,0.8,singer,0.7
+adele_442.txt,singer/songwriter,0.8,world's best selling music artist,0.6,ex husband,0.4
+adele_468.txt,PERSON_FIRSTNAME_2,0.8,PERSON_FIRSTNAME_1,0.6,PRONOUN,0.9
+adele_491.txt,Taylor Swift,0.9,Adele,0.8,Ed Sheeran,0.7
+adele_497.txt,Adele,0.8,Beyonce,0.6,Taylor Swift,0.7
+adele_503.txt,Adele,0.8,Ed Sheeran,0.6,Taylor Swift,0.7
+adele_547.txt,Adele,0.9,Taylor Swift,0.8,Beyonce,0.7
+adele_558.txt,John Smith,0.8,Emma Johnson,0.6,Michael Brown,0.7
+adele_576.txt,Taylor Swift,0.8,Adele,0.7,Ed Sheeran,0.6
