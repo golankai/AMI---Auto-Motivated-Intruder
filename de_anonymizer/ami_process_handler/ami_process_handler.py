@@ -1,6 +1,5 @@
-from ami_process.process_data.processes.process_1 import process_1_data
-from ami_process.process_data.processes.process_2 import process_2_data
-
+from .process_data.processes.process_1 import process_1_data
+from .process_data.processes.process_2 import process_2_data
 
 class AMI_process_handler():
     def __init__(self, process_id) -> None:
@@ -30,6 +29,9 @@ class AMI_process_handler():
         return self.process_data.get_base_template()
     
 
+    def get_conv_responses(self):
+        return self.conv_responses
+
     def __iter__(self):
         return self
 
@@ -52,27 +54,4 @@ class AMI_process_handler():
         
         self.query_number += 1
         return query
-    
-
-    def get_df_row(self, file_name):
-        row = {}
-
-        def flatten_dict(d):
-            """
-            Flatten a dictionary.
-            By separating lists into multiple columns.
-            """
-            flat_dict = {}
-            for key, value in d.items():
-                if isinstance(value, list):
-                    for idx, item in enumerate(value):
-                        new_key = f"{key}_{idx+1}"
-                        flat_dict[new_key] = item
-                else:
-                    flat_dict[key] = value
-            return flat_dict
-
-        row = flatten_dict(self.conv_responses)
-        row["File"] = file_name
-        return row
     

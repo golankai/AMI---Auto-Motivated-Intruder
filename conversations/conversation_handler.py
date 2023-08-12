@@ -1,9 +1,8 @@
-from langchain.output_parsers import PydanticOutputParser
 from langchain.prompts import PromptTemplate
 from langchain.chains import ConversationChain
 from langchain.memory import ConversationBufferMemory
 
-from ami_process.process_data.process_data import MessageType, QueryData
+from de_anonymizer.ami_process_handler.process_data.process_data import QueryData
 
 
 class ConversationHandler:

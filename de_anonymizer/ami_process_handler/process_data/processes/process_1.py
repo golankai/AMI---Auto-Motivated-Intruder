@@ -1,9 +1,10 @@
 from typing import List
+
 from langchain import PromptTemplate
+from langchain.output_parsers import PydanticOutputParser
 from pydantic import BaseModel, Field
 
-from ami_process.process_data.process_data import ProcessData, QueryData
-from langchain.output_parsers import PydanticOutputParser
+from de_anonymizer.ami_process_handler.process_data.process_data import ProcessData, QueryData
 
 
 

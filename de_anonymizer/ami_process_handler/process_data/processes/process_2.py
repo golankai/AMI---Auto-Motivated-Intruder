@@ -1,8 +1,10 @@
-from langchain import PromptTemplate
-from ami_process.process_data.process_data import ProcessData, QueryData
 from typing import List
-from pydantic import BaseModel, Field
+
+from langchain import PromptTemplate
 from langchain.output_parsers import PydanticOutputParser
+from pydantic import BaseModel, Field
+
+from de_anonymizer.ami_process_handler.process_data.process_data import ProcessData, QueryData
 
 
 P2_CONVERSATIONS_BASE_TEMPLATE = """

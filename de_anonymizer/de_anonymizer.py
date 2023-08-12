@@ -1,15 +1,16 @@
 import os
 import langchain
 import pandas as pd
-from ami_process.ami_process import AMI_process_handler
+from de_anonymizer.ami_process_handler.ami_process_handler import AMI_process_handler
 from conversations.conversation_handler import ConversationHandler
+from de_anonymizer.data_handler.data_handler import DataHandler
 
 from utils import get_local_keys, load_google_search_tool, load_model
 
 
 class DeAnonymizer:
     """
-    Class of a de-anonimiser.
+    Class of a de-anonymizer.
     """
 
     def __init__(
@@ -20,10 +21,17 @@ class DeAnonymizer:
         debug: bool = False,
         verbose: bool = False,
         process_id: int = 1,
+        should_handle_data: bool = False, 
     ):
         """
         Create a new instance of a de-anonymiser.
         :param llm: The LLM to use.
+        :param self_guide: Whether to use self-guide or not.
+        :param google: Whether to use google search or not.
+        :param debug: Whether to use debug mode or not.
+        :param verbose: Whether to use verbose mode or not.
+        :param process_id: The process id to use.
+        :param should_handle_data: Whether to handle data OR just print the conversation.
         """
         self.process_handler = AMI_process_handler(process_id)
 
@@ -38,18 +46,18 @@ class DeAnonymizer:
         # Define the LLM and the conversation handler
         llm = load_model(llm_name)
         self.conversation_handler = ConversationHandler(llm)
+        
+        self.should_handle_data = should_handle_data
+        self.data_handler = DataHandler() if self.should_handle_data else None
 
-        # Define self-guide
         self.self_guide = self_guide
-        # Define the google search tool
         self.google = load_google_search_tool() if google else None
 
 
-    def re_identify(self, anon_text, df=None, file_name=None):
+    def re_identify(self, anon_text, file_name=None):
         """
         Re-identify a single text.
         :param anon_text: The anonymized text.
-        :df : The dataframe to save the results to. If None, the results are not saved.
         """
         self.conversation_handler.start_conversation(self.process_handler.get_base_template())
         self.process_handler.new_process()
@@ -65,32 +73,23 @@ class DeAnonymizer:
             # for key, value in response.items():
             #     conv_responses_object[key] = value
         
-        if df is not None:
-            df = self.add_row_to_csv(df, file_name)
-        else:
-            print(response)    
-
+            if not self.should_handle_data:
+                print(response) 
         self.conversation_handler.end_conversation()
-        return df
-    
 
-    def add_row_to_csv(self, df, file_name):
-        new_row = self.process_handler.get_df_row(file_name)
-        new_row_df = pd.DataFrame([new_row])
-        df = pd.concat([df, new_row_df], ignore_index=True)
-        return df
+        if self.should_handle_data:
+            conv_responses = self.process_handler.get_conv_responses()
+            self.data_handler.add_flatten_row(conv_responses, file_name)
             
         
-    def re_identify_list(self, study_dir_path, file_names, save_to_csv=False):
-        df = None
-        if save_to_csv:
-            df = pd.DataFrame()
-        
+    def re_identify_list(self, study_dir_path, file_names, save_to_csv=False):        
         for i, file_name in enumerate(file_names):
             with open(
                 os.path.join(study_dir_path, file_name), "r", encoding="utf-8"
             ) as f:
                 anon_text = f.read()
-            df = self.re_identify(anon_text, df, file_name)
-            
-        return df
+            self.re_identify(anon_text, file_name)
+
+    
+    def get_results(self) -> pd.DataFrame:
+        return self.data_handler.get_df() if self.should_handle_data else None
