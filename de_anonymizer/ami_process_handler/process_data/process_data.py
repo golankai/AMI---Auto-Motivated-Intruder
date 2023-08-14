@@ -35,13 +35,6 @@ class QueryData:
 class ProcessData:
     base: PromptTemplate
     queries: list[QueryData]
-    res_columns: list[str]
-        
-    def get_res_columns(self) -> list[str]:
-        return self.res_columns
     
     def get_base_template(self) -> PromptTemplate:
         return self.base
-    
-    def get_row(self, response):
-        return {col: response[col] for col in self.get_res_columns()}
