@@ -94,13 +94,13 @@ for model_name in models_names:
             regression_values = outputs["logits"].squeeze().cpu().tolist()
             
         predictions.extend(regression_values)
-    print(f'Pred: {len(predictions)}')
+
     # Add predictions to the data
-    print(len(test_data))
+
     test_data[f"model_{model_name}"] = predictions
 
 test_data.to_csv(PRED_PATH)
-task.upload_artifact("Predictions df", artifact_object=data)
+task.upload_artifact("Predictions df", artifact_object=test_data)
 
 # Calculate the overall mse for each model
 results = {
