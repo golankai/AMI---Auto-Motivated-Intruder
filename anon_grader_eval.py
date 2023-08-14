@@ -95,6 +95,9 @@ for model_name in models_names:
             
         predictions.extend(regression_values)
 
+    # Clip predictions to [0, 1]
+    predictions = np.clip(predictions, 0, 1)
+
     # Add predictions to the data
 
     test_data[f"model_{model_name}"] = predictions
