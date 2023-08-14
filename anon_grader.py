@@ -11,7 +11,7 @@ from transformers import TrainingArguments
 from clearml import Task
 
 
-from utils import train_grader_model, prepare_grader_data, choose_data
+from utils import train_grader_model, prepare_grader_data, read_data_for_grader
 
 
 
@@ -65,31 +65,11 @@ training_args = TrainingArguments(
 
 
 # Read the data
-columns_to_read = ["type", "text", "file_id", "name", "got_name_truth_q2"]
-raw_data = pd.read_csv(data_dir, usecols=columns_to_read)
-
-
-# Aggregate by file_id and calculate the rate of re-identification
-data = (
-    raw_data.groupby(["type", "file_id", "name", "text"])
-    .agg({"got_name_truth_q2": "mean"})
-    .reset_index()
-)
-data.rename(columns={"got_name_truth_q2": "human_rate"}, inplace=True)
-
-# Define population to use
-data = choose_data(data, hyperparams["data_used"])
-
-# Preprocess the data
-# Split the data into training and remaining data
-train_data, val_data = train_test_split(data, test_size=0.2, random_state=SEED)
-
-# Split the remaining data into validation and test data
-val_data, test_data = train_test_split(val_data, test_size=0.5, random_state=SEED)
+data = read_data_for_grader(SUDY_NUMBER, hyperparams["data_used"], SEED)
 
 datasets = prepare_grader_data({
-        "train": train_data,
-        "val": val_data,
+        "train": data["train"],
+        "val": data["val"],
     },
     DEVICE
 )

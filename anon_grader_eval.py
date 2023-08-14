@@ -12,7 +12,7 @@ from transformers import TrainingArguments, RobertaForSequenceClassification
 from clearml import Task
 
 
-from utils import prepare_grader_data, compute_metrics
+from utils import prepare_grader_data, compute_metrics, read_data_for_grader
 
 # Define constants
 SUDY_NUMBER = 1
@@ -42,26 +42,7 @@ th.manual_seed(SEED)
 
 
 # Read the data
-columns_to_read = ["type", "text", "file_id", "name", "got_name_truth_q2"]
-raw_data = pd.read_csv(data_dir, usecols=columns_to_read)
-
-# Aggregate by file_id and calculate the rate of re-identification
-data = (
-    raw_data.groupby(["type", "file_id", "name", "text"])
-    .agg({"got_name_truth_q2": "mean"})
-    .reset_index()
-)
-data.rename(columns={"got_name_truth_q2": "human_rate"}, inplace=True)
-
-# Define population to use
-data = data[data["type"].isin(["famous", "semifamous"])]
-
-# Preprocess the data
-# Split the data into training and remaining data
-train_data, val_data = train_test_split(data, test_size=0.2, random_state=SEED)
-
-# Split the remaining data into validation and test data
-val_data, test_data = train_test_split(val_data, test_size=0.5, random_state=SEED)
+test_data = read_data_for_grader(SUDY_NUMBER, data_used, SEED)['test']
 
 test_dataset = prepare_grader_data({"test": test_data}, DEVICE)['test']
 

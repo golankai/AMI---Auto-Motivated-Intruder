@@ -237,3 +237,36 @@ def get_layer_pattern(layers_trained: str) -> str:
         return r'classifier.*|roberta.encoder.layer.11.*'
     else:
         raise Exception("Invalid layers trained.")
+
+def read_data_for_grader(study_nr: int, data_used: str, seed: int) -> Dict[str, pd.DataFrame]:
+    '''
+    Read the data for the anon grader.
+    :param study_nr: the study number.
+    :param data_used: the type of data to use. "famous", "famous_and_semi" or "all".
+    :param seed: the seed for the random state.
+    :return: the data for the anon grader.
+    '''
+    data_dir = f"textwash_data/study{study_nr}/intruder_test/full_data_study.csv"
+
+    # Read the data
+    columns_to_read = ["type", "text", "file_id", "name", "got_name_truth_q2"]
+    raw_data = pd.read_csv(data_dir, usecols=columns_to_read)
+
+    # Aggregate by file_id and calculate the rate of re-identification
+    data = (
+        raw_data.groupby(["type", "file_id", "name", "text"])
+        .agg({"got_name_truth_q2": "mean"})
+        .reset_index()
+    )
+    data.rename(columns={"got_name_truth_q2": "human_rate"}, inplace=True)
+
+    # Define population to use
+    data = choose_data(data, data_used)
+
+    # Split the data into training and remaining data
+    train_data, val_data = train_test_split(data, test_size=0.2, random_state=seed)
+
+    # Split the remaining data into validation and test data
+    val_data, test_data = train_test_split(val_data, test_size=0.5, random_state=seed)
+
+    return {"train": train_data, "val": val_data, "test": test_data}
