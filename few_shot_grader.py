@@ -1,4 +1,3 @@
-# In[]
 import logging
 import pandas as pd
 import numpy as np
@@ -13,15 +12,16 @@ from utils import read_data_for_grader, compute_metrics
 # Define constants
 DEBUG = True
 SUDY_NUMBER = 1
+NUM_SAMPLES = 1
 DATA_USED = "famous_and_semi"
 EXPERIMENT_NAME = f'few_shot_study_{SUDY_NUMBER}_{DATA_USED}'
 
+task = Task.init(project_name="Kai/AMI", task_name=EXPERIMENT_NAME, reuse_last_task_id=False, task_type=Task.TaskTypes.testing)
 # Set up environment
-# task = Task.init(project_name="AMI", task_name=EXPERIMENT_NAME, reuse_last_task_id=False, task_typeTask.TaskTypes.inference)
 
-data_dir = f"textwash_data/study{SUDY_NUMBER}/intruder_test/full_data_study.csv"
 PRED_PATH = "./anon_grader/results/predictions_" + DATA_USED + ".csv"
-RESULTS_PATH = "./anon_grader/results/results_" + DATA_USED + ".csv"
+PRED_PATH2SAVE = "./anon_grader/results/predictions_" + DATA_USED + "_w_few_shot.csv"
+RESULTS_PATH = "./anon_grader/results/results_" + DATA_USED + "_w_few_shot.csv"
 DEVICE = "cuda" if th.cuda.is_available() else "cpu"
 
 logging.info(f'Working on device: {DEVICE}')
@@ -34,7 +34,6 @@ th.manual_seed(SEED)
 
 # Read the results of the models
 predictions = pd.read_csv(PRED_PATH)
-results = pd.read_csv(RESULTS_PATH)
 
 # Read the data
 data = read_data_for_grader(SUDY_NUMBER, DATA_USED, SEED)
@@ -47,29 +46,34 @@ example_score_1 = train_data[train_data["file_id"] == "semifamous_146_d_3_1.txt"
 example_score_05 = train_data[train_data["file_id"] == "famous_138_d_1_4.txt"].text.values[0]
 
 # decrease the prediction table size to 3, at random
-predictions = predictions.sample(n=3, random_state=SEED)
+predictions = predictions.sample(n=NUM_SAMPLES, random_state=SEED)
 
 # ChatGPT interaction
-
 process_id = 3
 should_handle_data = True 
-study_number = 1
 
+# Define the de-anonymizer
 de_anonymiser = DeAnonymizer(
     llm_name="chat-gpt", process_id=process_id, should_handle_data=should_handle_data
 )
 
+# Get the score for each text
 def get_score_for_row(anon_text):
     de_anonymiser.re_identify(anon_text=anon_text, example_score_0=example_score_0, example_score_1=example_score_1, example_score_05=example_score_05)
 
 predictions["text"].apply(get_score_for_row)
+predictions["few_shot"] = list(de_anonymiser.get_results()["score"])
+task.upload_artifact("Predictions df with few-shot", artifact_object=predictions)
+predictions.to_csv(PRED_PATH2SAVE)
 
-if should_handle_data:
-    few_shot_preds = list(de_anonymiser.get_results()["score"])
+# Calculate the overall mse for each model
+results = {
+    model_name: compute_metrics((predictions[model_name], predictions["human_rate"]))["mse"]
+    for model_name in predictions.columns[7:]
+}
 
-# combine the results and the predictions
-predictions["few_shot"] = few_shot_preds
-
-few_shot_mse = compute_metrics((predictions["few_shot"], predictions["human_rate"]))["mse"]
-results.loc[len(results)] = ["few_shot", few_shot_mse]
+# Save the results
+results_df = pd.DataFrame.from_dict(results, orient="index", columns=["mse"])
+results_df.to_csv(RESULTS_PATH)
+task.upload_artifact("Results df with few-shot", artifact_object=results_df)
 

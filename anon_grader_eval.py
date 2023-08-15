@@ -81,7 +81,8 @@ for model_name in models_names:
 
     # Add predictions to the data
 
-    test_data[f"model_{model_name}"] = predictions
+    # Remove extension from model name
+    test_data[f"model_{model_name[:-3]}"] = predictions
 
 test_data.to_csv(PRED_PATH)
 task.upload_artifact("Predictions df", artifact_object=test_data)
@@ -93,6 +94,6 @@ results = {
 }
 
 # Save the results
-results_df = pd.DataFrame.from_dict(results, orient="index", columns=["model", "mse"])
+results_df = pd.DataFrame.from_dict(results, orient="index", columns=["mse"])
 results_df.to_csv(RESULTS_PATH)
 task.upload_artifact("Results df", artifact_object=results_df)
