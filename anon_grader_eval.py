@@ -93,6 +93,6 @@ results = {
 }
 
 # Save the results
-results_df = pd.DataFrame.from_dict(results, orient="index", columns=["mse"])
+results_df = pd.DataFrame.from_dict(results, orient="index", columns=["model", "mse"])
 results_df.to_csv(RESULTS_PATH)
 task.upload_artifact("Results df", artifact_object=results_df)
