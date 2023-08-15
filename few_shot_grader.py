@@ -12,7 +12,7 @@ from utils import read_data_for_grader, compute_metrics
 # Define constants
 DEBUG = True
 SUDY_NUMBER = 1
-NUM_SAMPLES = 1
+NUM_SAMPLES = 3 
 DATA_USED = "famous_and_semi"
 EXPERIMENT_NAME = f'few_shot_study_{SUDY_NUMBER}_{DATA_USED}'
 
