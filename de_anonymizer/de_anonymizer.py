@@ -60,7 +60,7 @@ class DeAnonymizer:
         Re-identify a single text.
         :param anon_text: The anonymized text.
         """
-        self.conversation_handler.start_conversation(self.process_handler.get_base_template(**kwargs))
+        self.conversation_handler.start_conversation(self.process_handler.get_base_template())
         self.process_handler.new_process()
         response = ""
         

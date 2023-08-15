@@ -5,13 +5,11 @@ import numpy as np
 
 import torch as th
 
-
 from clearml import Task
 
 from de_anonymizer.de_anonymizer import DeAnonymizer
 from utils import read_data_for_grader, compute_metrics
 
-# In[]
 # Define constants
 DEBUG = True
 SUDY_NUMBER = 1
@@ -33,7 +31,6 @@ SEED = 42
 np.random.seed(SEED)
 th.manual_seed(SEED)
 
-# In[]
 
 # Read the results of the models
 predictions = pd.read_csv(PRED_PATH)
@@ -49,9 +46,8 @@ example_score_0 = train_data[train_data["file_id"] == "famous_398_d_1_10.txt"].t
 example_score_1 = train_data[train_data["file_id"] == "semifamous_146_d_3_1.txt"].text.values[0]
 example_score_05 = train_data[train_data["file_id"] == "famous_138_d_1_4.txt"].text.values[0]
 
-samples = predictions.sample(2)
-print(samples[["name", "human_rate"]])
-# In[]
+# decrease the prediction table size to 3, at random
+predictions = predictions.sample(n=3, random_state=SEED)
 
 # ChatGPT interaction
 
@@ -63,20 +59,17 @@ de_anonymiser = DeAnonymizer(
     llm_name="chat-gpt", process_id=process_id, should_handle_data=should_handle_data
 )
 
-for sample in samples.iterrows():
-
-    anon_text = sample[1].text
+def get_score_for_row(anon_text):
     de_anonymiser.re_identify(anon_text=anon_text, example_score_0=example_score_0, example_score_1=example_score_1, example_score_05=example_score_05)
 
-# %%
+predictions["text"].apply(get_score_for_row)
+
 if should_handle_data:
-    few_shot_results = de_anonymiser.get_results()
-    print(few_shot_results)
+    few_shot_preds = list(de_anonymiser.get_results()["score"])
 
-# %%
+# combine the results and the predictions
+predictions["few_shot"] = few_shot_preds
 
-# Compint the results and the predictions
-predictions = pd.concat([predictions, few_shot_results], axis=0).rename(columns={"score": "few_shot"})
 few_shot_mse = compute_metrics((predictions["few_shot"], predictions["human_rate"]))["mse"]
-results = results
 results.loc[len(results)] = ["few_shot", few_shot_mse]
+
