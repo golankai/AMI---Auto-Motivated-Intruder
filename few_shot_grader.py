@@ -45,6 +45,7 @@ train_data = data["train"]
 example_score_1 = train_data[train_data["file_id"] == "famous_398_d_1_10.txt"].text.values[0]
 example_score_0 = train_data[train_data["file_id"] == "semifamous_146_d_3_1.txt"].text.values[0]
 example_score_05 = train_data[train_data["file_id"] == "famous_138_d_1_4.txt"].text.values[0]
+# %%
 
 # decrease the prediction table size to 3, at random
 predictions = predictions.sample(n=NUM_SAMPLES)
@@ -74,7 +75,7 @@ predictions.to_csv(PRED_PATH2SAVE)
 # Calculate the overall mse for each model
 results = {
     model_name: compute_metrics((list(predictions[model_name]), list(predictions["human_rate"])), only_mse=False)
-    for model_name in predictions.columns[7:]
+    for model_name in predictions.columns[4:]
 }
 
 # Save the results

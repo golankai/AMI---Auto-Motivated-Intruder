@@ -90,7 +90,7 @@ task.upload_artifact("Predictions df", artifact_object=test_data)
 # Calculate the overall mse for each model
 results = {
     model_name: compute_metrics((test_data[model_name], test_data["human_rate"]))["mse"]
-    for model_name in test_data.columns[7:]
+    for model_name in test_data.columns[4:]
 }
 
 # Save the results
