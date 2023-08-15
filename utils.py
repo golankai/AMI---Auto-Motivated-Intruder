@@ -8,9 +8,9 @@ from typing import List, Dict, Any, Optional, Union, Tuple
 from re import sub, match
 
 
-#from langchain.agents import load_tools
-#from langchain.llms import HuggingFaceHub, Cohere, OpenAI
-#from langchain.chat_models import ChatOpenAI
+from langchain.agents import load_tools
+from langchain.llms import HuggingFaceHub, Cohere, OpenAI
+from langchain.chat_models import ChatOpenAI
 
 
 import torch as th
@@ -204,10 +204,13 @@ def prepare_grader_data(data_splits: Dict[str, pd.DataFrame], device) -> Dataset
     return DatasetDict(datasets)
 
 
-def compute_metrics(eval_pred):
+def compute_metrics(eval_pred, only_mse: bool = True):
     predictions, labels = eval_pred
     mse = mean_squared_error(labels, predictions, squared=False)
-    return {"mse": mse}
+    if only_mse:
+        return {"mse": mse}
+    avg_pred = sum(predictions) / len(predictions)
+    return {"mse": mse, "avg_pred": avg_pred}
 
 def choose_data(data: pd.DataFrame, data_used : str) -> pd.DataFrame:
     '''

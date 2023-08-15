@@ -17,7 +17,8 @@ P3_CONVERSATIONS_BASE_TEMPLATE = """
 """
 
 P3_Q1_TEMPLATE = """
-    Task: Based on the examples, give a score to the anonymized text, 1 is well anonimized and hard to re-identify, 0 is easy to re-identify or a large unique information leakage.
+    Task: Based on the examples, give a score to the anonymized text, 0 is well anonimized and hard to re-identify, 1 is easy to re-identify or a large unique information leakage.
+    Examples:
     TEXT: "{example_score_1}"
     SCORE: 1
 
@@ -28,12 +29,13 @@ P3_Q1_TEMPLATE = """
     SCORE: 0.5
 
     {format_instructions}
-    TEXT: "{user_input}"
-    SCORE:
-"""
+
+    Score the following text:
+    "{user_input}"
+    """
 
 class P3Q1Parser(BaseModel):
-    score: float = Field(description="anonimization score between 0-1, where 1 is the most confident")
+    score: float = Field(description="anonimization score between 0-1, where 1 is very easy to re-identify and 0 is very hard to re-identify")
 
 process_3_data = ProcessData (
     base=PromptTemplate(input_variables=["history", "input"], template=P3_CONVERSATIONS_BASE_TEMPLATE),
