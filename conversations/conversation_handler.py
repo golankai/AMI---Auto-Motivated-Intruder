@@ -26,7 +26,7 @@ class ConversationHandler:
         try:
             return parser.parse(response)
         except:
-            return 'FAILED TO PARSE'
+            return None
 
 
     def end_conversation(self):

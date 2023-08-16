@@ -37,6 +37,11 @@ else:
     de_anonymiser.re_identify_list(study_dir_path=texts_dir, file_names=texts_file_names)
 
 if should_handle_data:
+    error_files = de_anonymiser.get_error_files()
+    if error_files is not None:
+        error_files.to_csv(f"results/{result_csv_path}_error_files.csv", index=False)
+        print("Save error files to csv successfully! file-name: ", f"{result_csv_path}_error_files.csv")
+
     df = de_anonymiser.get_results()
     df.to_csv(f"results/{result_csv_path}.csv", index=False)
     print("Save to csv successfully! file-name: ", f"{result_csv_path}.csv")

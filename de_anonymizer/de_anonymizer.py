@@ -65,6 +65,13 @@ class DeAnonymizer:
         
         for query in self.process_handler:
             response = self.conversation_handler.send_new_message(query, user_input=anon_text)
+            print('response:', response)
+            if response is None:
+                print("Error: response is None for file: ", file_name)
+                if self.should_handle_data:
+                    self.data_handler.add_error_file(file_name)
+                continue
+            
             # update the process handler with the last response. So, it enables the process to decide whether to keep going or not. (based on the last response)
             self.process_handler.set_last_response(response) 
 
@@ -73,8 +80,6 @@ class DeAnonymizer:
             # for key, value in response.items():
             #     conv_responses_object[key] = value
         
-            if not self.should_handle_data:
-                print(response) 
         self.conversation_handler.end_conversation()
 
         if self.should_handle_data:
@@ -93,3 +98,6 @@ class DeAnonymizer:
     
     def get_results(self) -> pd.DataFrame:
         return self.data_handler.get_df() if self.should_handle_data else None
+    
+    def get_error_files(self) -> pd.DataFrame:
+        return self.data_handler.get_error_files() if self.should_handle_data else None
