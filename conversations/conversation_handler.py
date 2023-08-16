@@ -23,7 +23,10 @@ class ConversationHandler:
         prompt = prompt.format(user_input=user_input, format_instructions=query.parser.get_format_instructions())
         parser = query.parser
         response = self.conversation.predict(input=prompt.content)
-        return parser.parse(response)
+        try:
+            return parser.parse(response)
+        except:
+            return None
 
 
     def end_conversation(self):

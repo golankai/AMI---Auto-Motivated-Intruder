@@ -2,12 +2,14 @@ import pandas as pd
 
 class DataHandler:
     def __init__(self) -> None:
-        df = pd.DataFrame()
-        self.df = df
+        self.df = pd.DataFrame()
+        self.error_files= pd.DataFrame()
     
     def get_df(self):
         return self.df
     
+    def get_error_files(self):
+        return self.error_files if self.error_files.shape[0] > 0 else None
     
     def add_flatten_row(self, row, file_name):
         flatten_row = {}
@@ -35,3 +37,8 @@ class DataHandler:
     def add_row(self, row):
         new_row = pd.DataFrame([row])
         self.df = pd.concat([self.df, new_row], ignore_index=True)
+
+
+    def add_error_file(self, file_name):
+        new_row = pd.DataFrame([{"File": file_name}])
+        self.error_files = pd.concat([self.error_files, new_row], ignore_index=True)
