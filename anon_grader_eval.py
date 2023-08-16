@@ -23,8 +23,8 @@ task = Task.init(project_name="AMI", task_name=EXPERIMENT_NAME, reuse_last_task_
 
 # Set up environment
 trained_models_path = f"./anon_grader/trained_models/"
-PRED_PATH = "./anon_grader/results/predictions_" + SUDY_NUMBER + "_" + data_used + ".csv"
-RESULTS_PATH = "./anon_grader/results/results_" + SUDY_NUMBER + "_" + data_used + ".csv"
+PRED_PATH = f"./anon_grader/results/predictions_{SUDY_NUMBER}_{data_used}.csv"
+RESULTS_PATH = f"./anon_grader/results/results_{SUDY_NUMBER}_{data_used}.csv"
 
 DEVICE = "cuda" if th.cuda.is_available() else "cpu"
 
@@ -91,7 +91,7 @@ task.upload_artifact("Predictions df", artifact_object=test_data)
 # Calculate the overall mse for each model
 results = {
     model_name: compute_metrics((test_data[model_name], test_data["human_rate"]))["mse"]
-    for model_name in test_data.columns[4:]
+    for model_name in test_data.columns[5:]
 }
 
 # Save the results

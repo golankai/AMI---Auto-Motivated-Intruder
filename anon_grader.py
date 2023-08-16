@@ -17,9 +17,9 @@ from utils import train_grader_model, prepare_grader_data, read_data_for_grader
 
 # Define constants#
 hyperparams = {
-    "epochs": 20,
-    "data_used": "famous",
-    "layers_trained": "class",
+    "epochs": 5,
+    "data_used": "famous_and_semi",
+    "layers_trained": "class_and_11",
 }
 
 DEBUG = True

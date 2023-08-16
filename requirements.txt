@@ -11,12 +11,12 @@ transformers
 tensorboard
 
 # LangChain
-langchain
-langchain_experimental
+#langchain
+#langchain_experimental
 
 # Models
 openai
-llamaapi
+#llamaapi
 
 # Others
 google-api-python-client
