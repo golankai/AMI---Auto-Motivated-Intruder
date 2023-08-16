@@ -241,31 +241,51 @@ def get_layer_pattern(layers_trained: str) -> str:
     else:
         raise Exception("Invalid layers trained.")
 
-def read_data_for_grader(study_nr: int, data_used: str, seed: int) -> Dict[str, pd.DataFrame]:
+def read_data_for_grader(data_used: str, seed: int) -> Dict[str, pd.DataFrame]:
     '''
     Read the data for the anon grader.
-    :param study_nr: the study number.
     :param data_used: the type of data to use. "famous", "famous_and_semi" or "all".
     :param seed: the seed for the random state.
     :return: the data for the anon grader.
     '''
-    data_dir = f"textwash_data/study{study_nr}/intruder_test/full_data_study.csv"
+    # Read data from study 1
+    data_dir1 = f"textwash_data/study1/intruder_test/full_data_study.csv"
 
-    # Read the data
     columns_to_read = ["type", "text", "file_id", "name", "got_name_truth_q2"]
-    raw_data = pd.read_csv(data_dir, usecols=columns_to_read)
+    raw_data1 = pd.read_csv(data_dir1, usecols=columns_to_read)
 
     # Aggregate by file_id and calculate the rate of re-identification
-    data = (
-        raw_data.groupby(["type", "file_id", "name", "text"])
+    data1 = (
+        raw_data1.groupby(["type", "file_id", "name", "text"])
         .agg({"got_name_truth_q2": "mean"})
         .reset_index()
     )
-    data.rename(columns={"got_name_truth_q2": "human_rate"}, inplace=True)
+    data1.rename(columns={"got_name_truth_q2": "human_rate"}, inplace=True)
 
     # Define population to use
-    data = choose_data(data, data_used)
+    data1 = choose_data(data1, data_used)
 
+    # Read data from study 2
+    data_dir2 = f"textwash_data/study2/intruder_test/full_data_study.csv"
+
+    columns_to_read = ["text", "file_id", "person_long", "got_name_truth_q2_long"]
+    raw_data2 = pd.read_csv(data_dir2, usecols=columns_to_read)
+
+    # Aggregate by file_id and calculate the rate of re-identification
+    data2 = (
+        raw_data2.groupby(["file_id", "person_long", "text"])
+        .agg({"got_name_truth_q2_long": "mean"})
+        .reset_index()
+    )
+    data2.rename(columns={"got_name_truth_q2_long": "human_rate", "person_long": "name"}, inplace=True)
+
+    # Add a type column
+    data2["type"] = ["famous"] * len(data2)
+
+    # Combine the data from the two studies
+    data = pd.concat([data1, data2])
+
+    
     # Split the data into training and remaining data
     train_data, val_data = train_test_split(data, test_size=0.2, random_state=seed)
 

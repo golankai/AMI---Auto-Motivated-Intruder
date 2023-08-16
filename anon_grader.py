@@ -18,12 +18,12 @@ from utils import train_grader_model, prepare_grader_data, read_data_for_grader
 # Define constants#
 hyperparams = {
     "epochs": 20,
-    "data_used": "famous_and_semi",
+    "data_used": "famous",
     "layers_trained": "class",
 }
 
 DEBUG = True
-SUDY_NUMBER = 1
+SUDY_NUMBER = 12
 
 EXPERIMENT_NAME = f'study_{SUDY_NUMBER}_{hyperparams["data_used"]}_{hyperparams["layers_trained"]}_epochs_{hyperparams["epochs"]}'
 
@@ -32,7 +32,6 @@ task = Task.init(project_name="AMI", task_name=EXPERIMENT_NAME, reuse_last_task_
 task.connect(hyperparams)
 
 trained_model_path = f"./anon_grader/trained_models/{EXPERIMENT_NAME}.pt"
-data_dir = f"textwash_data/study{SUDY_NUMBER}/intruder_test/full_data_study.csv"
 results_dir = "./anon_grader/logs"
 
 DEVICE = "cuda" if th.cuda.is_available() else "cpu"
@@ -65,7 +64,7 @@ training_args = TrainingArguments(
 
 
 # Read the data
-data = read_data_for_grader(SUDY_NUMBER, hyperparams["data_used"], SEED)
+data = read_data_for_grader(hyperparams["data_used"], SEED)
 
 datasets = prepare_grader_data({
         "train": data["train"],
