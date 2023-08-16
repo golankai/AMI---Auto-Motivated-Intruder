@@ -1,0 +1,21 @@
+File,Raw_response
+adele_43.txt,"{
+  ""properties"": {
+    ""place_holder"": {
+      ""title"": ""Place Holder"",
+      ""description"": ""The main persona in the text"",
+      ""type"": ""string""
+    }
+  },
+  ""required"": [""place_holder""]
+}"
+adele_57.txt,"{
+  ""properties"": {
+    ""place_holder"": {
+      ""title"": ""Place Holder"",
+      ""description"": ""The main persona in the text"",
+      ""type"": ""string""
+    }
+  },
+  ""required"": [""place_holder""]
+}"

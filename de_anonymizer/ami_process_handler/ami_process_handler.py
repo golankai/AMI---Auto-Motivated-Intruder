@@ -1,7 +1,7 @@
-from .process_data.processes.process_1 import process_1_data
-from .process_data.processes.process_2 import process_2_data
-from .process_data.processes.process_3_complete_query import process_3_data
-from .process_data.processes.process_4 import process_4_data
+from .process_data.processes.p1_direct import process_1_data
+from .process_data.processes.p2_guess3 import process_2_data
+from .process_data.processes.p3_complete_sent import process_3_data
+from .process_data.processes.p4_LoMP import process_4_data
 
 class AMI_process_handler():
     def __init__(self, process_id) -> None:            
