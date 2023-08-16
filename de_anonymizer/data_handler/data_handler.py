@@ -39,6 +39,6 @@ class DataHandler:
         self.df = pd.concat([self.df, new_row], ignore_index=True)
 
 
-    def add_error_file(self, file_name):
-        new_row = pd.DataFrame([{"File": file_name}])
+    def add_error_file(self, file_name, raw_response):
+        new_row = pd.DataFrame([{"File": file_name, "Raw_response": raw_response}])
         self.error_files = pd.concat([self.error_files, new_row], ignore_index=True)

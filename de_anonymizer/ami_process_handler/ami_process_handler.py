@@ -1,6 +1,7 @@
 from .process_data.processes.process_1 import process_1_data
 from .process_data.processes.process_2 import process_2_data
 from .process_data.processes.process_3_complete_query import process_3_data
+from .process_data.processes.process_4 import process_4_data
 
 class AMI_process_handler():
     def __init__(self, process_id) -> None:            
@@ -13,6 +14,8 @@ class AMI_process_handler():
                     return process_2_data
                 case 3:
                     return process_3_data
+                case 4:
+                    return process_4_data
                 case _:
                     raise ValueError("you must match your process data with the id.")
                 
@@ -24,7 +27,8 @@ class AMI_process_handler():
 
     def new_process(self):
         self.query_number = 0
-        
+        self.conv_responses = {}
+    
 
     def get_base_template(self): 
         return self.process_data.get_base_template()
@@ -39,7 +43,6 @@ class AMI_process_handler():
 
     def set_last_response(self, last_response):
         self.conv_responses.update(last_response.dict())
-
 
     def __next__(self):
         if  self.query_number >= self.num_queries:
