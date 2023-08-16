@@ -1,0 +1,11 @@
+File,Raw_response
+adele_147.txt,"{
+    ""properties"": {
+        ""place_holder"": {
+            ""title"": ""Place Holder"",
+            ""description"": ""The main persona placeholder name in the text"",
+            ""type"": ""string""
+        }
+    },
+    ""required"": [""place_holder""]
+}"

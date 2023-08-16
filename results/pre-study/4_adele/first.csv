@@ -1,0 +1,33 @@
+place_holder,characteristics_1,characteristics_2,characteristics_3,gender,min_age,max_age,nation,name
+PERSON_FIRSTNAME_1,incredible voice,moving balads,recently divorced,unknown,unknown,unknown,unknown,Adele
+PERSON_FIRSTNAME_1,singer,songwriter,philanthropist,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1 PERSON_LASTNAME_1
+PERSON_FIRSTNAME_1,songwriter,singer,worldwide famous,unknown,unknown,unknown,unknown,Adele
+PERSON_FIRSTNAME_1,singer,songwriter,award-winning,unknown,unknown,unknown,unknown,Taylor Swift
+PERSON_FIRSTNAME_3,successful,singer/songwriter,undergone amazing transformation,unknown,30,40,unknown,PERSON_FIRSTNAME_3 PERSON_LASTNAME_3
+PERSON_FIRSTNAME_1,singer,commercial success,amazing voice,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1
+,,,,,,,,
+PERSON_FIRSTNAME_1,singer,songwriter,married,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1
+PERSON_FIRSTNAME_1,English singer song writer,Sold over 6 million records,Known for powerful voice and impressive ballads,unknown,unknown,unknown,unknown,Adele
+PERSON_LASTNAME_1,powerful voice,impressive ballads,stage fright,unknown,unknown,unknown,unknown,PERSON_LASTNAME_1
+PERSON_FIRSTNAME_2,british singer,songwriter,supportive of LGBT community,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_2
+PERSON_FIRSTNAME_1,LOCATION_2,OTHER_IDENTIFYING_ATTRIBUTE_1,PERSON_LASTNAME_1,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1
+PERSON_FIRSTNAME_1,musician,famous,married,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1
+PERSON_FIRSTNAME_2,singer,pop music,awards,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_2
+PERSON_FIRSTNAME_2,LOCATION_1,OTHER_IDENTIFYING_ATTRIBUTE_3,OTHER_IDENTIFYING_ATTRIBUTE_2,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_2
+PERSON_FIRSTNAME_3,singer,songwriter,divorced,unknown,40,50,unknown,PERSON_FIRSTNAME_3
+PERSON_FIRSTNAME_1,female singer,international success,best selling album,female,unknown,unknown,unknown,Adele
+PERSON_FIRSTNAME_1,award winning,international fame,best-selling,unknown,unknown,unknown,unknown,Taylor Swift
+PERSON_FIRSTNAME_1,singer,supporter of ORGANIZATION_1,performed at high profile events,unknown,unknown,unknown,unknown,Adele
+PERSON_FIRSTNAME_4,british singer/songwriter,best selling artist,Grammy award winner,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_4
+PERSON_FIRSTNAME_1,LOCATION_1,OTHER_IDENTIFYING_ATTRIBUTE_1,NUMERIC_3,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1
+PERSON_FIRSTNAME_1,NUMERIC_1,DATE_1,NUMERIC_2 million,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1 PERSON_LASTNAME_1
+PERSON_FIRSTNAME_1,LOCATION_1,LOCATION_2,ORGANIZATION_3,unknown,30,40,unknown,PERSON_FIRSTNAME_1
+PERSON_FIRSTNAME_1,singer,pop and power ballads genre,bubbly and funny personality,unknown,30,40,unknown,Adele
+PERSON_FIRSTNAME_1,singer/songwriter,world's best selling music artist,officiated and planned marriages,unknown,unknown,unknown,unknown,Taylor Swift
+PERSON_FIRSTNAME_2,female,single,dramatic weight loss,female,30,40,unknown,Taylor Swift
+PERSON_FIRSTNAME_1,singer,songwriter,richest musician,unknown,unknown,unknown,unknown,Ed Sheeran
+PERSON_FIRSTNAME_1,talented,voice from heaven,awarded an OTHER_IDENTIFYING_ATTRIBUTE_2,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1
+PERSON_FIRSTNAME_2,singer,ginger hair,recently gained publicity,unknown,25,35,unknown,PERSON_FIRSTNAME_2
+PERSON_LASTNAME_1,beautiful,worlds best selling artist,lost over 6 stone,unknown,unknown,unknown,unknown,Celine Dion
+PERSON_FIRSTNAME_1,down to earth,genuine,achieved amazing amount,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1
+PERSON_FIRSTNAME_3,singer,songwriter,charity work,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_3
