@@ -69,10 +69,12 @@ class DeAnonymizer:
             # We may update the user input to List if we want to support more than one input.
             user_input = anon_text if index == 0 else ""
             response = self.conversation_handler.send_new_message(query, user_input=user_input)
+            print(f'Response: {response.get("data")}')
             if response.get('status') == ResponseStatus.ERROR:
                 print("Error: response for file: ", file_name)
                 if self.should_handle_data:
                     self.data_handler.add_error_file(file_name, response.get('data'))
+                    self.conversation_handler.end_conversation()
                 break
 
             # update the process handler with the last response. So, it enables the process to decide whether to keep going or not. (based on the last response)

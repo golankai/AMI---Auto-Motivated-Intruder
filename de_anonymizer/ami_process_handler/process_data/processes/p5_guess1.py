@@ -28,25 +28,13 @@ P5_Q1_TEMPLATE = """
     anonymized text: "{user_input}"
 """
 
-P5_Q23_TEMPLATE = """
-    Are you sure ? you can change your answer if you want to.
-    
-    {format_instructions}
-    {user_input}
-"""
-
-class P5Q123Parser(BaseModel):
-    name: str = Field(description="Name of the person or FAIL")
-    score: float = Field(description="Assign a score from 0 to 1 to evaluate the re-identifiabilization, 0 is very easy to re-identify and 1 is impossible")
-    characteristics: List[str] = Field(description="A list of 3 unique and identifying characteristics names of the person, short answers")
-
-
+class P5Q1Parser(BaseModel):
+    name: str = Field(description="Name of the person or UNKNOWN")
+    score: float = Field(description="Assign confidence score from 0 to 1 for your name re-identification correctness, where 1 is the most confident")
 
 process_5_data = ProcessData(
     base=PromptTemplate(input_variables=["history", "input"], template=P5_CONVERSATIONS_BASE_TEMPLATE),
     queries=[
-        QueryData(P5_Q1_TEMPLATE, PydanticOutputParser(pydantic_object=P5Q123Parser)),
-        QueryData(P5_Q23_TEMPLATE, PydanticOutputParser(pydantic_object=P5Q123Parser)),
-        QueryData(P5_Q23_TEMPLATE, PydanticOutputParser(pydantic_object=P5Q123Parser))
+        QueryData(P5_Q1_TEMPLATE, PydanticOutputParser(pydantic_object=P5Q1Parser)),
     ],
 )
