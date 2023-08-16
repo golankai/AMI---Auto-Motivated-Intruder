@@ -1,10 +1,9 @@
 from .process_data.processes.process_1 import process_1_data
 from .process_data.processes.process_2 import process_2_data
+from .process_data.processes.process_3_complete_query import process_3_data
 
 class AMI_process_handler():
-    def __init__(self, process_id) -> None:
-        if process_id not in [1, 2]:
-            raise ValueError("process must be 1 or 2")
+    def __init__(self, process_id) -> None:            
         self.process_id = process_id
         def get_process_data(process_id):
             match process_id:
@@ -12,8 +11,10 @@ class AMI_process_handler():
                     return process_1_data
                 case 2:
                     return process_2_data
+                case 3:
+                    return process_3_data
                 case _:
-                    return None
+                    raise ValueError("you must match your process data with the id.")
                 
         self.process_data = get_process_data(self.process_id)
         self.num_queries = len(self.process_data.queries)
