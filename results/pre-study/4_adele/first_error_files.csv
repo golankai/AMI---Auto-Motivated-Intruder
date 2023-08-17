@@ -1,10 +1,11 @@
 File,Raw_response
-adele_157.txt,Name 1: UNKNOWN
-adele_178.txt,"Based on the provided anonymized text, the person is UNKNOWN."
-adele_197.txt,"I'm sorry, but I don't have any knowledge about the specific person mentioned in the anonymized text. Therefore, I cannot re-identify them."
-adele_209.txt,"Based on the information provided, the person is unknown."
-adele_216.txt,"{""properties"": {""name_1"": {""title"": ""Name 1"", ""description"": ""The name of the person based on your knowledge or UNKNOWN if you don't have any idea"", ""type"": ""string""}}, ""required"": [""name_1""]}"
-adele_357.txt,Name 1: UNKNOWN
-adele_366.txt,Name 1: UNKNOWN
-adele_547.txt,"Based on the anonymized text provided, the person mentioned could potentially be a famous artist. However, without any specific information about their name, it is not possible to accurately re-identify this person. Therefore, the name of the person based on my knowledge is UNKNOWN."
-adele_558.txt,"{""properties"": {""name_1"": {""title"": ""Name 1"", ""description"": ""The name of the person based on your knowledge or UNKNOWN if you don't have any idea"", ""type"": ""string""}}, ""required"": [""name_1""]}"
+adele_147.txt,"{
+    ""properties"": {
+        ""place_holder"": {
+            ""title"": ""Place Holder"",
+            ""description"": ""The main persona placeholder name in the text"",
+            ""type"": ""string""
+        }
+    },
+    ""required"": [""place_holder""]
+}"

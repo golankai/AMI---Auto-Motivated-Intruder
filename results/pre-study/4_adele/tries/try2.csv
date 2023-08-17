@@ -1,4 +1,6 @@
-name_1,name_2
-Adele,Whitney Houston
-Taylor Swift,Adele
-Adele,Taylor Swift
+place_holder,characteristics_1,characteristics_2,characteristics_3,nation,names
+,,,,,
+PERSON_FIRSTNAME_1,singer,songwriter,ORDINATION_TITLE,LOCATION_2,PERSON_FIRSTNAME_1 PERSON_LASTNAME_1
+,,,,,
+PERSON_FIRSTNAME_1,singer,songwriter,record-breaking,LOCATION_1,PERSON_FIRSTNAME_1
+PERSON_FIRSTNAME_3,extremely successful,numerous awards,amazing transformation,United States,PERSON_FIRSTNAME_3 PERSON_LASTNAME_3
