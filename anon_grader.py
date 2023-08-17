@@ -19,7 +19,7 @@ from utils import train_grader_model, prepare_grader_data, read_data_for_grader
 hyperparams = {
     "epochs": 5,
     "data_used": "famous",
-    "layers_trained": "class_and_11",
+    "layers_trained": "class",
 }
 
 SUDY_NUMBER = 1

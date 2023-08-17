@@ -54,7 +54,7 @@ test_dataloader = DataLoader(
 
 models_names = os.listdir(trained_models_path)
 # take only models trained on the study and data used
-models_names = [model_name for model_name in models_names if f"study_{SUDY_NUMBER}" in model_name and data_used in model_name]
+models_names = [model_name for model_name in models_names if f"study_{SUDY_NUMBER}_" in model_name and f"{data_used}_c" in model_name]
 
 # Predict with all models
 for model_name in models_names:
