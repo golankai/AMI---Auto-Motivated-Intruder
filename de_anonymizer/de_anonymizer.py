@@ -22,6 +22,7 @@ class DeAnonymizer:
         verbose: bool = False,
         process_id: int = 1,
         should_handle_data: bool = False,
+        temperature: float = 0.5,
         **kwargs,
     ):
         """
@@ -33,19 +34,21 @@ class DeAnonymizer:
         :param verbose: Whether to use verbose mode or not.
         :param process_id: The process id to use.
         :param should_handle_data: Whether to handle data OR just print the conversation.
+        :param temperature: The temperature to use.
+        :param kwargs: Additional arguments.
+        return: A new instance of a de-anonymiser.
         """
         self.process_handler = AMI_process_handler(process_id)
 
         # Accesses and keys
         langchain.debug = debug
         langchain.verbose = verbose
-        llm_name = llm_name
         keys = get_local_keys()
         os.environ["HUGGINGFACEHUB_API_TOKEN"] = keys["huggingface_hub_token"]
         os.environ["OPENAI_API_KEY"] = keys["openai_api_key"]
 
         # Define the LLM and the conversation handler
-        llm = load_model(llm_name)
+        llm = load_model(temperature)
         self.conversation_handler = ConversationHandler(llm)
         
         self.should_handle_data = should_handle_data

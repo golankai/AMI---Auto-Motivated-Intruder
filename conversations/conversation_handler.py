@@ -27,17 +27,7 @@ class ConversationHandler:
     def send_new_message(self, query: QueryData, user_input: str="", **kwargs):
         prompt = query.get_prompt()
         
-        if len(kwargs) == 0:
-            # Process 1, 2
-            prompt = prompt.format(user_input=user_input, format_instructions=query.parser.get_format_instructions())
-        else: 
-            # Process 3
-            prompt = prompt.format(
-                user_input=user_input,
-                example_score_1=kwargs["example_score_1"],
-                example_score_0=kwargs["example_score_0"],
-                example_score_05=kwargs["example_score_05"],
-                format_instructions=query.parser.get_format_instructions())
+        prompt = prompt.format(user_input=user_input, format_instructions=query.parser.get_format_instructions())
         parser = query.parser
         response = self.conversation.predict(input=prompt.content)
         try:

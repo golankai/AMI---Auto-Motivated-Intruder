@@ -17,7 +17,7 @@ P11_CONVERSATIONS_BASE_TEMPLATE = """
 """
 
 P11_Q1_TEMPLATE = """
-    Read the following anonimized text about a person provide a score between 0 and 1 to the re-identidiability.
+    Task: please rate the anonymization strength of the following anonymized text. Good anonimization reveals few unique information about the person.
     0 is well anonymized and hard to re-identify and 1 is not anonymized at all and can be easily re-identify.
     {format_instructions}
     anonymized text: "{user_input}"

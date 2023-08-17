@@ -1,3 +1,4 @@
+# %%
 import os
 import logging
 import pandas as pd
@@ -5,17 +6,17 @@ import numpy as np
 
 import torch as th
 
-from clearml import Task
 
 from de_anonymizer.de_anonymizer import DeAnonymizer
-from utils import read_data_for_grader, compute_metrics, get_process_id
+from utils import compute_metrics, get_exp_name
 
+# Processes to run
+process_ids = [121]
 # Define constants
+TEMPERATURE = 0.5
 SUDY_NUMBER = 1
-NUM_SAMPLES = 7
+NUM_SAMPLES = 5
 DATA_USED = "famous"
-EXPERIMENT_NAME = "zero_shot"
-process_id = get_process_id(EXPERIMENT_NAME)
 should_handle_data = True 
 
 # Set up environment
@@ -59,26 +60,40 @@ predictions = predictions.sample(n=NUM_SAMPLES, random_state=SEED)
 
 
 # ChatGPT interaction
-
-# Define the de-anonymizer
-de_anonymiser = DeAnonymizer(
-    llm_name="chat-gpt", process_id=process_id, should_handle_data=should_handle_data
-)
-
 # Get the score for each text
-def _get_score_for_row(anon_text):
+def _get_score_for_row(anon_text, de_anonymiser):
     de_anonymiser.re_identify(anon_text=anon_text)
 
-predictions["text"].apply(_get_score_for_row)
-predictions[EXPERIMENT_NAME] = list(de_anonymiser.get_results()["score"])
+# Run all the processes
+for process_id in process_ids:
+    EXPERIMENT_NAME = get_exp_name(process_id)
+    print(f"Running experiment: {EXPERIMENT_NAME}")
+    
+    # Define the de-anonymizer
+    de_anonymiser = DeAnonymizer(
+        llm_name="chat-gpt", process_id=process_id, should_handle_data=should_handle_data, temperature=TEMPERATURE
+    )
+
+    # Get the score for each text
+    predictions["text"].apply(_get_score_for_row, args=(de_anonymiser,))
+    process_results = de_anonymiser.get_results()
+    if "score" in process_results.columns:
+        predictions[EXPERIMENT_NAME] = list(process_results["score"])
 
 # Save the predictions
 predictions.to_csv(PRED_PATH2SAVE)
 
 # Calculate the rmse for this experiment
-results[EXPERIMENT_NAME] = compute_metrics((list(predictions[EXPERIMENT_NAME]), list(predictions["human_rate"])), only_mse=False)
+preds_we_none = predictions.dropna(subset=predictions.columns[5:])
+
+results.update({
+    experiment: compute_metrics((list(preds_we_none[experiment]), list(preds_we_none["human_rate"])), only_mse=False)
+    for experiment in preds_we_none.columns[5:]
+})
 
 # Save the results
 results_df = pd.DataFrame.from_dict(results, orient="columns").T
 results_df.to_csv(RESULTS_PATH2SAVE)
 
+
+# %%

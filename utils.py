@@ -51,25 +51,13 @@ def read_data(dir: str):
     return df
 
 
-def load_model(llm_name: str):
+def load_model(temperature: float = 0.5):
     """
     Load the LLM model.
+    :param temperature: the temperature to use for the LLM model
+    :return: the LLM model
     """
-    # match llm_name:
-    #     case "chat-gpt":
-    #         return ChatOpenAI(model="gpt-3.5-turbo", temperature=0.5, max_tokens=512)
-    #     case "flan-t5":
-    #         repo_id = "declare-lab/flan-alpaca-large"
-    #     case "llama2":
-    #         repo_id = "meta-llama/Llama-2-70b-chat-hf"
-    #     case _:
-    #         # raise an exception
-    #         raise ValueError("llm name is not valid")
-
-    # llm = HuggingFaceHub(
-    #     repo_id=repo_id, model_kwargs={"temperature": 0.1, "max_length": 512}
-    # )
-    return ChatOpenAI(model="gpt-3.5-turbo", temperature=0.5, max_tokens=512)
+    return ChatOpenAI(model="gpt-3.5-turbo", temperature=temperature, max_tokens=512)
 
 
 def load_google_search_tool():
@@ -317,16 +305,20 @@ def read_data_for_grader(study_nr: int, data_used: str, seed: int, keep_more_tha
 
     return {"train": train_data, "val": val_data, "test": test_data}
 
-def get_process_id(exp_name: str) -> int:
+
+        
+def get_exp_name(process_id: int) -> str:
     '''
-    Get the process id for the anon grader.
-    :param exp_name: the name of the experiment.
-    :return: the process id.
+    Get the experiment name for the anon grader.
+    :param process_id: the process id.
+    :return: the experiment name.
     '''
-    match exp_name:
-        case "zero_shot":
-            return 11
-        case "few_shot":
-            return 12
+    match process_id:
+        case 11:
+            return "zero_shot"
+        case 121:
+            return "one_shot_1"
+        case 120:
+            return "one_shot_0"
         case _:
-            raise Exception("Invalid experiment name.")
+            raise Exception("Invalid process id.")
