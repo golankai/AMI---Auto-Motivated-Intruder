@@ -1,0 +1,6 @@
+place_holder,characteristics_1,characteristics_2,characteristics_3,gender,min_age,max_age,nation,names
+,,,,,,,,
+PERSON_FIRSTNAME_1,singer,songwriter,philanthropist,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1 PERSON_LASTNAME_1
+PERSON_FIRSTNAME_1,songwriter,singer,married,unknown,30,35,unknown,Adele
+PERSON_FIRSTNAME_1,singer,songwriter,award-winning,unknown,unknown,unknown,unknown,Taylor Swift
+PERSON_FIRSTNAME_3,successful,singer/songwriter,weight loss,unknown,25,35,unknown,Taylor Swift

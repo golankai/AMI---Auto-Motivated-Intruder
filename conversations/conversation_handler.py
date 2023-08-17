@@ -1,9 +1,15 @@
+from dataclasses import dataclass
 from langchain.prompts import PromptTemplate
 from langchain.chains import ConversationChain
 from langchain.memory import ConversationBufferMemory
 
 from de_anonymizer.ami_process_handler.process_data.process_data import QueryData
 
+from enum import Enum
+
+class ResponseStatus(Enum):
+    SUCCESS = 0
+    ERROR = 1
 
 class ConversationHandler:
     def __init__(self, llm_chat_model) -> None:
@@ -34,7 +40,10 @@ class ConversationHandler:
                 format_instructions=query.parser.get_format_instructions())
         parser = query.parser
         response = self.conversation.predict(input=prompt.content)
-        return parser.parse(response)
+        try:
+            return {'status': ResponseStatus.SUCCESS, 'data': parser.parse(response)}
+        except:
+            return {'status': ResponseStatus.ERROR, 'data': response}
 
 
     def end_conversation(self):

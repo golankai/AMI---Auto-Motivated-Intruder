@@ -1,11 +1,11 @@
-from .process_data.processes.process_1 import process_1_data
-from .process_data.processes.process_2 import process_2_data
-from .process_data.processes.process_3 import process_3_data
+from .process_data.processes.p1_direct import process_1_data
+from .process_data.processes.p2_guess3 import process_2_data
+from .process_data.processes.p3_complete_sent import process_3_data
+from .process_data.processes.p4_LoMP import process_4_data
+from .process_data.processes.p5_guess1 import process_5_data
 
 class AMI_process_handler():
-    def __init__(self, process_id) -> None:
-        if process_id not in [1, 2, 3]:
-            raise ValueError("process must be 1, 2 or 3")
+    def __init__(self, process_id) -> None:            
         self.process_id = process_id
         def get_process_data(process_id):
             match process_id:
@@ -15,8 +15,12 @@ class AMI_process_handler():
                     return process_2_data
                 case 3:
                     return process_3_data
+                case 4:
+                    return process_4_data
+                case 5:
+                    return process_5_data
                 case _:
-                    return None
+                    raise ValueError("you must match your process data with the id.")
                 
         self.process_data = get_process_data(self.process_id)
         self.num_queries = len(self.process_data.queries)
@@ -26,7 +30,8 @@ class AMI_process_handler():
 
     def new_process(self):
         self.query_number = 0
-        
+        self.conv_responses = {}
+    
 
     def get_base_template(self): 
         return self.process_data.get_base_template()
@@ -41,7 +46,6 @@ class AMI_process_handler():
 
     def set_last_response(self, last_response):
         self.conv_responses.update(last_response.dict())
-
 
     def __next__(self):
         if  self.query_number >= self.num_queries:
