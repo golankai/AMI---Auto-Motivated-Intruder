@@ -4,6 +4,10 @@ from .process_data.processes.p3_complete_sent import process_3_data
 from .process_data.processes.p4_LoMP import process_4_data
 from .process_data.processes.p5_guess1 import process_5_data
 
+# Grader imports
+from .process_data.processes.p11_zero_shot_grader import process_11_data
+
+
 class AMI_process_handler():
     def __init__(self, process_id) -> None:            
         self.process_id = process_id
@@ -19,6 +23,8 @@ class AMI_process_handler():
                     return process_4_data
                 case 5:
                     return process_5_data
+                case 11:
+                    return process_11_data
                 case _:
                     raise ValueError("you must match your process data with the id.")
                 

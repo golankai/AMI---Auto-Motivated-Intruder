@@ -77,11 +77,13 @@ predictions[EXPERIMENT_NAME] = list(de_anonymiser.get_results()["score"])
 
 # %%
 # Save the predictions
-predictions.to_csv(PRED_PATH2SAVE)
+# predictions.to_csv(PRED_PATH2SAVE)
 
 # Calculate the mse for this experiment
-results[EXPERIMENT_NAME] = compute_metrics((list(predictions["few_shot"]), list(predictions["human_rate"])), only_mse=False)
+results[EXPERIMENT_NAME] = compute_metrics((list(predictions[EXPERIMENT_NAME]), list(predictions["human_rate"])), only_mse=False)
 
 # Save the results
-results_df = pd.DataFrame.from_dict(results, orient="index", columns=["mse", "avd_pred"])
-results_df.to_csv(RESULTS_PATH2SAVE)
+results_df = pd.DataFrame.from_dict(results, orient="columns")
+# results_df.to_csv(RESULTS_PATH2SAVE)
+
+# %%
