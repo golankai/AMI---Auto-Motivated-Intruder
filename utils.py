@@ -295,26 +295,16 @@ def read_data_for_grader(study_nr: int, data_used: str, seed: int, keep_more_tha
         data["type"] = ["famous"] * len(data)
         return data
 
-    # match study_nr:
-    #     case 1:
-    #         data = _read_study_1()
-    #     case 2:
-    #         data = _read_study_2()
-    #     case 12:
-    #         data1 = _read_study_1()
-    #         data2 = _read_study_2()
-    #         # Combine the data from the two studies
-    #         data = pd.concat([data1, data2])
-
-    if study_nr == 1:
-        data = _read_study_1()
-    elif study_nr == 2:
-        data = _read_study_2()
-    else:
-        data1 = _read_study_1()
-        data2 = _read_study_2()
-        # Combine the data from the two studies
-        data = pd.concat([data1, data2])
+    match study_nr:
+        case 1:
+            data = _read_study_1()
+        case 2:
+            data = _read_study_2()
+        case 12:
+            data1 = _read_study_1()
+            data2 = _read_study_2()
+            # Combine the data from the two studies
+            data = pd.concat([data1, data2])
 
     
     # Split the data into training and remaining data

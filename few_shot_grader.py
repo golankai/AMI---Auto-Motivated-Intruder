@@ -1,4 +1,3 @@
-# %%
 import logging
 import pandas as pd
 import numpy as np
@@ -9,12 +8,14 @@ from clearml import Task
 
 from de_anonymizer.de_anonymizer import DeAnonymizer
 from utils import read_data_for_grader, compute_metrics
-# %%
+
 # Define constants
-SUDY_NUMBER = 12
+SUDY_NUMBER = 1
 NUM_SAMPLES = 5
-DATA_USED = "famous_and_semi"
-EXPERIMENT_NAME = f'few_shot_study_{SUDY_NUMBER}_{DATA_USED}'
+DATA_USED = "famous"
+process_id = 3
+should_handle_data = True 
+# EXPERIMENT_NAME = f'few_shot_study_{SUDY_NUMBER}_{DATA_USED}'
 
 # task = Task.init(project_name="AMI", task_name=EXPERIMENT_NAME, reuse_last_task_id=False, task_type=Task.TaskTypes.testing)
 # Set up environment
@@ -35,20 +36,23 @@ th.manual_seed(SEED)
 # Read the results of the models
 predictions = pd.read_csv(PRED_PATH, index_col=0)
 
-
 # Read the data
-data = read_data_for_grader(DATA_USED, SEED)
+data = read_data_for_grader(SUDY_NUMBER, DATA_USED, SEED)
 
 train_data = data["train"]
 
-# Choose text to use for the few shot
-example_score_1 = train_data[train_data["file_id"] == "famous_398_d_1_10.txt"].text.values[0]
-example_score_0 = train_data[train_data["file_id"] == "semifamous_146_d_3_1.txt"].text.values[0]
-example_score_05 = train_data[train_data["file_id"] == "famous_138_d_1_4.txt"].text.values[0]
-# %%
 
-# decrease the prediction table size to 3, at random
-predictions = predictions.sample(n=NUM_SAMPLES)
+# Choose text to use for the few shot
+def _sample_for_few_shot(df, human_rate):
+    return df[df["human_rate"] == human_rate].sample(n=1, random_state=SEED)["text"].values[0]
+example_score_1 = _sample_for_few_shot(train_data, 1)
+example_score_05 = _sample_for_few_shot(train_data, 0.5)
+example_score_0 = _sample_for_few_shot(train_data, 0)
+
+
+
+# decrease the predictions to NUM_SAMPLES
+predictions = predictions.sample(n=NUM_SAMPLES, random_state=SEED)
 
 # Calculate the scores for each model
 results = {
@@ -58,16 +62,12 @@ results = {
 
 # Keep the best model, based on the mse
 best_model = min(results, key=lambda x: results[x]["mse"])
-results = {"best_RoBERTa": results[best_model]}
+results = {"RoBERTa": results[best_model]}
 
 # Keep the predictions of the best model only
-
-predictions = predictions[["type", "file_id", "name", "text", "human_rate", best_model]].rename(columns={best_model: "best_RoBERTa"}, inplace=True)
-# %%
+predictions = predictions[["type", "file_id", "name", "text", "human_rate", best_model]].rename(columns={best_model: "RoBERTa"}, inplace=True)
 
 # ChatGPT interaction
-process_id = 3
-should_handle_data = True 
 
 # Define the de-anonymizer
 de_anonymiser = DeAnonymizer(
@@ -77,7 +77,6 @@ de_anonymiser = DeAnonymizer(
 # Get the score for each text
 def get_score_for_row(anon_text):
     de_anonymiser.re_identify(anon_text=anon_text, example_score_0=example_score_0, example_score_1=example_score_1, example_score_05=example_score_05)
-# %%
 
 predictions["text"].apply(get_score_for_row)
 predictions["few_shot"] = list(de_anonymiser.get_results()["score"])
