@@ -18,12 +18,11 @@ from utils import train_grader_model, prepare_grader_data, read_data_for_grader
 # Define constants#
 hyperparams = {
     "epochs": 5,
-    "data_used": "famous_and_semi",
+    "data_used": "famous",
     "layers_trained": "class_and_11",
 }
 
-DEBUG = True
-SUDY_NUMBER = 12
+SUDY_NUMBER = 1
 
 EXPERIMENT_NAME = f'study_{SUDY_NUMBER}_{hyperparams["data_used"]}_{hyperparams["layers_trained"]}_epochs_{hyperparams["epochs"]}'
 
@@ -64,7 +63,7 @@ training_args = TrainingArguments(
 
 
 # Read the data
-data = read_data_for_grader(hyperparams["data_used"], SEED)
+data = read_data_for_grader(SUDY_NUMBER, hyperparams["data_used"], SEED)
 
 datasets = prepare_grader_data({
         "train": data["train"],

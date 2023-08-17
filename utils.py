@@ -241,49 +241,80 @@ def get_layer_pattern(layers_trained: str) -> str:
     else:
         raise Exception("Invalid layers trained.")
 
-def read_data_for_grader(data_used: str, seed: int) -> Dict[str, pd.DataFrame]:
+def read_data_for_grader(study_nr: int, data_used: str, seed: int, keep_more_than: int = 0) -> Dict[str, pd.DataFrame]:
     '''
     Read the data for the anon grader.
+    :param study_nr: the study number to use. 1, 2 or 12.
     :param data_used: the type of data to use. "famous", "famous_and_semi" or "all".
     :param seed: the seed for the random state.
+    :param keep_more_than: the number of times a file_id should appear in the data. In study 2 most is less than 4.
     :return: the data for the anon grader.
     '''
-    # Read data from study 1
-    data_dir1 = f"textwash_data/study1/intruder_test/full_data_study.csv"
+    assert study_nr in [1, 2, 12], "Invalid study number."
 
-    columns_to_read = ["type", "text", "file_id", "name", "got_name_truth_q2"]
-    raw_data1 = pd.read_csv(data_dir1, usecols=columns_to_read)
+    def _read_study_1():
+        # Read data from study 1
+        data_dir = f"textwash_data/study1/intruder_test/full_data_study.csv"
 
-    # Aggregate by file_id and calculate the rate of re-identification
-    data1 = (
-        raw_data1.groupby(["type", "file_id", "name", "text"])
-        .agg({"got_name_truth_q2": "mean"})
-        .reset_index()
-    )
-    data1.rename(columns={"got_name_truth_q2": "human_rate"}, inplace=True)
+        columns_to_read = ["type", "text", "file_id", "name", "got_name_truth_q2"]
+        raw_data = pd.read_csv(data_dir, usecols=columns_to_read)
 
-    # Define population to use
-    data1 = choose_data(data1, data_used)
+        # Aggregate by file_id and calculate the rate of re-identification
+        data = (
+            raw_data.groupby(["type", "file_id", "name", "text"])
+            .agg({"got_name_truth_q2": "mean"})
+            .reset_index()
+        )
+        data.rename(columns={"got_name_truth_q2": "human_rate"}, inplace=True)
 
-    # Read data from study 2
-    data_dir2 = f"textwash_data/study2/intruder_test/full_data_study.csv"
+        # Define population to use
+        data = choose_data(data, data_used)
+        return data
 
-    columns_to_read = ["text", "file_id", "person_long", "got_name_truth_q2_long"]
-    raw_data2 = pd.read_csv(data_dir2, usecols=columns_to_read)
+    def _read_study_2():
+        # Read data from study 2
+        data_dir = f"textwash_data/study2/intruder_test/full_data_study.csv"
 
-    # Aggregate by file_id and calculate the rate of re-identification
-    data2 = (
-        raw_data2.groupby(["file_id", "person_long", "text"])
-        .agg({"got_name_truth_q2_long": "mean"})
-        .reset_index()
-    )
-    data2.rename(columns={"got_name_truth_q2_long": "human_rate", "person_long": "name"}, inplace=True)
+        columns_to_read = ["text", "file_id", "person_long", "got_name_truth_q2_long"]
+        raw_data = pd.read_csv(data_dir, usecols=columns_to_read)
 
-    # Add a type column
-    data2["type"] = ["famous"] * len(data2)
+        # keep only rows whose file_id appers 4 times
+        
+        file_id_counts = raw_data['file_id'].value_counts()
+        raw_data = raw_data[raw_data['file_id'].isin(file_id_counts[file_id_counts > keep_more_than].index)]
 
-    # Combine the data from the two studies
-    data = pd.concat([data1, data2])
+        # Aggregate by file_id and calculate the rate of re-identification
+        data = (
+            raw_data.groupby(["file_id", "person_long", "text"])
+            .agg({"got_name_truth_q2_long": "mean"})
+            .reset_index()
+        )
+        data.rename(columns={"got_name_truth_q2_long": "human_rate", "person_long": "name"}, inplace=True)
+
+        # Add a type column
+        data["type"] = ["famous"] * len(data)
+        return data
+
+    # match study_nr:
+    #     case 1:
+    #         data = _read_study_1()
+    #     case 2:
+    #         data = _read_study_2()
+    #     case 12:
+    #         data1 = _read_study_1()
+    #         data2 = _read_study_2()
+    #         # Combine the data from the two studies
+    #         data = pd.concat([data1, data2])
+
+    if study_nr == 1:
+        data = _read_study_1()
+    elif study_nr == 2:
+        data = _read_study_2()
+    else:
+        data1 = _read_study_1()
+        data2 = _read_study_2()
+        # Combine the data from the two studies
+        data = pd.concat([data1, data2])
 
     
     # Split the data into training and remaining data

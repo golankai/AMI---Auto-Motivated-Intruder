@@ -15,8 +15,8 @@ from clearml import Task
 from utils import prepare_grader_data, compute_metrics, read_data_for_grader
 
 # Define constants
-SUDY_NUMBER = 12
-data_used = "famous_and_semi"
+SUDY_NUMBER = 1
+data_used = "famous"
 EXPERIMENT_NAME = f'eval_study_{SUDY_NUMBER}_{data_used}'
 
 task = Task.init(project_name="AMI", task_name=EXPERIMENT_NAME, reuse_last_task_id=False, task_type=Task.TaskTypes.testing)
@@ -41,7 +41,7 @@ th.manual_seed(SEED)
 
 
 # Read the data
-test_data = read_data_for_grader(data_used, SEED)['test']
+test_data = read_data_for_grader(SUDY_NUMBER, data_used, SEED)['test']
 
 test_dataset = prepare_grader_data({"test": test_data}, DEVICE)['test']
 
