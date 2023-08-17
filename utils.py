@@ -314,3 +314,17 @@ def read_data_for_grader(study_nr: int, data_used: str, seed: int, keep_more_tha
     val_data, test_data = train_test_split(val_data, test_size=0.5, random_state=seed)
 
     return {"train": train_data, "val": val_data, "test": test_data}
+
+def get_process_id(exp_name: str) -> int:
+    '''
+    Get the process id for the anon grader.
+    :param exp_name: the name of the experiment.
+    :return: the process id.
+    '''
+    match exp_name:
+        case "zero_shot":
+            return 11
+        case "few_shot":
+            return 12
+        case _:
+            raise Exception("Invalid experiment name.")
