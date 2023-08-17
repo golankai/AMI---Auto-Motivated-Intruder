@@ -90,11 +90,11 @@ task.upload_artifact("Predictions df", artifact_object=test_data)
 
 # Calculate the overall mse for each model
 results = {
-    model_name: compute_metrics((test_data[model_name], test_data["human_rate"]))["mse"]
+    model_name: compute_metrics((test_data[model_name], test_data["human_rate"]))
     for model_name in test_data.columns[5:]
 }
 
 # Save the results
-results_df = pd.DataFrame.from_dict(results, orient="index", columns=["mse"])
+results_df = pd.DataFrame.from_dict(results, orient="columns").T
 results_df.to_csv(RESULTS_PATH)
 task.upload_artifact("Results df", artifact_object=results_df)

@@ -1,0 +1,4 @@
+,rmse,avg_pred
+data,0.0,0.39
+RoBERTa,0.39,0.46
+zero_shot,0.45,0.62

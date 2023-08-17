@@ -1,4 +1,3 @@
-# %%
 import os
 import logging
 import pandas as pd
@@ -11,10 +10,9 @@ from clearml import Task
 from de_anonymizer.de_anonymizer import DeAnonymizer
 from utils import read_data_for_grader, compute_metrics, get_process_id
 
-# %%
 # Define constants
 SUDY_NUMBER = 1
-NUM_SAMPLES = 5
+NUM_SAMPLES = 7
 DATA_USED = "famous"
 EXPERIMENT_NAME = "zero_shot"
 process_id = get_process_id(EXPERIMENT_NAME)
@@ -34,10 +32,10 @@ SEED = 42
 np.random.seed(SEED)
 th.manual_seed(SEED)
 
-# %%
 # If alreday have predictions with few-shot, read them
 if os.path.exists(PRED_PATH2SAVE):
     predictions = pd.read_csv(PRED_PATH2SAVE, index_col=0)
+    assert len(predictions) == NUM_SAMPLES, "The number of samples is not as expected"
     results = pd.read_csv(RESULTS_PATH2SAVE, index_col=0).to_dict(orient="index")
 else: 
     # Read the predictions from the models
@@ -48,7 +46,7 @@ else:
         for model_name in predictions.columns[5:]
     }
     # Keep the best model, based on the mse
-    best_model = min(results, key=lambda x: results[x]["mse"])
+    best_model = min(results, key=lambda x: results[x]["rmse"])
     results = {
         "data": compute_metrics((list(predictions["human_rate"]), list(predictions["human_rate"])), only_mse=False),
         "RoBERTa": results[best_model]
@@ -59,7 +57,6 @@ else:
 # decrease the predictions to NUM_SAMPLES
 predictions = predictions.sample(n=NUM_SAMPLES, random_state=SEED)
 
-# %%
 
 # ChatGPT interaction
 
@@ -75,15 +72,13 @@ def _get_score_for_row(anon_text):
 predictions["text"].apply(_get_score_for_row)
 predictions[EXPERIMENT_NAME] = list(de_anonymiser.get_results()["score"])
 
-# %%
 # Save the predictions
-# predictions.to_csv(PRED_PATH2SAVE)
+predictions.to_csv(PRED_PATH2SAVE)
 
-# Calculate the mse for this experiment
+# Calculate the rmse for this experiment
 results[EXPERIMENT_NAME] = compute_metrics((list(predictions[EXPERIMENT_NAME]), list(predictions["human_rate"])), only_mse=False)
 
 # Save the results
-results_df = pd.DataFrame.from_dict(results, orient="columns")
-# results_df.to_csv(RESULTS_PATH2SAVE)
+results_df = pd.DataFrame.from_dict(results, orient="columns").T
+results_df.to_csv(RESULTS_PATH2SAVE)
 
-# %%

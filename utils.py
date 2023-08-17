@@ -206,11 +206,11 @@ def prepare_grader_data(data_splits: Dict[str, pd.DataFrame], device) -> Dataset
 
 def compute_metrics(eval_pred, only_mse: bool = True):
     predictions, labels = eval_pred
-    mse = mean_squared_error(labels, predictions, squared=False)
+    rmse = mean_squared_error(labels, predictions, squared=False).round(2)
     if only_mse:
-        return {"mse": mse}
-    avg_pred = sum(predictions) / len(predictions)
-    return {"mse": mse, "avg_pred": avg_pred}
+        return {"rmse": rmse}
+    avg_pred = round(sum(predictions) / len(predictions), 2)
+    return {"rmse": rmse, "avg_pred": avg_pred}
 
 def choose_data(data: pd.DataFrame, data_used : str) -> pd.DataFrame:
     '''
@@ -306,7 +306,9 @@ def read_data_for_grader(study_nr: int, data_used: str, seed: int, keep_more_tha
             # Combine the data from the two studies
             data = pd.concat([data1, data2])
 
-    
+    # Round the human rate to 2 decimals
+    data["human_rate"] = data["human_rate"].round(2)
+
     # Split the data into training and remaining data
     train_data, val_data = train_test_split(data, test_size=0.2, random_state=seed)
 
