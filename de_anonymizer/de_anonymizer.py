@@ -74,7 +74,7 @@ class DeAnonymizer:
                 print("Error: response for file: ", file_name)
                 if self.should_handle_data:
                     self.data_handler.add_error_file(file_name, response.get('data'))
-                    self.conversation_handler.end_conversation()
+                self.conversation_handler.end_conversation()
                 break
 
             # update the process handler with the last response. So, it enables the process to decide whether to keep going or not. (based on the last response)
