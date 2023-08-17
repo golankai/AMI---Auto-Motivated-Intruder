@@ -12,20 +12,19 @@ from transformers import TrainingArguments, RobertaForSequenceClassification
 from clearml import Task
 
 
-from utils import prepare_grader_data, compute_metrics
+from utils import prepare_grader_data, compute_metrics, read_data_for_grader
 
 # Define constants
 SUDY_NUMBER = 1
-data_used = "famous_and_semi"
+data_used = "famous"
 EXPERIMENT_NAME = f'eval_study_{SUDY_NUMBER}_{data_used}'
 
 task = Task.init(project_name="AMI", task_name=EXPERIMENT_NAME, reuse_last_task_id=False, task_type=Task.TaskTypes.testing)
 
 # Set up environment
 trained_models_path = f"./anon_grader/trained_models/"
-data_dir = f"textwash_data/study{SUDY_NUMBER}/intruder_test/full_data_study.csv"
-PRED_PATH = "./anon_grader/results/predictions_" + data_used + ".csv"
-RESULTS_PATH = "./anon_grader/results/results_" + data_used + ".csv"
+PRED_PATH = f"./anon_grader/results/predictions_{SUDY_NUMBER}_{data_used}.csv"
+RESULTS_PATH = f"./anon_grader/results/results_{SUDY_NUMBER}_{data_used}.csv"
 
 DEVICE = "cuda" if th.cuda.is_available() else "cpu"
 
@@ -42,26 +41,7 @@ th.manual_seed(SEED)
 
 
 # Read the data
-columns_to_read = ["type", "text", "file_id", "name", "got_name_truth_q2"]
-raw_data = pd.read_csv(data_dir, usecols=columns_to_read)
-
-# Aggregate by file_id and calculate the rate of re-identification
-data = (
-    raw_data.groupby(["type", "file_id", "name", "text"])
-    .agg({"got_name_truth_q2": "mean"})
-    .reset_index()
-)
-data.rename(columns={"got_name_truth_q2": "human_rate"}, inplace=True)
-
-# Define population to use
-data = data[data["type"].isin(["famous", "semifamous"])]
-
-# Preprocess the data
-# Split the data into training and remaining data
-train_data, val_data = train_test_split(data, test_size=0.2, random_state=SEED)
-
-# Split the remaining data into validation and test data
-val_data, test_data = train_test_split(val_data, test_size=0.5, random_state=SEED)
+test_data = read_data_for_grader(SUDY_NUMBER, data_used, SEED)['test']
 
 test_dataset = prepare_grader_data({"test": test_data}, DEVICE)['test']
 
@@ -73,6 +53,8 @@ test_dataloader = DataLoader(
 )
 
 models_names = os.listdir(trained_models_path)
+# take only models trained on the study and data used
+models_names = [model_name for model_name in models_names if f"study_{SUDY_NUMBER}_" in model_name and f"{data_used}_c" in model_name]
 
 # Predict with all models
 for model_name in models_names:
@@ -100,7 +82,8 @@ for model_name in models_names:
 
     # Add predictions to the data
 
-    test_data[f"model_{model_name}"] = predictions
+    # Remove extension from model name
+    test_data[f"model_{model_name[:-3]}"] = predictions
 
 test_data.to_csv(PRED_PATH)
 task.upload_artifact("Predictions df", artifact_object=test_data)
@@ -108,7 +91,7 @@ task.upload_artifact("Predictions df", artifact_object=test_data)
 # Calculate the overall mse for each model
 results = {
     model_name: compute_metrics((test_data[model_name], test_data["human_rate"]))["mse"]
-    for model_name in test_data.columns[7:]
+    for model_name in test_data.columns[5:]
 }
 
 # Save the results

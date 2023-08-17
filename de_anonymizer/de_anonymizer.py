@@ -21,7 +21,8 @@ class DeAnonymizer:
         debug: bool = False,
         verbose: bool = False,
         process_id: int = 1,
-        should_handle_data: bool = False, 
+        should_handle_data: bool = False,
+        **kwargs,
     ):
         """
         Create a new instance of a de-anonymiser.
@@ -54,7 +55,7 @@ class DeAnonymizer:
         self.google = load_google_search_tool() if google else None
 
 
-    def re_identify(self, anon_text, file_name=None):
+    def re_identify(self, anon_text, file_name=None, **kwargs):
         """
         Re-identify a single text.
         :param anon_text: The anonymized text.
@@ -76,6 +77,7 @@ class DeAnonymizer:
                     self.data_handler.add_error_file(file_name, response.get('data'))
                     self.conversation_handler.end_conversation()
                 break
+
 
             # update the process handler with the last response. So, it enables the process to decide whether to keep going or not. (based on the last response)
             self.process_handler.set_last_response(response.get('data')) 
