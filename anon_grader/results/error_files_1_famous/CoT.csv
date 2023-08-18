@@ -1,0 +1,16 @@
+File,Raw_response
+,"{
+  ""properties"": {
+    ""CoT"": {
+      ""title"": ""CoT"",
+      ""description"": ""The Chain of Thought"",
+      ""type"": ""string""
+    },
+    ""score"": {
+      ""title"": ""Score"",
+      ""description"": ""The score"",
+      ""type"": ""number""
+    }
+  },
+  ""required"": [""CoT"", ""score""]
+}"

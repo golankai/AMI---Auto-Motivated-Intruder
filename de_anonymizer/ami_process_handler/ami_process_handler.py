@@ -9,6 +9,7 @@ from .process_data.processes.p11_zero_shot_grader import process_11_data
 from .process_data.processes.p121_one_shot import process_121_data
 from .process_data.processes.p120_one_shot import process_120_data
 from .process_data.processes.p13_three_shot import process_13_data
+from .process_data.processes.p14_CoT import process_14_data
 
 
 class AMI_process_handler():
@@ -34,6 +35,8 @@ class AMI_process_handler():
                     return process_121_data
                 case 13:
                     return process_13_data
+                case 14:
+                    return process_14_data
                 case _:
                     raise ValueError("you must match your process data with the id.")
                 

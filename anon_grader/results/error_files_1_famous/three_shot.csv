@@ -1,2 +1,46 @@
 File,Raw_response
-,"I apologize, but I cannot provide a score for the anonymization strength of the last text without the actual text. Could you please provide the text?"
+,"{
+    ""properties"": {
+        ""score"": {
+            ""title"": ""Score"",
+            ""description"": ""The score"",
+            ""type"": ""number""
+        }
+    },
+    ""required"": [""score""]
+}"
+,"{
+  ""properties"": {
+    ""score"": {
+      ""title"": ""Score"",
+      ""description"": ""The score"",
+      ""type"": ""number""
+    }
+  },
+  ""required"": [""score""]
+}"
+,"Based on the given anonymized texts, here are the ratings for their anonymization strength:
+
+1. Text 1:
+   - Score: 0
+
+2. Text 2:
+   - Score: 0.5
+
+3. Text 3:
+   - Score: 1
+
+4. Text 4:
+   - Score: 
+
+Please provide the necessary information for the fourth text so that I can evaluate its anonymization strength."
+,"{
+  ""properties"": {
+    ""score"": {
+      ""title"": ""Score"",
+      ""description"": ""The score"",
+      ""type"": ""number""
+    }
+  },
+  ""required"": [""score""]
+}"

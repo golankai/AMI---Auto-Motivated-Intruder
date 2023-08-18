@@ -10,11 +10,11 @@ from de_anonymizer.de_anonymizer import DeAnonymizer
 from utils import compute_metrics, get_exp_name
 
 # Processes to run
-process_ids = [13] # [11, 120, 121, 13]
+process_ids = [13, 14] # [11, 120, 121, 13, 14]
 # Define constants
 TEMPERATURE = 0.5
 SUDY_NUMBER = 1
-NUM_SAMPLES = 5
+NUM_SAMPLES = 8
 DATA_USED = "famous"
 should_handle_data = True 
 
