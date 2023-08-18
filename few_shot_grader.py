@@ -1,6 +1,5 @@
 # %%
 import os
-import logging
 import pandas as pd
 import numpy as np
 
@@ -24,9 +23,11 @@ should_handle_data = True
 PRED_PATH = f"./anon_grader/results/predictions_{SUDY_NUMBER}_{DATA_USED}.csv"
 PRED_PATH2SAVE = f"./anon_grader/results/predictions_{SUDY_NUMBER}_{DATA_USED}_w_few_shot.csv"
 RESULTS_PATH2SAVE = f"./anon_grader/results/results_{SUDY_NUMBER}_{DATA_USED}_w_few_shot.csv"
+ERROR_FILES_DIR = f"./anon_grader/results/error_files_{SUDY_NUMBER}_{DATA_USED}"
 DEVICE = "cuda" if th.cuda.is_available() else "cpu"
 
-logging.info(f'Working on device: {DEVICE}')
+if not os.path.exists(ERROR_FILES_DIR):
+    os.makedirs(ERROR_FILES_DIR)
 
 # Set seeds
 SEED = 42
@@ -67,6 +68,8 @@ def _get_score_for_row(anon_text, de_anonymiser):
 # Run all the processes
 for process_id in process_ids:
     EXPERIMENT_NAME = get_exp_name(process_id)
+    ERROR_FILE_PATH = f"{ERROR_FILES_DIR}/{EXPERIMENT_NAME}.csv"
+
     print(f"Running experiment: {EXPERIMENT_NAME}")
     
     # Define the de-anonymizer
@@ -76,9 +79,18 @@ for process_id in process_ids:
 
     # Get the score for each text
     predictions["text"].apply(_get_score_for_row, args=(de_anonymiser,))
+    if should_handle_data:
+        error_files = de_anonymiser.get_error_files()
+        if error_files is not None:
+            error_files.to_csv(ERROR_FILE_PATH, index=False)
+            print("Save error files to csv successfully! file-name: ", ERROR_FILE_PATH)
+
+
     process_results = de_anonymiser.get_results()
     if "score" in process_results.columns:
         predictions[EXPERIMENT_NAME] = list(process_results["score"])
+        fails =  len(process_results[process_results['score'].isna()])
+        print(f"Failed {fails} times! Experiment {EXPERIMENT_NAME} Done!")
 
 # Save the predictions
 predictions.to_csv(PRED_PATH2SAVE)
