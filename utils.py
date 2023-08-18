@@ -316,9 +316,11 @@ def get_exp_name(process_id: int) -> str:
     match process_id:
         case 11:
             return "zero_shot"
-        case 121:
-            return "one_shot_1"
         case 120:
             return "one_shot_0"
+        case 121:
+            return "one_shot_1"
+        case 13:
+            return "three_shot"
         case _:
             raise Exception("Invalid process id.")

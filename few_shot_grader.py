@@ -10,7 +10,7 @@ from de_anonymizer.de_anonymizer import DeAnonymizer
 from utils import compute_metrics, get_exp_name
 
 # Processes to run
-process_ids = [121]
+process_ids = [13]
 # Define constants
 TEMPERATURE = 0.5
 SUDY_NUMBER = 1
