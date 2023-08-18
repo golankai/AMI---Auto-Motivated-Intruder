@@ -20,6 +20,7 @@ P11_Q1_TEMPLATE = """
     Task: please rate the anonymization strength of the following anonymized text. Good anonimization reveals few unique information about the person.
     0 is well anonymized and hard to re-identify and 1 is not anonymized at all and can be easily re-identify.
     {format_instructions}
+    
     anonymized text: "{user_input}"
 """
 

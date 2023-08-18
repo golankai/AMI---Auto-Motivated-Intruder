@@ -10,7 +10,7 @@ from de_anonymizer.de_anonymizer import DeAnonymizer
 from utils import compute_metrics, get_exp_name
 
 # Processes to run
-process_ids = [13]
+process_ids = [13] # [11, 120, 121, 13]
 # Define constants
 TEMPERATURE = 0.5
 SUDY_NUMBER = 1
@@ -90,7 +90,7 @@ for process_id in process_ids:
     if "score" in process_results.columns:
         predictions[EXPERIMENT_NAME] = list(process_results["score"])
         fails =  len(process_results[process_results['score'].isna()])
-        print(f"Failed {fails} times! Experiment {EXPERIMENT_NAME} Done!")
+        print(f"Failed {fails} times! Experiment {EXPERIMENT_NAME} Done!\n")
 
 # Save the predictions
 predictions.to_csv(PRED_PATH2SAVE)

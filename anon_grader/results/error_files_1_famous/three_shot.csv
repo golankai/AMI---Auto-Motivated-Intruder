@@ -1,11 +1,2 @@
 File,Raw_response
-,"{
-  ""properties"": {
-    ""score"": {
-      ""title"": ""Score"",
-      ""description"": ""A score from 0 to 1 to evaluate the anonymization, 1 is very easy to re-identify and 0 is impossible"",
-      ""type"": ""number""
-    }
-  },
-  ""required"": [""score""]
-}"
+,"I apologize, but I cannot provide a score for the anonymization strength of the last text without the actual text. Could you please provide the text?"
