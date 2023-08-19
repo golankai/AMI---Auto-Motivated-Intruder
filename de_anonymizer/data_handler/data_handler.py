@@ -10,10 +10,12 @@ class DataHandler:
     
     def get_error_files(self):
         return self.error_files if self.error_files.shape[0] > 0 else None
+            
+    def sort_df(self):
+        self.df = self.df.sort_values(by=["File"])
     
     def add_flatten_row(self, row, file_name):
         flatten_row = {}
-        flatten_row["File"] = file_name
 
         def flatten_dict(d):
             """
@@ -31,6 +33,8 @@ class DataHandler:
             return flat_dict
 
         flatten_row = flatten_dict(row)
+        flatten_row["File"] = file_name
+
         self.add_row(flatten_row)
 
 
@@ -42,3 +46,11 @@ class DataHandler:
     def add_error_file(self, file_name, raw_response):
         new_row = pd.DataFrame([{"File": file_name, "Raw_response": raw_response}])
         self.error_files = pd.concat([self.error_files, new_row], ignore_index=True)
+
+    def save_to_csv(self, path):
+        if self.error_files.shape[0] > 0:
+            self.error_files.to_csv(f"{path}_error_files.csv", index=False)
+            print("Save error files to csv successfully! file-name: ", f"{path}_error_files.csv")
+
+        self.df.to_csv(f"{path}.csv", index=False)
+        print("Save to csv successfully! file-name: ", f"{path}.csv")
