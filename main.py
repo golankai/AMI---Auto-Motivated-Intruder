@@ -1,8 +1,7 @@
 import os
 import random
-from de_anonymizer.data_handler.data_handler import DataHandler
 from de_anonymizer.de_anonymizer import DeAnonymizer
-from results.personas import Persona
+from personas.personas import Persona
 from results.results_analyzer import ResultsAnalyzer
 
 # Env parameters
