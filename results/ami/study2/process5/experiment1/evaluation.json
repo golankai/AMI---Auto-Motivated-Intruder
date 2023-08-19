@@ -1,0 +1,102 @@
+{
+    "adele": {
+        "successful_identification_rate": 0.7457627118644068,
+        "num_of_files": 59,
+        "num_of_re_identify_successfully": 44
+    },
+    "bale": {
+        "successful_identification_rate": 0.4117647058823529,
+        "num_of_files": 51,
+        "num_of_re_identify_successfully": 21
+    },
+    "beckham": {
+        "successful_identification_rate": 0.8775510204081632,
+        "num_of_files": 49,
+        "num_of_re_identify_successfully": 43
+    },
+    "campbell": {
+        "successful_identification_rate": 0.3333333333333333,
+        "num_of_files": 51,
+        "num_of_re_identify_successfully": 17
+    },
+    "craig": {
+        "successful_identification_rate": 0.3148148148148148,
+        "num_of_files": 54,
+        "num_of_re_identify_successfully": 17
+    },
+    "cumberbatch": {
+        "successful_identification_rate": 0.2037037037037037,
+        "num_of_files": 54,
+        "num_of_re_identify_successfully": 11
+    },
+    "delevigne": {
+        "successful_identification_rate": 0.3333333333333333,
+        "num_of_files": 51,
+        "num_of_re_identify_successfully": 17
+    },
+    "dench": {
+        "successful_identification_rate": 0.26785714285714285,
+        "num_of_files": 56,
+        "num_of_re_identify_successfully": 15
+    },
+    "gervais": {
+        "successful_identification_rate": 0.391304347826087,
+        "num_of_files": 46,
+        "num_of_re_identify_successfully": 18
+    },
+    "grant": {
+        "successful_identification_rate": 0.5208333333333334,
+        "num_of_files": 48,
+        "num_of_re_identify_successfully": 25
+    },
+    "hamilton": {
+        "successful_identification_rate": 0.9180327868852459,
+        "num_of_files": 61,
+        "num_of_re_identify_successfully": 56
+    },
+    "jagger": {
+        "successful_identification_rate": 0.49056603773584906,
+        "num_of_files": 53,
+        "num_of_re_identify_successfully": 26
+    },
+    "john": {
+        "successful_identification_rate": 0.8888888888888888,
+        "num_of_files": 54,
+        "num_of_re_identify_successfully": 48
+    },
+    "middleton": {
+        "successful_identification_rate": 0.8035714285714286,
+        "num_of_files": 56,
+        "num_of_re_identify_successfully": 45
+    },
+    "moss": {
+        "successful_identification_rate": 0.5614035087719298,
+        "num_of_files": 57,
+        "num_of_re_identify_successfully": 32
+    },
+    "radcliffe": {
+        "successful_identification_rate": 0.559322033898305,
+        "num_of_files": 59,
+        "num_of_re_identify_successfully": 33
+    },
+    "rowling": {
+        "successful_identification_rate": 0.803921568627451,
+        "num_of_files": 51,
+        "num_of_re_identify_successfully": 41
+    },
+    "sheeran": {
+        "successful_identification_rate": 0.7,
+        "num_of_files": 60,
+        "num_of_re_identify_successfully": 42
+    },
+    "smith": {
+        "successful_identification_rate": 0.5535714285714286,
+        "num_of_files": 56,
+        "num_of_re_identify_successfully": 31
+    },
+    "watson": {
+        "successful_identification_rate": 0.7777777777777778,
+        "num_of_files": 54,
+        "num_of_re_identify_successfully": 42
+    }
+}

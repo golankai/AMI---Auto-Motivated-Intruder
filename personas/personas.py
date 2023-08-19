@@ -1,7 +1,10 @@
 from enum import Enum
 
+"""
+    Assumption: File names are unique and from the format: <persona_family_name>_<text_number>.txt
+"""
+
 class Persona(Enum):
-    # File names prefixes
     Adele = "adele"
     Bale = "bale"
     Beckham = "beckham"
@@ -35,11 +38,11 @@ class Persona(Enum):
     def __eq__(self, other):
         return isinstance(other, Persona) and self.value == other.value
 
-    
+
     def get_optional_names(self):
         match self:
             case Persona.Adele:
-                return ["Adele, Adele Laurie Blue Adkins", "Adele Adkins"]
+                return ["Adele", "Adele Laurie Blue Adkins", "Adele Adkins"]
             case Persona.Bale:
                 return ["Christian Bale"]
             case Persona.Beckham:
