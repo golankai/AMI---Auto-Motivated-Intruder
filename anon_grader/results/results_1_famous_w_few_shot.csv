@@ -1,7 +1,7 @@
 ,rmse,avg_pred,spearman
 data,0.0,0.39,
 RoBERTa,0.39,0.48,-0.03
-zero_shot,0.44,0.47,-0.47
+zero_shot,0.46,0.5,-0.13
 one_shot_0,0.62,0.67,-0.61
 one_shot_1,0.37,0.55,0.7
 three_shot,0.37,0.41,0.14

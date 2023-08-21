@@ -11,7 +11,7 @@ from utils import compute_metrics, get_exp_name
 from conversations.conversation_handler import ResponseStatus
 
 # Processes to run
-process_ids = [111] # [11, 111,  120, 121, 13, 14, 1511, 11513]
+process_ids = [11] # [11, 111,  120, 121, 13, 14, 1511, 11513]
 # Run on one file or all, if file_id is empty, run on all
 # use with should_predict = False to run on one file, printing the results
 # then write manually in the predictions csv and run again on all with should_predict = False

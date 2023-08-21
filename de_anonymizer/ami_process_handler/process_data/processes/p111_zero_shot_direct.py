@@ -28,7 +28,7 @@ P111_Q1_TEMPLATE = """
     
     anonymized text: "{user_input}"
 
-   Simulate their process and estimate the normilized success rate in de-anonimization.
+   Simulate shortly their process and estimate the normilized success rate in de-anonimization.
 """
 
 class P111Q1Parser(BaseModel):
