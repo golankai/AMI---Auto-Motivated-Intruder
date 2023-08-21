@@ -51,25 +51,13 @@ def read_data(dir: str):
     return df
 
 
-def load_model(llm_name: str):
+def load_model(temperature: float = 0.5):
     """
     Load the LLM model.
+    :param temperature: the temperature to use for the LLM model
+    :return: the LLM model
     """
-    # match llm_name:
-    #     case "chat-gpt":
-    #         return ChatOpenAI(model="gpt-3.5-turbo", temperature=0.5, max_tokens=512)
-    #     case "flan-t5":
-    #         repo_id = "declare-lab/flan-alpaca-large"
-    #     case "llama2":
-    #         repo_id = "meta-llama/Llama-2-70b-chat-hf"
-    #     case _:
-    #         # raise an exception
-    #         raise ValueError("llm name is not valid")
-
-    # llm = HuggingFaceHub(
-    #     repo_id=repo_id, model_kwargs={"temperature": 0.1, "max_length": 512}
-    # )
-    return ChatOpenAI(model="gpt-3.5-turbo", temperature=0.5, max_tokens=512)
+    return ChatOpenAI(model="gpt-3.5-turbo", temperature=temperature, max_tokens=512)
 
 
 def load_google_search_tool():
@@ -204,10 +192,13 @@ def prepare_grader_data(data_splits: Dict[str, pd.DataFrame], device) -> Dataset
     return DatasetDict(datasets)
 
 
-def compute_metrics(eval_pred):
+def compute_metrics(eval_pred, only_mse: bool = True):
     predictions, labels = eval_pred
-    mse = mean_squared_error(labels, predictions, squared=False)
-    return {"mse": mse}
+    rmse = mean_squared_error(labels, predictions, squared=False).round(2)
+    if only_mse:
+        return {"rmse": rmse}
+    avg_pred = round(sum(predictions) / len(predictions), 2)
+    return {"rmse": rmse, "avg_pred": avg_pred}
 
 def choose_data(data: pd.DataFrame, data_used : str) -> pd.DataFrame:
     '''
@@ -237,3 +228,101 @@ def get_layer_pattern(layers_trained: str) -> str:
         return r'classifier.*|roberta.encoder.layer.11.*'
     else:
         raise Exception("Invalid layers trained.")
+
+def read_data_for_grader(study_nr: int, data_used: str, seed: int, keep_more_than: int = 0) -> Dict[str, pd.DataFrame]:
+    '''
+    Read the data for the anon grader.
+    :param study_nr: the study number to use. 1, 2 or 12.
+    :param data_used: the type of data to use. "famous", "famous_and_semi" or "all".
+    :param seed: the seed for the random state.
+    :param keep_more_than: the number of times a file_id should appear in the data. In study 2 most is less than 4.
+    :return: the data for the anon grader.
+    '''
+    assert study_nr in [1, 2, 12], "Invalid study number."
+
+    def _read_study_1():
+        # Read data from study 1
+        data_dir = f"textwash_data/study1/intruder_test/full_data_study.csv"
+
+        columns_to_read = ["type", "text", "file_id", "name", "got_name_truth_q2"]
+        raw_data = pd.read_csv(data_dir, usecols=columns_to_read)
+
+        # Aggregate by file_id and calculate the rate of re-identification
+        data = (
+            raw_data.groupby(["type", "file_id", "name", "text"])
+            .agg({"got_name_truth_q2": "mean"})
+            .reset_index()
+        )
+        data.rename(columns={"got_name_truth_q2": "human_rate"}, inplace=True)
+
+        # Define population to use
+        data = choose_data(data, data_used)
+        return data
+
+    def _read_study_2():
+        # Read data from study 2
+        data_dir = f"textwash_data/study2/intruder_test/full_data_study.csv"
+
+        columns_to_read = ["text", "file_id", "person_long", "got_name_truth_q2_long"]
+        raw_data = pd.read_csv(data_dir, usecols=columns_to_read)
+
+        # keep only rows whose file_id appers 4 times
+        
+        file_id_counts = raw_data['file_id'].value_counts()
+        raw_data = raw_data[raw_data['file_id'].isin(file_id_counts[file_id_counts > keep_more_than].index)]
+
+        # Aggregate by file_id and calculate the rate of re-identification
+        data = (
+            raw_data.groupby(["file_id", "person_long", "text"])
+            .agg({"got_name_truth_q2_long": "mean"})
+            .reset_index()
+        )
+        data.rename(columns={"got_name_truth_q2_long": "human_rate", "person_long": "name"}, inplace=True)
+
+        # Add a type column
+        data["type"] = ["famous"] * len(data)
+        return data
+
+    match study_nr:
+        case 1:
+            data = _read_study_1()
+        case 2:
+            data = _read_study_2()
+        case 12:
+            data1 = _read_study_1()
+            data2 = _read_study_2()
+            # Combine the data from the two studies
+            data = pd.concat([data1, data2])
+
+    # Round the human rate to 2 decimals
+    data["human_rate"] = data["human_rate"].round(2)
+
+    # Split the data into training and remaining data
+    train_data, val_data = train_test_split(data, test_size=0.2, random_state=seed)
+
+    # Split the remaining data into validation and test data
+    val_data, test_data = train_test_split(val_data, test_size=0.5, random_state=seed)
+
+    return {"train": train_data, "val": val_data, "test": test_data}
+
+
+        
+def get_exp_name(process_id: int) -> str:
+    '''
+    Get the experiment name for the anon grader.
+    :param process_id: the process id.
+    :return: the experiment name.
+    '''
+    match process_id:
+        case 11:
+            return "zero_shot"
+        case 120:
+            return "one_shot_0"
+        case 121:
+            return "one_shot_1"
+        case 13:
+            return "three_shot"
+        case 14:
+            return "CoT"
+        case _:
+            raise Exception("Invalid process id.")

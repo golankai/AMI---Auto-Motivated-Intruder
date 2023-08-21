@@ -11,18 +11,17 @@ from transformers import TrainingArguments
 from clearml import Task
 
 
-from utils import train_grader_model, prepare_grader_data, choose_data
+from utils import train_grader_model, prepare_grader_data, read_data_for_grader
 
 
 
 # Define constants#
 hyperparams = {
-    "epochs": 20,
-    "data_used": "famous_and_semi",
+    "epochs": 5,
+    "data_used": "famous",
     "layers_trained": "class",
 }
 
-DEBUG = True
 SUDY_NUMBER = 1
 
 EXPERIMENT_NAME = f'study_{SUDY_NUMBER}_{hyperparams["data_used"]}_{hyperparams["layers_trained"]}_epochs_{hyperparams["epochs"]}'
@@ -32,7 +31,6 @@ task = Task.init(project_name="AMI", task_name=EXPERIMENT_NAME, reuse_last_task_
 task.connect(hyperparams)
 
 trained_model_path = f"./anon_grader/trained_models/{EXPERIMENT_NAME}.pt"
-data_dir = f"textwash_data/study{SUDY_NUMBER}/intruder_test/full_data_study.csv"
 results_dir = "./anon_grader/logs"
 
 DEVICE = "cuda" if th.cuda.is_available() else "cpu"
@@ -65,31 +63,11 @@ training_args = TrainingArguments(
 
 
 # Read the data
-columns_to_read = ["type", "text", "file_id", "name", "got_name_truth_q2"]
-raw_data = pd.read_csv(data_dir, usecols=columns_to_read)
-
-
-# Aggregate by file_id and calculate the rate of re-identification
-data = (
-    raw_data.groupby(["type", "file_id", "name", "text"])
-    .agg({"got_name_truth_q2": "mean"})
-    .reset_index()
-)
-data.rename(columns={"got_name_truth_q2": "human_rate"}, inplace=True)
-
-# Define population to use
-data = choose_data(data, hyperparams["data_used"])
-
-# Preprocess the data
-# Split the data into training and remaining data
-train_data, val_data = train_test_split(data, test_size=0.2, random_state=SEED)
-
-# Split the remaining data into validation and test data
-val_data, test_data = train_test_split(val_data, test_size=0.5, random_state=SEED)
+data = read_data_for_grader(SUDY_NUMBER, hyperparams["data_used"], SEED)
 
 datasets = prepare_grader_data({
-        "train": train_data,
-        "val": val_data,
+        "train": data["train"],
+        "val": data["val"],
     },
     DEVICE
 )

@@ -1,0 +1,22 @@
+File,Raw_response
+,"{
+  ""properties"": {
+    ""score"": {
+      ""title"": ""Score"",
+      ""description"": ""The score"",
+      ""type"": ""number""
+    }
+  },
+  ""required"": [""score""]
+}"
+,"{
+  ""properties"": {
+    ""score"": {
+      ""title"": ""Score"",
+      ""description"": ""The score"",
+      ""type"": ""number""
+    }
+  },
+  ""required"": [""score""]
+}"
+,"{""properties"": {""score"": {""title"": ""Score"", ""description"": ""The score"", ""type"": ""number""}}, ""required"": [""score""]}"
