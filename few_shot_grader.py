@@ -1,5 +1,6 @@
 # %%
 import os
+import sys
 import pandas as pd
 import numpy as np
 
@@ -10,11 +11,19 @@ from de_anonymizer.de_anonymizer import DeAnonymizer
 from utils import compute_metrics, get_exp_name
 
 # Processes to run
-process_ids = [13, 14] # [11, 120, 121, 13, 14]
+process_ids = [] # [11, 120, 121, 13, 14]
+# Run on one file or all, if file_id is empty, run on all
+# use with should_predict = False to run on one file, printing the results
+# then write manually in the predictions csv and run again on all with should_predict = False
+file_id = ""
+
+# Predict or not
+should_predict = False
+
 # Define constants
 TEMPERATURE = 0.5
 SUDY_NUMBER = 1
-NUM_SAMPLES = 8
+NUM_SAMPLES = 8 # if 0, run on all
 DATA_USED = "famous"
 should_handle_data = True 
 
@@ -56,8 +65,7 @@ else:
     # Keep the predictions of the best model only
     predictions = predictions[["type", "file_id" , "name",  "text" , "human_rate", best_model]].rename(columns={best_model: "RoBERTa"})
 
-# decrease the predictions to NUM_SAMPLES
-predictions = predictions.sample(n=NUM_SAMPLES, random_state=SEED)
+
 
 
 # ChatGPT interaction
@@ -66,41 +74,54 @@ def _get_score_for_row(anon_text, de_anonymiser):
     de_anonymiser.re_identify(anon_text=anon_text)
 
 # Run all the processes
-for process_id in process_ids:
-    EXPERIMENT_NAME = get_exp_name(process_id)
-    ERROR_FILE_PATH = f"{ERROR_FILES_DIR}/{EXPERIMENT_NAME}.csv"
-
-    print(f"Running experiment: {EXPERIMENT_NAME}")
+if should_predict:
+    # decrease the predictions to NUM_SAMPLES or to the one file
+    if file_id != "": # run on one file
+        predictions = predictions[predictions["file_id"] == file_id]
+    elif NUM_SAMPLES != 0: # run on NUM_SAMPLES
+        predictions = predictions.sample(n=NUM_SAMPLES, random_state=SEED)
+    else: # run on all
+        pass
     
-    # Define the de-anonymizer
-    de_anonymiser = DeAnonymizer(
-        llm_name="chat-gpt", process_id=process_id, should_handle_data=should_handle_data, temperature=TEMPERATURE
-    )
+    for process_id in process_ids:
+        EXPERIMENT_NAME = get_exp_name(process_id)
+        ERROR_FILE_PATH = f"{ERROR_FILES_DIR}/{EXPERIMENT_NAME}.csv"
 
-    # Get the score for each text
-    predictions["text"].apply(_get_score_for_row, args=(de_anonymiser,))
-    if should_handle_data:
-        error_files = de_anonymiser.get_error_files()
-        if error_files is not None:
-            error_files.to_csv(ERROR_FILE_PATH, index=False)
-            print("Save error files to csv successfully! file-name: ", ERROR_FILE_PATH)
+        print(f"Running experiment: {EXPERIMENT_NAME}")
+        
+        # Define the de-anonymizer
+        de_anonymiser = DeAnonymizer(
+            llm_name="chat-gpt", process_id=process_id, should_handle_data=should_handle_data, temperature=TEMPERATURE
+        )
+
+        # Get the score for each text
+        predictions["text"].apply(_get_score_for_row, args=(de_anonymiser,))
+        if file_id != "": # got the printed results, no need to continue
+            print("Predicted the given file, exiting...")
+            sys.exit()
+
+        if should_handle_data:
+            error_files = de_anonymiser.get_error_files()
+            if error_files is not None:
+                error_files.to_csv(ERROR_FILE_PATH, index=False)
+                print("Save error files to csv successfully! file-name: ", ERROR_FILE_PATH)
 
 
-    process_results = de_anonymiser.get_results()
-    if "score" in process_results.columns:
-        predictions[EXPERIMENT_NAME] = list(process_results["score"])
-        fails =  len(process_results[process_results['score'].isna()])
-        print(f"Failed {fails} times! Experiment {EXPERIMENT_NAME} Done!\n")
+        process_results = de_anonymiser.get_results()
+        if "score" in process_results.columns:
+            predictions[EXPERIMENT_NAME] = list(process_results["score"])
+            fails =  len(process_results[process_results['score'].isna()])
+            print(f"Failed {fails} times! Experiment {EXPERIMENT_NAME} Done!\n")
 
-# Save the predictions
-predictions.to_csv(PRED_PATH2SAVE)
+    # Save the predictions
+    predictions.to_csv(PRED_PATH2SAVE)
 
 # Calculate the rmse for this experiment
-preds_we_none = predictions.dropna(subset=predictions.columns[5:])
+preds_wo_none = predictions.dropna(subset=predictions.columns[5:])
 
 results.update({
-    experiment: compute_metrics((list(preds_we_none[experiment]), list(preds_we_none["human_rate"])), only_mse=False)
-    for experiment in preds_we_none.columns[5:]
+    experiment: compute_metrics((list(preds_wo_none[experiment]), list(preds_wo_none["human_rate"])), only_mse=False)
+    for experiment in preds_wo_none.columns[5:]
 })
 
 # Save the results
