@@ -9,6 +9,7 @@ File,Raw_response
   },
   ""required"": [""score""]
 }"
+,"{""properties"": {""score"": {""title"": ""Score"", ""description"": ""The score"", ""type"": ""number""}}, ""required"": [""score""]}"
 ,"{
   ""properties"": {
     ""score"": {
