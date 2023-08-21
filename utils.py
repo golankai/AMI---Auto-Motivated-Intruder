@@ -6,6 +6,8 @@ from sklearn.model_selection import train_test_split
 import tqdm
 from typing import List, Dict, Any, Optional, Union, Tuple
 from re import sub, match
+import numpy as np
+from scipy import stats
 
 
 from langchain.agents import load_tools
@@ -152,7 +154,7 @@ def train_grader_model(
         train_dataset=train_dataset,
         eval_dataset=val_dataset,
         optimizers=(optimizer, scheduler),
-        compute_metrics=compute_metrics,
+        compute_metrics=lambda tup: compute_metrics(tup, only_mse=True)
     )
 
     # Train the model with tqdm progress bar
@@ -192,13 +194,18 @@ def prepare_grader_data(data_splits: Dict[str, pd.DataFrame], device) -> Dataset
     return DatasetDict(datasets)
 
 
-def compute_metrics(eval_pred, only_mse: bool = True):
+def compute_metrics(eval_pred: Tuple[np.ndarray, np.ndarray], only_mse: bool = True):
     predictions, labels = eval_pred
     rmse = mean_squared_error(labels, predictions, squared=False).round(2)
     if only_mse:
         return {"rmse": rmse}
     avg_pred = round(sum(predictions) / len(predictions), 2)
-    return {"rmse": rmse, "avg_pred": avg_pred}
+    spearman = round(stats.spearmanr(labels, predictions)[0], 2)
+    return {
+        "rmse": rmse,
+        "avg_pred": avg_pred,
+        "spearman": spearman
+        }
 
 def choose_data(data: pd.DataFrame, data_used : str) -> pd.DataFrame:
     '''
@@ -324,5 +331,9 @@ def get_exp_name(process_id: int) -> str:
             return "three_shot"
         case 14:
             return "CoT"
+        case 1511:
+            return "self_const_zero_shot"
+        case 1513:
+            return "self_const_three_shot"
         case _:
             raise Exception("Invalid process id.")

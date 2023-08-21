@@ -1,4 +1,3 @@
-# %%
 import os
 import sys
 import pandas as pd
@@ -12,7 +11,7 @@ from utils import compute_metrics, get_exp_name
 from conversations.conversation_handler import ResponseStatus
 
 # Processes to run
-process_ids = [13] # [11, 120, 121, 13, 14]
+process_ids = [11] # [11, 120, 121, 13, 14, 1511, 11513]
 # Run on one file or all, if file_id is empty, run on all
 # use with should_predict = False to run on one file, printing the results
 # then write manually in the predictions csv and run again on all with should_predict = False
@@ -24,7 +23,7 @@ should_predict = True
 # Define constants
 TEMPERATURE = 0.5
 SUDY_NUMBER = 1
-NUM_SAMPLES = 5 # if 0, run on all
+NUM_SAMPLES = 8 # if 0, run on all
 DATA_USED = "famous"
 should_handle_data = True 
 
@@ -67,8 +66,6 @@ else:
     predictions = predictions[["type", "file_id" , "name",  "text" , "human_rate", best_model]].rename(columns={best_model: "RoBERTa"})
 
 
-
-
 # ChatGPT interaction
 # Get the score for each text
 def _get_score_for_row(anon_text, de_anonymiser):
@@ -78,6 +75,17 @@ def _get_score_for_row(anon_text, de_anonymiser):
         if response.get("status") == ResponseStatus.SUCCESS:
             return response.get("data").dict()["score"]
     return np.nan
+
+def _get_self_const_score(anon_text, base_process_id):
+    # Define the de-anonymizer
+    de_anonymiser = DeAnonymizer(
+        llm_name="chat-gpt", process_id=base_process_id, should_handle_data=should_handle_data, temperature=TEMPERATURE
+    )
+    # Run 3 times to get the score
+    responses = []
+    for _ in range(3):
+        responses. append(_get_score_for_row(anon_text, de_anonymiser))  
+    return np.mean(responses)
 
 # Run all the processes
 if should_predict:
@@ -94,6 +102,17 @@ if should_predict:
         ERROR_FILE_PATH = f"{ERROR_FILES_DIR}/{EXPERIMENT_NAME}.csv"
 
         print(f"Running experiment: {EXPERIMENT_NAME}")
+
+        if process_id == 1511:
+            # Get the score for each text
+            predictions[EXPERIMENT_NAME] = predictions["text"].apply(_get_self_const_score, args=(11,))
+            continue
+        elif process_id == 1513:
+            # Get the score for each text
+            predictions[EXPERIMENT_NAME] = predictions["text"].apply(_get_self_const_score, args=(13,))
+            continue
+        else:
+            pass
         
         # Define the de-anonymizer
         de_anonymiser = DeAnonymizer(
@@ -131,6 +150,3 @@ results.update({
 # Save the results
 results_df = pd.DataFrame.from_dict(results, orient="columns").T
 results_df.to_csv(RESULTS_PATH2SAVE)
-
-
-# %%
