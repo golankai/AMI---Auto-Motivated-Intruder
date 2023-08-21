@@ -9,21 +9,22 @@ import torch as th
 
 from de_anonymizer.de_anonymizer import DeAnonymizer
 from utils import compute_metrics, get_exp_name
+from conversations.conversation_handler import ResponseStatus
 
 # Processes to run
-process_ids = [] # [11, 120, 121, 13, 14]
+process_ids = [13] # [11, 120, 121, 13, 14]
 # Run on one file or all, if file_id is empty, run on all
 # use with should_predict = False to run on one file, printing the results
 # then write manually in the predictions csv and run again on all with should_predict = False
 file_id = ""
 
 # Predict or not
-should_predict = False
+should_predict = True
 
 # Define constants
 TEMPERATURE = 0.5
 SUDY_NUMBER = 1
-NUM_SAMPLES = 8 # if 0, run on all
+NUM_SAMPLES = 5 # if 0, run on all
 DATA_USED = "famous"
 should_handle_data = True 
 
@@ -71,7 +72,12 @@ else:
 # ChatGPT interaction
 # Get the score for each text
 def _get_score_for_row(anon_text, de_anonymiser):
-    de_anonymiser.re_identify(anon_text=anon_text)
+    # Try 3 times to get the score
+    for _ in range(3):
+        response = de_anonymiser.re_identify(anon_text=anon_text)
+        if response.get("status") == ResponseStatus.SUCCESS:
+            return response.get("data").dict()["score"]
+    return np.nan
 
 # Run all the processes
 if should_predict:
@@ -95,7 +101,8 @@ if should_predict:
         )
 
         # Get the score for each text
-        predictions["text"].apply(_get_score_for_row, args=(de_anonymiser,))
+        predictions[EXPERIMENT_NAME] = predictions["text"].apply(_get_score_for_row, args=(de_anonymiser,))
+
         if file_id != "": # got the printed results, no need to continue
             print("Predicted the given file, exiting...")
             sys.exit()
@@ -106,12 +113,9 @@ if should_predict:
                 error_files.to_csv(ERROR_FILE_PATH, index=False)
                 print("Save error files to csv successfully! file-name: ", ERROR_FILE_PATH)
 
-
-        process_results = de_anonymiser.get_results()
-        if "score" in process_results.columns:
-            predictions[EXPERIMENT_NAME] = list(process_results["score"])
-            fails =  len(process_results[process_results['score'].isna()])
-            print(f"Failed {fails} times! Experiment {EXPERIMENT_NAME} Done!\n")
+        # Count the fails
+        fails =  len(predictions[predictions[EXPERIMENT_NAME].isna()])
+        print(f"Failed {fails} times! Experiment {EXPERIMENT_NAME} Done!\n")
 
     # Save the predictions
     predictions.to_csv(PRED_PATH2SAVE)

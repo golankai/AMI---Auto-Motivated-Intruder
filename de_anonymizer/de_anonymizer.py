@@ -94,6 +94,7 @@ class DeAnonymizer:
         if self.should_handle_data:
             conv_responses = self.process_handler.get_conv_responses()
             self.data_handler.add_flatten_row(conv_responses, file_name)
+        return response
             
         
     def re_identify_list(self, study_dir_path, file_names, save_to_csv=False):        
