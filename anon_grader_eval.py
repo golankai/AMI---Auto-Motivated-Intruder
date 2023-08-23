@@ -16,9 +16,14 @@ from utils import prepare_grader_data, compute_metrics, read_data_for_grader
 # Define constants
 SUDY_NUMBER = 1
 data_used = "famous"
-EXPERIMENT_NAME = f'eval_study_{SUDY_NUMBER}_{data_used}'
+EXPERIMENT_NAME = f"eval_study_{SUDY_NUMBER}_{data_used}"
 
-task = Task.init(project_name="AMI", task_name=EXPERIMENT_NAME, reuse_last_task_id=False, task_type=Task.TaskTypes.testing)
+task = Task.init(
+    project_name="AMI",
+    task_name=EXPERIMENT_NAME,
+    reuse_last_task_id=False,
+    task_type=Task.TaskTypes.testing,
+)
 
 # Set up environment
 trained_models_path = f"./anon_grader/trained_models/"
@@ -27,7 +32,7 @@ RESULTS_PATH = f"./anon_grader/results/results_{SUDY_NUMBER}_{data_used}.csv"
 
 DEVICE = "cuda" if th.cuda.is_available() else "cpu"
 
-logging.info(f'Working on device: {DEVICE}')
+logging.info(f"Working on device: {DEVICE}")
 
 # Cancel wandb logging
 os.environ["WANDB_DISABLED"] = "true"
@@ -40,9 +45,9 @@ th.manual_seed(SEED)
 
 
 # Read the data
-test_data = read_data_for_grader(SUDY_NUMBER, data_used, SEED)['test']
+test_data = read_data_for_grader(SUDY_NUMBER, data_used, SEED)["test"]
 
-test_dataset = prepare_grader_data({"test": test_data}, DEVICE)['test']
+test_dataset = prepare_grader_data({"test": test_data}, DEVICE)["test"]
 
 # Create a DataLoader for the test dataset
 test_dataloader = DataLoader(
@@ -53,7 +58,11 @@ test_dataloader = DataLoader(
 
 models_names = os.listdir(trained_models_path)
 # take only models trained on the study and data used
-models_names = [model_name for model_name in models_names if f"study_{SUDY_NUMBER}_" in model_name and f"{data_used}_c" in model_name]
+models_names = [
+    model_name
+    for model_name in models_names
+    if f"study_{SUDY_NUMBER}_" in model_name and f"{data_used}_c" in model_name
+]
 
 # Predict with all models
 for model_name in models_names:
@@ -63,17 +72,18 @@ for model_name in models_names:
     logging.info(f"Loading model from {model_name}")
 
     model_path = os.path.join(trained_models_path, model_name)
-    model = RobertaForSequenceClassification.from_pretrained("roberta-base", num_labels=1).to(DEVICE)
+    model = RobertaForSequenceClassification.from_pretrained(
+        "roberta-base", num_labels=1
+    ).to(DEVICE)
     model.load_state_dict(th.load(model_path))
     model.eval()
 
     # Prediction
     for batch in test_dataloader:
         with th.no_grad():
-            
-            outputs = model(**batch)          
+            outputs = model(**batch)
             regression_values = outputs["logits"].squeeze().cpu().tolist()
-            
+
         predictions.extend(regression_values)
 
     # Clip predictions to [0, 1]

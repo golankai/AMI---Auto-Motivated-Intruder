@@ -5,13 +5,48 @@ from de_anonymizer.de_anonymizer import DeAnonymizer
 
 # Env parameters
 process_id = 5
-should_handle_data = True # handle dataFrame if True. Otherwise, just print the conversation.
+should_handle_data = (
+    True  # handle dataFrame if True. Otherwise, just print the conversation.
+)
 single_text = False
 run_all = False
 study_number = 2
 persona_name = "adele"
 single_text_number = 576
-text_lists = [43, 47, 57, 61, 97, 112, 147, 157, 178, 197, 201, 209, 216, 242, 271, 287, 297, 302, 323, 357, 366, 377, 397, 423, 442, 468, 491, 497, 503, 547, 558, 576]
+text_lists = [
+    43,
+    47,
+    57,
+    61,
+    97,
+    112,
+    147,
+    157,
+    178,
+    197,
+    201,
+    209,
+    216,
+    242,
+    271,
+    287,
+    297,
+    302,
+    323,
+    357,
+    366,
+    377,
+    397,
+    423,
+    442,
+    468,
+    491,
+    497,
+    503,
+    547,
+    558,
+    576,
+]
 result_csv_path = "pre-study/5_adele/second"
 
 texts_dir = f"textwash_data/study{study_number}/person_descriptions/anon"
@@ -26,7 +61,11 @@ else:
     ]
 
 de_anonymiser = DeAnonymizer(
-    llm_name="chat-gpt", process_id=process_id, self_guide=True, verbose=True, should_handle_data=should_handle_data
+    llm_name="chat-gpt",
+    process_id=process_id,
+    self_guide=True,
+    verbose=True,
+    should_handle_data=should_handle_data,
 )
 
 if single_text:
@@ -34,15 +73,19 @@ if single_text:
         anon_text = f.read()
     de_anonymiser.re_identify(anon_text)
 else:
-    de_anonymiser.re_identify_list(study_dir_path=texts_dir, file_names=texts_file_names)
+    de_anonymiser.re_identify_list(
+        study_dir_path=texts_dir, file_names=texts_file_names
+    )
 
 if should_handle_data:
     error_files = de_anonymiser.get_error_files()
     if error_files is not None:
         error_files.to_csv(f"results/{result_csv_path}_error_files.csv", index=False)
-        print("Save error files to csv successfully! file-name: ", f"{result_csv_path}_error_files.csv")
+        print(
+            "Save error files to csv successfully! file-name: ",
+            f"{result_csv_path}_error_files.csv",
+        )
 
     df = de_anonymiser.get_results()
     df.to_csv(f"results/{result_csv_path}.csv", index=False)
     print("Save to csv successfully! file-name: ", f"{result_csv_path}.csv")
-

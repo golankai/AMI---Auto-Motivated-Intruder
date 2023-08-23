@@ -4,7 +4,10 @@ from langchain import PromptTemplate
 from langchain.output_parsers import PydanticOutputParser
 from pydantic import BaseModel, Field
 
-from de_anonymizer.ami_process_handler.process_data.process_data import ProcessData, QueryData
+from de_anonymizer.ami_process_handler.process_data.process_data import (
+    ProcessData,
+    QueryData,
+)
 
 
 P11_CONVERSATIONS_BASE_TEMPLATE = """
@@ -24,11 +27,17 @@ P11_Q1_TEMPLATE = """
     anonymized text: "{user_input}"
 """
 
+
 class P11Q1Parser(BaseModel):
-    score: float = Field(description="A score from 0 to 1 to evaluate the anonimization, 1 is very easy to re-identify and 0 is impossible")
+    score: float = Field(
+        description="A score from 0 to 1 to evaluate the anonimization, 1 is very easy to re-identify and 0 is impossible"
+    )
+
 
 process_11_data = ProcessData(
-    base=PromptTemplate(input_variables=["history", "input"], template=P11_CONVERSATIONS_BASE_TEMPLATE),
+    base=PromptTemplate(
+        input_variables=["history", "input"], template=P11_CONVERSATIONS_BASE_TEMPLATE
+    ),
     queries=[
         QueryData(P11_Q1_TEMPLATE, PydanticOutputParser(pydantic_object=P11Q1Parser)),
     ],

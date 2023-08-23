@@ -11,7 +11,6 @@ from clearml import Task
 from utils import train_grader_model, prepare_grader_data, read_data_for_grader
 
 
-
 # Define constants#
 hyperparams = {
     "epochs": 5,
@@ -24,7 +23,9 @@ SUDY_NUMBER = 1
 EXPERIMENT_NAME = f'study_{SUDY_NUMBER}_{hyperparams["data_used"]}_{hyperparams["layers_trained"]}_epochs_{hyperparams["epochs"]}'
 
 # Set up environment
-task = Task.init(project_name="AMI", task_name=EXPERIMENT_NAME, reuse_last_task_id=False)
+task = Task.init(
+    project_name="AMI", task_name=EXPERIMENT_NAME, reuse_last_task_id=False
+)
 task.connect(hyperparams)
 
 trained_model_path = f"./anon_grader/trained_models/{EXPERIMENT_NAME}.pt"
@@ -32,7 +33,7 @@ results_dir = "./anon_grader/logs"
 
 DEVICE = "cuda" if th.cuda.is_available() else "cpu"
 
-logging.info(f'Working on device: {DEVICE}')
+logging.info(f"Working on device: {DEVICE}")
 # Cancel wandb logging
 os.environ["WANDB_DISABLED"] = "true"
 
@@ -62,15 +63,18 @@ training_args = TrainingArguments(
 # Read the data
 data = read_data_for_grader(SUDY_NUMBER, hyperparams["data_used"], SEED)
 
-datasets = prepare_grader_data({
+datasets = prepare_grader_data(
+    {
         "train": data["train"],
         "val": data["val"],
     },
-    DEVICE
+    DEVICE,
 )
 
 # Train the model
-model = train_grader_model(datasets, training_args, hyperparams["layers_trained"], DEVICE)
+model = train_grader_model(
+    datasets, training_args, hyperparams["layers_trained"], DEVICE
+)
 
 # save model
 th.save(model.state_dict(), trained_model_path)

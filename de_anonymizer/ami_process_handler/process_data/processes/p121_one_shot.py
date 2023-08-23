@@ -4,7 +4,10 @@ from langchain import PromptTemplate
 from langchain.output_parsers import PydanticOutputParser
 from pydantic import BaseModel, Field
 
-from de_anonymizer.ami_process_handler.process_data.process_data import ProcessData, QueryData
+from de_anonymizer.ami_process_handler.process_data.process_data import (
+    ProcessData,
+    QueryData,
+)
 
 # Study 1, file_id famous_147_d_1_7.txt
 
@@ -29,11 +32,17 @@ P12_Q1_TEMPLATE = """
     score:
 """
 
+
 class P12Q1Parser(BaseModel):
-    score: float = Field(description="A score from 0 to 1 to evaluate the anonimization, 1 is very easy to re-identify and 0 is impossible")
+    score: float = Field(
+        description="A score from 0 to 1 to evaluate the anonimization, 1 is very easy to re-identify and 0 is impossible"
+    )
+
 
 process_121_data = ProcessData(
-    base=PromptTemplate(input_variables=["history", "input"], template=P12_CONVERSATIONS_BASE_TEMPLATE),
+    base=PromptTemplate(
+        input_variables=["history", "input"], template=P12_CONVERSATIONS_BASE_TEMPLATE
+    ),
     queries=[
         QueryData(P12_Q1_TEMPLATE, PydanticOutputParser(pydantic_object=P12Q1Parser)),
     ],

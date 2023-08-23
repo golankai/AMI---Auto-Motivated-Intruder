@@ -4,7 +4,10 @@ from langchain import PromptTemplate
 from langchain.output_parsers import PydanticOutputParser
 from pydantic import BaseModel, Field
 
-from de_anonymizer.ami_process_handler.process_data.process_data import ProcessData, QueryData
+from de_anonymizer.ami_process_handler.process_data.process_data import (
+    ProcessData,
+    QueryData,
+)
 
 
 P111_CONVERSATIONS_BASE_TEMPLATE = """
@@ -31,12 +34,18 @@ P111_Q1_TEMPLATE = """
    Simulate shortly their process and estimate the normilized success rate in de-anonimization.
 """
 
+
 class P111Q1Parser(BaseModel):
     simulation: str = Field(description="The simulation of the 4 agents, short")
-    score: float = Field(description="A score from 0 to 1, norlilized success rate in de-anonimization")
+    score: float = Field(
+        description="A score from 0 to 1, norlilized success rate in de-anonimization"
+    )
+
 
 process_111_data = ProcessData(
-    base=PromptTemplate(input_variables=["history", "input"], template=P111_CONVERSATIONS_BASE_TEMPLATE),
+    base=PromptTemplate(
+        input_variables=["history", "input"], template=P111_CONVERSATIONS_BASE_TEMPLATE
+    ),
     queries=[
         QueryData(P111_Q1_TEMPLATE, PydanticOutputParser(pydantic_object=P111Q1Parser)),
     ],

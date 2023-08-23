@@ -75,7 +75,7 @@ def load_google_search_tool():
 
 
 ######################################
-###   Grader Functions  
+###   Grader Functions
 ######################################
 
 from torch.utils.data import Dataset
@@ -154,7 +154,7 @@ def train_grader_model(
         train_dataset=train_dataset,
         eval_dataset=val_dataset,
         optimizers=(optimizer, scheduler),
-        compute_metrics=lambda tup: compute_metrics(tup, only_mse=True)
+        compute_metrics=lambda tup: compute_metrics(tup, only_mse=True),
     )
 
     # Train the model with tqdm progress bar
@@ -175,18 +175,15 @@ def prepare_grader_data(data_splits: Dict[str, pd.DataFrame], device) -> Dataset
     """
     # Load pre-trained RoBERTa tokenizer and model
     tokenizer = RobertaTokenizerFast.from_pretrained("roberta-base")
-    
+
     datasets = {}
     for split, data in data_splits.items():
         # Preprocessing
         texts = data["text"].tolist()
         labels = data["human_rate"].tolist()
 
-        
         # Tokenize input texts
-        encodings = tokenizer(
-            texts, truncation=True, padding=True, return_tensors="pt"
-        )
+        encodings = tokenizer(texts, truncation=True, padding=True, return_tensors="pt")
 
         # Create dataset objects
         datasets[split] = GraderDataset(encodings, labels, device)
@@ -201,19 +198,16 @@ def compute_metrics(eval_pred: Tuple[np.ndarray, np.ndarray], only_mse: bool = T
         return {"rmse": rmse}
     avg_pred = round(sum(predictions) / len(predictions), 2)
     spearman = round(stats.spearmanr(labels, predictions)[0], 2)
-    return {
-        "rmse": rmse,
-        "avg_pred": avg_pred,
-        "spearman": spearman
-        }
+    return {"rmse": rmse, "avg_pred": avg_pred, "spearman": spearman}
 
-def choose_data(data: pd.DataFrame, data_used : str) -> pd.DataFrame:
-    '''
+
+def choose_data(data: pd.DataFrame, data_used: str) -> pd.DataFrame:
+    """
     Choose the data to use based on the types.
     :param data: the data to choose from.
     :param data_used: the type of data to use.
     :return: the data to use.
-    '''
+    """
     if data_used == "all":
         return data
     elif data_used == "famous":
@@ -222,29 +216,33 @@ def choose_data(data: pd.DataFrame, data_used : str) -> pd.DataFrame:
         return data[data["type"].isin(["famous", "semifamous"])]
     else:
         raise Exception("Invalid data type.")
-    
+
+
 def get_layer_pattern(layers_trained: str) -> str:
-    '''
+    """
     Get the pattern for the layers to train.
     :param layers_trained: the layers to train.
     :return: the pattern for the layers to train.
-    '''
+    """
     if layers_trained == "class":
         return r"classifier.*"
     elif layers_trained == "class_and_11":
-        return r'classifier.*|roberta.encoder.layer.11.*'
+        return r"classifier.*|roberta.encoder.layer.11.*"
     else:
         raise Exception("Invalid layers trained.")
 
-def read_data_for_grader(study_nr: int, data_used: str, seed: int, keep_more_than: int = 0) -> Dict[str, pd.DataFrame]:
-    '''
+
+def read_data_for_grader(
+    study_nr: int, data_used: str, seed: int, keep_more_than: int = 0
+) -> Dict[str, pd.DataFrame]:
+    """
     Read the data for the anon grader.
     :param study_nr: the study number to use. 1, 2 or 12.
     :param data_used: the type of data to use. "famous", "famous_and_semi" or "all".
     :param seed: the seed for the random state.
     :param keep_more_than: the number of times a file_id should appear in the data. In study 2 most is less than 4.
     :return: the data for the anon grader.
-    '''
+    """
     assert study_nr in [1, 2, 12], "Invalid study number."
 
     def _read_study_1():
@@ -274,9 +272,13 @@ def read_data_for_grader(study_nr: int, data_used: str, seed: int, keep_more_tha
         raw_data = pd.read_csv(data_dir, usecols=columns_to_read)
 
         # keep only rows whose file_id appers 4 times
-        
-        file_id_counts = raw_data['file_id'].value_counts()
-        raw_data = raw_data[raw_data['file_id'].isin(file_id_counts[file_id_counts > keep_more_than].index)]
+
+        file_id_counts = raw_data["file_id"].value_counts()
+        raw_data = raw_data[
+            raw_data["file_id"].isin(
+                file_id_counts[file_id_counts > keep_more_than].index
+            )
+        ]
 
         # Aggregate by file_id and calculate the rate of re-identification
         data = (
@@ -284,7 +286,10 @@ def read_data_for_grader(study_nr: int, data_used: str, seed: int, keep_more_tha
             .agg({"got_name_truth_q2_long": "mean"})
             .reset_index()
         )
-        data.rename(columns={"got_name_truth_q2_long": "human_rate", "person_long": "name"}, inplace=True)
+        data.rename(
+            columns={"got_name_truth_q2_long": "human_rate", "person_long": "name"},
+            inplace=True,
+        )
 
         # Add a type column
         data["type"] = ["famous"] * len(data)
@@ -313,13 +318,12 @@ def read_data_for_grader(study_nr: int, data_used: str, seed: int, keep_more_tha
     return {"train": train_data, "val": val_data, "test": test_data}
 
 
-        
 def get_exp_name(process_id: int) -> str:
-    '''
+    """
     Get the experiment name for the anon grader.
     :param process_id: the process id.
     :return: the experiment name.
-    '''
+    """
     match process_id:
         case 11:
             return "zero_shot"

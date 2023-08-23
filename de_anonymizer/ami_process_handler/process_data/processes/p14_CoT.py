@@ -4,7 +4,10 @@ from langchain import PromptTemplate
 from langchain.output_parsers import PydanticOutputParser
 from pydantic import BaseModel, Field
 
-from de_anonymizer.ami_process_handler.process_data.process_data import ProcessData, QueryData
+from de_anonymizer.ami_process_handler.process_data.process_data import (
+    ProcessData,
+    QueryData,
+)
 
 # Study 1, file_id famous_174_d_1_5.txt for the 0 sample
 # Study 1, file_id famous_147_d_1_7.txt for the 1 sample
@@ -37,12 +40,16 @@ P_Q1_TEMPLATE = """
     score:
 """
 
+
 class PQ1Parser(BaseModel):
     CoT: str = Field(description="The Chain of Thought")
     score: float = Field(description="The score, from 0 to 1")
 
+
 process_14_data = ProcessData(
-    base=PromptTemplate(input_variables=["history", "input"], template=P_CONVERSATIONS_BASE_TEMPLATE),
+    base=PromptTemplate(
+        input_variables=["history", "input"], template=P_CONVERSATIONS_BASE_TEMPLATE
+    ),
     queries=[
         QueryData(P_Q1_TEMPLATE, PydanticOutputParser(pydantic_object=PQ1Parser)),
     ],
