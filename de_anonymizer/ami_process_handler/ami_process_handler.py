@@ -6,7 +6,7 @@ from .process_data.processes.p5_guess1 import process_5_data
 
 # Grader imports
 from .process_data.processes.p11_zero_shot_grader import process_11_data
-from .process_data.processes.p111_zero_shot_direct import process_111_data
+from .process_data.processes.p111_multi_persona import process_111_data
 from .process_data.processes.p121_one_shot import process_121_data
 from .process_data.processes.p120_one_shot import process_120_data
 from .process_data.processes.p13_three_shot import process_13_data
