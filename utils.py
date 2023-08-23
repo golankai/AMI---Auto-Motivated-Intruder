@@ -295,16 +295,27 @@ def read_data_for_grader(
         data["type"] = ["famous"] * len(data)
         return data
 
-    match study_nr:
-        case 1:
-            data = _read_study_1()
-        case 2:
-            data = _read_study_2()
-        case 12:
-            data1 = _read_study_1()
-            data2 = _read_study_2()
-            # Combine the data from the two studies
-            data = pd.concat([data1, data2])
+    # match study_nr:
+    #     case 1:
+    #         data = _read_study_1()
+    #     case 2:
+    #         data = _read_study_2()
+    #     case 12:
+    #         data1 = _read_study_1()
+    #         data2 = _read_study_2()
+    #         # Combine the data from the two studies
+    #         data = pd.concat([data1, data2])
+    if study_nr == 1:
+        data = _read_study_1()
+    elif study_nr == 2:
+        data = _read_study_2()
+    elif study_nr == 12:
+        data1 = _read_study_1()
+        data2 = _read_study_2()
+        # Combine the data from the two studies
+        data = pd.concat([data1, data2])
+    else:
+        raise Exception("Invalid study number.")
 
     # Round the human rate to 2 decimals
     data["human_rate"] = data["human_rate"].round(2)
@@ -318,30 +329,30 @@ def read_data_for_grader(
     return {"train": train_data, "val": val_data, "test": test_data}
 
 
-def get_exp_name(process_id: int) -> str:
-    """
-    Get the experiment name for the anon grader.
-    :param process_id: the process id.
-    :return: the experiment name.
-    """
-    match process_id:
-        case 11:
-            return "zero_shot"
-        case 120:
-            return "one_shot_0"
-        case 121:
-            return "one_shot_1"
-        case 13:
-            return "three_shot"
-        case 14:
-            return "CoT"
-        case 1511:
-            return "self_const_zero_shot"
-        case 1513:
-            return "self_const_three_shot"
-        case 111:
-            return "multi_persona"
-        case 16:
-            return "Role"
-        case _:
-            raise Exception("Invalid process id.")
+# def get_exp_name(process_id: int) -> str:
+#     """
+#     Get the experiment name for the anon grader.
+#     :param process_id: the process id.
+#     :return: the experiment name.
+#     """
+#     match process_id:
+#         case 11:
+#             return "zero_shot"
+#         case 120:
+#             return "one_shot_0"
+#         case 121:
+#             return "one_shot_1"
+#         case 13:
+#             return "three_shot"
+#         case 14:
+#             return "CoT"
+#         case 1511:
+#             return "self_const_zero_shot"
+#         case 1513:
+#             return "self_const_three_shot"
+#         case 111:
+#             return "multi_persona"
+#         case 16:
+#             return "Role"
+#         case _:
+#             raise Exception("Invalid process id.")
