@@ -11,24 +11,22 @@ from utils import compute_metrics, get_exp_name
 from conversations.conversation_handler import ResponseStatus
 
 # Processes to run
-process_ids = [11] # [11, 111,  120, 121, 13, 14, 1511, 11513]
+process_ids = [11, 111,  120, 121, 13, 14, 1511, 1513]  # [11, 111,  120, 121, 13, 14, 1511, 1513]
 # Run on one file or all, if file_id is empty, run on all
-# use with should_predict = False to run on one file, printing the results
+# use with should_predict = True to run on one file, printing the results
 # then write manually in the predictions csv and run again on all with should_predict = False
 file_id = ""
 
 # Predict or not
-should_predict = True
+should_predict = False
 
 # Define constants
-TEMPERATURE = 0.5
 SUDY_NUMBER = 1
-NUM_SAMPLES = 8 # if 0, run on all
+NUM_SAMPLES = 0 # if 0, run on all
 DATA_USED = "famous"
-should_handle_data = True 
 
 # Set up environment
-
+should_handle_data = True
 PRED_PATH = f"./anon_grader/results/predictions_{SUDY_NUMBER}_{DATA_USED}.csv"
 PRED_PATH2SAVE = f"./anon_grader/results/predictions_{SUDY_NUMBER}_{DATA_USED}_w_few_shot.csv"
 RESULTS_PATH2SAVE = f"./anon_grader/results/results_{SUDY_NUMBER}_{DATA_USED}_w_few_shot.csv"
@@ -39,14 +37,13 @@ if not os.path.exists(ERROR_FILES_DIR):
     os.makedirs(ERROR_FILES_DIR)
 
 # Set seeds
-SEED = 42
+SEED = 111
 np.random.seed(SEED)
 th.manual_seed(SEED)
 
 # If alreday have predictions with few-shot, read them
 if os.path.exists(PRED_PATH2SAVE):
     predictions = pd.read_csv(PRED_PATH2SAVE, index_col=0)
-    assert len(predictions) == NUM_SAMPLES, "The number of samples is not as expected"
     results = pd.read_csv(RESULTS_PATH2SAVE, index_col=0).to_dict(orient="index")
 else: 
     # Read the predictions from the models
@@ -69,8 +66,7 @@ else:
 # ChatGPT interaction
 # Get the score for each text
 def _get_score_for_row(anon_text, de_anonymiser):
-    # Try 3 times to get the score
-    for _ in range(3):
+    for _ in range(10):
         response = de_anonymiser.re_identify(anon_text=anon_text)
         if response.get("status") == ResponseStatus.SUCCESS:
             return response.get("data").dict()["score"]
@@ -79,13 +75,15 @@ def _get_score_for_row(anon_text, de_anonymiser):
 def _get_self_const_score(anon_text, base_process_id):
     # Define the de-anonymizer
     de_anonymiser = DeAnonymizer(
-        llm_name="chat-gpt", process_id=base_process_id, should_handle_data=should_handle_data, temperature=TEMPERATURE
+        llm_name="chat-gpt", process_id=base_process_id, should_handle_data=should_handle_data
     )
     # Run 3 times to get the score
     responses = []
     for _ in range(3):
-        responses. append(_get_score_for_row(anon_text, de_anonymiser))  
-    return np.mean(responses)
+        responses.append(_get_score_for_row(anon_text, de_anonymiser)) 
+    score = np.mean(responses)
+    print("Self-Consistency score: ", score)
+    return score
 
 # Run all the processes
 if should_predict:
@@ -116,7 +114,7 @@ if should_predict:
         
         # Define the de-anonymizer
         de_anonymiser = DeAnonymizer(
-            llm_name="chat-gpt", process_id=process_id, should_handle_data=should_handle_data, temperature=TEMPERATURE
+            llm_name="chat-gpt", process_id=process_id, should_handle_data=should_handle_data
         )
 
         # Get the score for each text
@@ -150,3 +148,4 @@ results.update({
 # Save the results
 results_df = pd.DataFrame.from_dict(results, orient="columns").T
 results_df.to_csv(RESULTS_PATH2SAVE)
+
