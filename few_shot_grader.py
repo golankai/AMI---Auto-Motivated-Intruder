@@ -11,18 +11,20 @@ from utils import compute_metrics, get_exp_name
 from conversations.conversation_handler import ResponseStatus
 
 # Processes to run
-process_ids = [16]  # [11, 111,  120, 121, 13, 14, 1511, 1513]
+process_ids = [11]  # [11, 111,  120, 121, 13, 14, 1511, 1513]
 # Run on one file or all, if file_id is empty, run on all
 # use with should_predict = True to run on one file, printing the results
 # then write manually in the predictions csv and run again on all with should_predict = False
 file_id = ""
 
 # Predict or not
-should_predict = False
+should_predict = True
+
+best_roberta = "model_study_1_famous_and_semi_class_and_11_epochs_20"
 
 # Define constants
 ROLE_NR = 1 # if working with process 16
-calc_roles_mean = True # if working with process 16 and want to calculate the mean of the roles
+calc_roles_mean = False # if working with process 16 and want to calculate the mean of the roles
 SUDY_NUMBER = 1
 NUM_SAMPLES = 0  # if 0, run on all
 DATA_USED = "famous"
