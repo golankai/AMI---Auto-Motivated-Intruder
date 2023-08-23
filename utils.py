@@ -271,7 +271,7 @@ def read_data_for_grader(
         columns_to_read = ["text", "file_id", "person_long", "got_name_truth_q2_long"]
         raw_data = pd.read_csv(data_dir, usecols=columns_to_read)
 
-        # keep only rows whose file_id appers 4 times
+        # keep only rows whose file_id appers at lease some times
 
         file_id_counts = raw_data["file_id"].value_counts()
         raw_data = raw_data[

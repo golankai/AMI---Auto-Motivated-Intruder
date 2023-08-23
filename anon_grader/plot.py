@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 # Read the prediction of the fewshot model
 predictions = pd.read_csv(
-    "./anon_grader/results/predictions_1_famous_w_few_shot.csv", index_col=0
+    "./anon_grader/results/predictions_1_famous_w_few_shot_manipulation.csv", index_col=0
 )
 
 # Sort the DataFrame by gold labels
@@ -26,7 +26,9 @@ plt.scatter(x, sorted_df["human_rate"], label="human_rate", alpha=1, marker="x")
 # plt.scatter(x, sorted_df['self_const_zero_shot'], label='self_const_zero_shot', alpha=0.5)
 # plt.scatter(x, sorted_df['self_const_three_shot'], label='self_const_three_shot', alpha=0.5)
 plt.scatter(x, sorted_df['Role4'], label='Role4', alpha=0.5)
-plt.scatter(x, sorted_df['Roles'], label='Roles', alpha=0.5)
+# plt.scatter(x, sorted_df['Roles'], label='Roles', alpha=0.5)
+plt.scatter(x, sorted_df['Role4_man'], label='Role4_man', alpha=0.5)
+
 
 
 # Customize the plot
