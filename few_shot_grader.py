@@ -11,16 +11,18 @@ from utils import compute_metrics, get_exp_name
 from conversations.conversation_handler import ResponseStatus
 
 # Processes to run
-process_ids = [111]  # [11, 111,  120, 121, 13, 14, 1511, 1513]
+process_ids = [16]  # [11, 111,  120, 121, 13, 14, 1511, 1513]
 # Run on one file or all, if file_id is empty, run on all
 # use with should_predict = True to run on one file, printing the results
 # then write manually in the predictions csv and run again on all with should_predict = False
 file_id = ""
 
 # Predict or not
-should_predict = True
+should_predict = False
 
 # Define constants
+ROLE_NR = 1 # if working with process 16
+calc_roles_mean = True # if working with process 16 and want to calculate the mean of the roles
 SUDY_NUMBER = 1
 NUM_SAMPLES = 0  # if 0, run on all
 DATA_USED = "famous"
@@ -113,6 +115,8 @@ if should_predict:
 
     for process_id in process_ids:
         EXPERIMENT_NAME = get_exp_name(process_id)
+        if process_id == 16:
+            EXPERIMENT_NAME += str(ROLE_NR)
         ERROR_FILE_PATH = f"{ERROR_FILES_DIR}/{EXPERIMENT_NAME}.csv"
 
         print(f"Running experiment: {EXPERIMENT_NAME}")
@@ -176,6 +180,22 @@ results.update(
     }
 )
 
+# If predictiones have Role_x experiments, calculate the normalized results for all Roles
+if calc_roles_mean:
+    roles_columns = [col for col in results.keys() if col.startswith("Role")]
+
+    predictions["Roles"] = predictions.apply(lambda row: np.mean([row[col] for col in roles_columns]), axis=1)
+    # Save the predictions
+    predictions.to_csv(PRED_PATH2SAVE)
+    results.update(
+        {
+            "Roles": compute_metrics(
+                (list(predictions["Roles"]), list(predictions["human_rate"])),
+                only_mse=False,
+            )
+        }
+    )
+    
 # Save the results
 results_df = pd.DataFrame.from_dict(results, orient="columns").T
 results_df.to_csv(RESULTS_PATH2SAVE)
