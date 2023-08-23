@@ -17,6 +17,8 @@ P111_CONVERSATIONS_BASE_TEMPLATE = """
 """
 
 P111_Q1_TEMPLATE = """
+    Anonymized text: "{user_input}"
+
     You are simulating 4 different agents with different backgrounds trying to guesss who is the famous person the anonymized text describes.  
     Their goal is to re-identify. 
 
@@ -25,8 +27,6 @@ P111_Q1_TEMPLATE = """
     Agent 3: male, 18 years old, from Germany , working as a waiter.
     Agent 4: male, 35 years old, from France, working as a lawyer.
     {format_instructions}
-    
-    anonymized text: "{user_input}"
 
    Simulate shortly their process and estimate the normilized success rate in de-anonimization.
 """

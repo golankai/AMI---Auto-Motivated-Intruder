@@ -2,12 +2,11 @@ import os
 import logging
 import pandas as pd
 import numpy as np
-from sklearn.model_selection import train_test_split
 
 import torch as th
-from torch.utils.data import DataLoader, Dataset
+from torch.utils.data import DataLoader
 
-from transformers import TrainingArguments, RobertaForSequenceClassification
+from transformers import RobertaForSequenceClassification
 
 from clearml import Task
 

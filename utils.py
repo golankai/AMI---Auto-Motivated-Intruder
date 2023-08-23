@@ -336,6 +336,6 @@ def get_exp_name(process_id: int) -> str:
         case 1513:
             return "self_const_three_shot"
         case 111:
-            return "zero_shot_direct"
+            return "multi_persona"
         case _:
             raise Exception("Invalid process id.")
