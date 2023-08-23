@@ -16,7 +16,7 @@ from utils import prepare_grader_data, compute_metrics, read_data_for_grader
 # Define constants
 SUDY_NUMBER = 1
 data_used = "famous"
-EXPERIMENT_NAME = f"eval_study_{SUDY_NUMBER}_{data_used}"
+EXPERIMENT_NAME = "eval_anon_grader_models"
 
 task = Task.init(
     project_name="AMI",
@@ -57,12 +57,6 @@ test_dataloader = DataLoader(
 )
 
 models_names = os.listdir(trained_models_path)
-# take only models trained on the study and data used
-models_names = [
-    model_name
-    for model_name in models_names
-    if f"study_{SUDY_NUMBER}_" in model_name and f"{data_used}_c" in model_name
-]
 
 # Predict with all models
 for model_name in models_names:
