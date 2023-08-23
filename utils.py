@@ -157,12 +157,8 @@ def train_grader_model(
         compute_metrics=lambda tup: compute_metrics(tup, only_mse=True),
     )
 
-    # Train the model with tqdm progress bar
-    with tqdm.trange(training_args.num_train_epochs, desc="Epoch") as t:
-        for epoch in t:
-            trainer.train()
-            t.set_description(f"Epoch {epoch}")
-
+    # Train the model 
+    trainer.train()
     return model
 
 
