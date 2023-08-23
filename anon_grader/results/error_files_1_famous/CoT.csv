@@ -1,14 +1,15 @@
 File,Raw_response
+,"{""properties"": {""CoT"": {""title"": ""Cot"", ""description"": ""The Chain of Thought"", ""type"": ""string""}, ""score"": {""title"": ""Score"", ""description"": ""The score, from 0 to 1"", ""type"": ""number""}}, ""required"": [""CoT"", ""score""]}"
 ,"{
   ""properties"": {
     ""CoT"": {
-      ""title"": ""CoT"",
+      ""title"": ""Cot"",
       ""description"": ""The Chain of Thought"",
       ""type"": ""string""
     },
     ""score"": {
       ""title"": ""Score"",
-      ""description"": ""The score"",
+      ""description"": ""The score, from 0 to 1"",
       ""type"": ""number""
     }
   },
