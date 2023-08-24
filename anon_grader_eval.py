@@ -11,7 +11,7 @@ from transformers import RobertaForSequenceClassification
 from clearml import Task
 
 
-from utils import prepare_grader_data, compute_metrics, read_data_for_grader
+from utils import prepare_grader_data, compute_metrics, read_data_for_grader, predict
 
 # Define constants
 SUDY_NUMBER = 1
@@ -19,16 +19,21 @@ data_used = "famous"
 EXPERIMENT_NAME = "eval_anon_grader_models"
 
 task = Task.init(
-    project_name="AMI",
+    project_name="AMI_new",
     task_name=EXPERIMENT_NAME,
-    reuse_last_task_id=False,
     task_type=Task.TaskTypes.testing,
 )
 
 # Set up environment
 trained_models_path = f"./anon_grader/trained_models/"
-PRED_PATH = f"./anon_grader/results/predictions_{SUDY_NUMBER}_{data_used}.csv"
-RESULTS_PATH = f"./anon_grader/results/results_{SUDY_NUMBER}_{data_used}.csv"
+RESULTS_DIR = "./anon_grader/results/"
+if not os.path.exists(RESULTS_DIR):
+    os.makedirs(RESULTS_DIR)
+PRED_PATH = os.path.join(RESULTS_DIR, f"predictions_{SUDY_NUMBER}_{data_used}_val.csv")
+PRED_PATH2SAVE = os.path.join(RESULTS_DIR, f"predictions_{SUDY_NUMBER}_{data_used}_test.csv")
+
+RESULTS_PATH = os.path.join(RESULTS_DIR, f"results_{SUDY_NUMBER}_{data_used}_val.csv")
+RESULTS_PATH2SAVE = os.path.join(RESULTS_DIR, f"results_{SUDY_NUMBER}_{data_used}_test.csv")
 
 DEVICE = "cuda" if th.cuda.is_available() else "cpu"
 
@@ -45,14 +50,21 @@ th.manual_seed(SEED)
 
 
 # Read the data
-test_data = read_data_for_grader(SUDY_NUMBER, data_used, SEED)["test"]
+data = read_data_for_grader(SUDY_NUMBER, data_used, SEED)
+val_data, test_data = data["val"], data["test"]
+datasets = prepare_grader_data({"val": val_data, "test": test_data}, DEVICE)
+val_dataset, test_dataset = datasets["val"], datasets["test"]
 
-test_dataset = prepare_grader_data({"test": test_data}, DEVICE)["test"]
+# Create a DataLoaders
+val_dataloader = DataLoader(
+    val_dataset,
+    batch_size=16,
+    shuffle=False,
+)
 
-# Create a DataLoader for the test dataset
 test_dataloader = DataLoader(
     test_dataset,
-    batch_size=64,
+    batch_size=16,
     shuffle=False,
 )
 
@@ -60,44 +72,40 @@ models_names = os.listdir(trained_models_path)
 
 # Predict with all models
 for model_name in models_names:
-    predictions = []
-
-    # Load the model
-    logging.info(f"Loading model from {model_name}")
-
-    model_path = os.path.join(trained_models_path, model_name)
-    model = RobertaForSequenceClassification.from_pretrained(
-        "roberta-base", num_labels=1
-    ).to(DEVICE)
-    model.load_state_dict(th.load(model_path))
-    model.eval()
-
-    # Prediction
-    for batch in test_dataloader:
-        with th.no_grad():
-            outputs = model(**batch)
-            regression_values = outputs["logits"].squeeze().cpu().tolist()
-
-        predictions.extend(regression_values)
-
-    # Clip predictions to [0, 1]
-    predictions = np.clip(predictions, 0, 1)
-
-    # Add predictions to the data
+    predictions = predict(trained_models_path, val_dataloader, model_name, DEVICE)
 
     # Remove extension from model name
-    test_data[f"model_{model_name[:-3]}"] = predictions
+    val_data[f"model_{model_name[:-3]}"] = predictions
 
-test_data.to_csv(PRED_PATH)
-task.upload_artifact("Predictions df", artifact_object=test_data)
+val_data.to_csv(PRED_PATH)
+task.upload_artifact("Predictions df", artifact_object=val_data)
 
 # Calculate the overall mse for each model
 results = {
-    model_name: compute_metrics((test_data[model_name], test_data["human_rate"]), only_mse=False)
-    for model_name in test_data.columns[5:]
+    model_name: compute_metrics((val_data[model_name], val_data["human_rate"]), only_mse=False)
+    for model_name in val_data.columns[5:]
 }
 
 # Save the results
 results_df = pd.DataFrame.from_dict(results, orient="columns").T
 results_df.to_csv(RESULTS_PATH)
 task.upload_artifact("Results df", artifact_object=results_df)
+
+# Choose the best model
+best_model = min(results, key=lambda x: results[x]["rmse"])
+logging.info(f"Best model is {best_model}")
+
+# Predict on test data
+predictions = predict(trained_models_path, test_dataloader, best_model, DEVICE)
+test_data[f"RoBERTa"] = predictions
+
+# Calculate the metrics
+results = compute_metrics((predictions, test_data["human_rate"]), only_mse=False)
+
+# Save predictions and results on test data
+test_data.to_csv(PRED_PATH2SAVE)
+task.upload_artifact("Predictions on test", artifact_object=test_data)
+
+results_df = pd.DataFrame.from_dict(results, orient="index").T
+results_df.to_csv(RESULTS_PATH2SAVE)
+task.upload_artifact("Results on test", artifact_object=results_df)

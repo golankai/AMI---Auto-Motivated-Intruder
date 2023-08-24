@@ -13,6 +13,9 @@ from utils import train_grader_model, prepare_grader_data, read_data_for_grader
 DEVICE = "cuda" if th.cuda.is_available() else "cpu"
 RESULT_DIR = "./anon_grader/logs"
 
+if not os.path.exists(RESULT_DIR):
+    os.makedirs(RESULT_DIR)
+
 # Set seeds
 SEED = 42
 np.random.seed(SEED)

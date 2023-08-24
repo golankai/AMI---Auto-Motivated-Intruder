@@ -18,6 +18,8 @@ import torch as th
 from torch.optim import AdamW
 from torch.utils.data import Dataset
 from datasets import DatasetDict
+from torch.utils.data import DataLoader
+
 
 from transformers import (
     RobertaTokenizerFast,
@@ -186,6 +188,39 @@ def prepare_grader_data(data_splits: Dict[str, pd.DataFrame], device) -> Dataset
     return DatasetDict(datasets)
 
 
+def predict(trained_models_path: str, dataloader: DataLoader, model_name: str, device) -> list[float] :
+    """
+    Predict with a trained model.
+    :param trained_models_path: the path to the trained models
+    :param dataloader: the dataloader to predict on
+    :param model_name: the name of the model to predict with
+    :param device: the device to predict on
+    :return: the predictions
+    """
+    predictions = []
+
+    # Load the model
+    model_path = os.path.join(trained_models_path, model_name)
+    model = RobertaForSequenceClassification.from_pretrained(
+        "roberta-base", num_labels=1
+    ).to(device)
+    model.load_state_dict(th.load(model_path))
+    model.eval()
+
+    # Prediction
+    for batch in dataloader:
+        with th.no_grad():
+            outputs = model(**batch)
+            regression_values = outputs["logits"].squeeze().cpu().tolist()
+
+        predictions.extend(regression_values)
+
+    # Clip predictions to [0, 1]
+    predictions = np.clip(predictions, 0, 1)
+
+    return predictions
+
+
 def compute_metrics(eval_pred: Tuple[np.ndarray, np.ndarray], only_mse: bool = True):
     predictions, labels = eval_pred
     rmse = mean_squared_error(labels, predictions, squared=False).round(2)
@@ -347,3 +382,5 @@ def read_data_for_grader(
 #             return "Role"
 #         case _:
 #             raise Exception("Invalid process id.")
+
+

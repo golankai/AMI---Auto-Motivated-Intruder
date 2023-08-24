@@ -10,8 +10,41 @@ from de_anonymizer.de_anonymizer import DeAnonymizer
 from utils import compute_metrics, get_exp_name
 from conversations.conversation_handler import ResponseStatus
 
-# Processes to run
-process_ids = [11]  # [11, 111,  120, 121, 13, 14, 1511, 1513]
+# Define constants
+SUDY_NUMBER = 1
+NUM_SAMPLES = 0  # if 0, run on all
+DATA_USED = "famous"
+
+RESULTS_DIR = "./anon_grader/results/"
+PRED_PATH = os.path.join(RESULTS_DIR, f"predictions_{SUDY_NUMBER}_{DATA_USED}_val.csv")
+RESULTS_PATH = os.path.join(RESULTS_DIR, f"results_{SUDY_NUMBER}_{DATA_USED}_val.csv")
+
+PRED_PATH2SAVE = os.path.join(RESULTS_DIR, f"predictions_{SUDY_NUMBER}_{DATA_USED}_test.csv")
+RESULTS_PATH2SAVE = os.path.join(RESULTS_DIR, f"results_{SUDY_NUMBER}_{DATA_USED}_test.csv")
+ERROR_FILES_DIR = f"./anon_grader/results/error_files_{SUDY_NUMBER}_{DATA_USED}"
+if not os.path.exists(ERROR_FILES_DIR):
+    os.makedirs(ERROR_FILES_DIR)
+
+DEVICE = "cuda" if th.cuda.is_available() else "cpu"
+
+def _read_predictions() -> pd.DataFrame:
+    # Read the predictions from the PE phase
+    if os.path.exists(PRED_PATH2SAVE):
+        predictions = pd.read_csv(PRED_PATH2SAVE, index_col=0)
+        results = pd.read_csv(RESULTS_PATH2SAVE, index_col=0).to_dict(orient="index")
+    else: # read the predictions of the models
+        # Read the results of the models on val data
+        results = pd.read_csv(RESULTS_PATH, index_col=0).to_dict(orient="index")
+        # Choose the best model
+        best_model = min(results, key=lambda x: results[x]["rmse"])
+        # Read the predictions of the best model
+        predictions = pd.read_csv(PRED_PATH, index_col=0, usecols=["type", "file_id", "name", "text", "human_rate", best_model])
+        # Keep the predictions of the best model only
+        predictions = predictions.rename(columns={best_model: "RoBERTa"})
+
+ROLE_NR = 1 # if working with process 16
+calc_roles_mean = False # if working with process 16 and want to calculate the mean of the roles
+
 # Run on one file or all, if file_id is empty, run on all
 # use with should_predict = True to run on one file, printing the results
 # then write manually in the predictions csv and run again on all with should_predict = False
@@ -20,63 +53,15 @@ file_id = ""
 # Predict or not
 should_predict = True
 
-best_roberta = "model_study_1_famous_and_semi_class_and_11_epochs_20"
 
-# Define constants
-ROLE_NR = 1 # if working with process 16
-calc_roles_mean = False # if working with process 16 and want to calculate the mean of the roles
-SUDY_NUMBER = 1
-NUM_SAMPLES = 0  # if 0, run on all
-DATA_USED = "famous"
 
-# Set up environment
-should_handle_data = True
-PRED_PATH = f"./anon_grader/results/predictions_{SUDY_NUMBER}_{DATA_USED}.csv"
-PRED_PATH2SAVE = (
-    f"./anon_grader/results/predictions_{SUDY_NUMBER}_{DATA_USED}_w_few_shot.csv"
-)
-RESULTS_PATH2SAVE = (
-    f"./anon_grader/results/results_{SUDY_NUMBER}_{DATA_USED}_w_few_shot.csv"
-)
-ERROR_FILES_DIR = f"./anon_grader/results/error_files_{SUDY_NUMBER}_{DATA_USED}"
-DEVICE = "cuda" if th.cuda.is_available() else "cpu"
-
-if not os.path.exists(ERROR_FILES_DIR):
-    os.makedirs(ERROR_FILES_DIR)
 
 # Set seeds
 SEED = 42
 np.random.seed(SEED)
 th.manual_seed(SEED)
 
-# If alreday have predictions with few-shot, read them
-if os.path.exists(PRED_PATH2SAVE):
-    predictions = pd.read_csv(PRED_PATH2SAVE, index_col=0)
-    results = pd.read_csv(RESULTS_PATH2SAVE, index_col=0).to_dict(orient="index")
-else:
-    # Read the predictions from the models
-    predictions = pd.read_csv(PRED_PATH, index_col=0)
-    # Calculate the scores for each model
-    results = {
-        model_name: compute_metrics(
-            (list(predictions[model_name]), list(predictions["human_rate"])),
-            only_mse=False,
-        )
-        for model_name in predictions.columns[5:]
-    }
-    # Keep the best model, based on the mse
-    best_model = min(results, key=lambda x: results[x]["rmse"])
-    results = {
-        "data": compute_metrics(
-            (list(predictions["human_rate"]), list(predictions["human_rate"])),
-            only_mse=False,
-        ),
-        "RoBERTa": results[best_model],
-    }
-    # Keep the predictions of the best model only
-    predictions = predictions[
-        ["type", "file_id", "name", "text", "human_rate", best_model]
-    ].rename(columns={best_model: "RoBERTa"})
+
 
 
 # ChatGPT interaction
@@ -201,3 +186,9 @@ if calc_roles_mean:
 # Save the results
 results_df = pd.DataFrame.from_dict(results, orient="columns").T
 results_df.to_csv(RESULTS_PATH2SAVE)
+
+
+if __name__ == "__main__":
+    # Processes to run
+    process_ids = [11, 111,  120, 121, 13, 14, 1511, 1513, 161, 162, 163, 163] # [11, 111,  120, 121, 13, 14, 1511, 1513, 161, 162, 163, 163]
+    predictions = _read_predictions()
