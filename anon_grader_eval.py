@@ -113,6 +113,6 @@ results_test = {"RoBERTa": compute_metrics((test_data["RoBERTa"], test_data["hum
 test_data.to_csv(PRED_PATH2SAVE)
 task.upload_artifact("Predictions on test", artifact_object=test_data)
 
-results_df = pd.DataFrame.from_dict(results_test, orient="index").T
+results_df = pd.DataFrame.from_dict(results_test, orient="index")
 results_df.to_csv(RESULTS_PATH2SAVE)
 task.upload_artifact("Results on test", artifact_object=results_df)
