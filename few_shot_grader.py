@@ -16,31 +16,47 @@ NUM_SAMPLES = 0  # if 0, run on all
 DATA_USED = "famous"
 
 RESULTS_DIR = "./anon_grader/results/"
-PRED_PATH = os.path.join(RESULTS_DIR, f"predictions_{SUDY_NUMBER}_{DATA_USED}_val.csv")
-RESULTS_PATH = os.path.join(RESULTS_DIR, f"results_{SUDY_NUMBER}_{DATA_USED}_val.csv")
 
-PRED_PATH2SAVE = os.path.join(RESULTS_DIR, f"predictions_{SUDY_NUMBER}_{DATA_USED}_test.csv")
-RESULTS_PATH2SAVE = os.path.join(RESULTS_DIR, f"results_{SUDY_NUMBER}_{DATA_USED}_test.csv")
+PRED_PATH = os.path.join(RESULTS_DIR, f"predictions_{SUDY_NUMBER}_{DATA_USED}_test.csv")
+RESULTS_PATH = os.path.join(RESULTS_DIR, f"results_{SUDY_NUMBER}_{DATA_USED}_test.csv")
 ERROR_FILES_DIR = f"./anon_grader/results/error_files_{SUDY_NUMBER}_{DATA_USED}"
 if not os.path.exists(ERROR_FILES_DIR):
     os.makedirs(ERROR_FILES_DIR)
 
 DEVICE = "cuda" if th.cuda.is_available() else "cpu"
 
-def _read_predictions() -> pd.DataFrame:
+def _read_predictions_results() -> pd.DataFrame:
     # Read the predictions from the PE phase
-    if os.path.exists(PRED_PATH2SAVE):
-        predictions = pd.read_csv(PRED_PATH2SAVE, index_col=0)
-        results = pd.read_csv(RESULTS_PATH2SAVE, index_col=0).to_dict(orient="index")
-    else: # read the predictions of the models
-        # Read the results of the models on val data
-        results = pd.read_csv(RESULTS_PATH, index_col=0).to_dict(orient="index")
-        # Choose the best model
-        best_model = min(results, key=lambda x: results[x]["rmse"])
-        # Read the predictions of the best model
-        predictions = pd.read_csv(PRED_PATH, index_col=0, usecols=["type", "file_id", "name", "text", "human_rate", best_model])
-        # Keep the predictions of the best model only
-        predictions = predictions.rename(columns={best_model: "RoBERTa"})
+    predictions = pd.read_csv(PRED_PATH, index_col=0)
+    results = pd.read_csv(RESULTS_PATH, index_col=0).to_dict(orient="index")
+    return predictions, results
+
+# Get the score for each text
+def _get_score_for_row(anon_text, de_anonymiser):
+    for _ in range(10):
+        response = de_anonymiser.re_identify(anon_text=anon_text)
+        if response.get("status") == ResponseStatus.SUCCESS:
+            return response.get("data").dict()["score"]
+    return np.nan
+
+
+def _get_self_const_score(anon_text, base_process_id):
+    # Define the de-anonymizer
+    de_anonymiser = DeAnonymizer(
+        llm_name="chat-gpt",
+        process_id=base_process_id,
+        should_handle_data=True,
+    )
+    # Run 3 times to get the score
+    responses = []
+    for _ in range(3):
+        responses.append(_get_score_for_row(anon_text, de_anonymiser))
+    score = np.mean(responses)
+    print("Self-Consistency score: ", score)
+    return score
+
+def _predict_pe(predictions: pd.DataFrame, process_ids: list[int]) -> pd.DataFrame:
+
 
 ROLE_NR = 1 # if working with process 16
 calc_roles_mean = False # if working with process 16 and want to calculate the mean of the roles
@@ -65,29 +81,7 @@ th.manual_seed(SEED)
 
 
 # ChatGPT interaction
-# Get the score for each text
-def _get_score_for_row(anon_text, de_anonymiser):
-    for _ in range(10):
-        response = de_anonymiser.re_identify(anon_text=anon_text)
-        if response.get("status") == ResponseStatus.SUCCESS:
-            return response.get("data").dict()["score"]
-    return np.nan
 
-
-def _get_self_const_score(anon_text, base_process_id):
-    # Define the de-anonymizer
-    de_anonymiser = DeAnonymizer(
-        llm_name="chat-gpt",
-        process_id=base_process_id,
-        should_handle_data=should_handle_data,
-    )
-    # Run 3 times to get the score
-    responses = []
-    for _ in range(3):
-        responses.append(_get_score_for_row(anon_text, de_anonymiser))
-    score = np.mean(responses)
-    print("Self-Consistency score: ", score)
-    return score
 
 
 # Run all the processes
@@ -191,4 +185,5 @@ results_df.to_csv(RESULTS_PATH2SAVE)
 if __name__ == "__main__":
     # Processes to run
     process_ids = [11, 111,  120, 121, 13, 14, 1511, 1513, 161, 162, 163, 163] # [11, 111,  120, 121, 13, 14, 1511, 1513, 161, 162, 163, 163]
-    predictions = _read_predictions()
+    predictions, results = _read_predictions_results()
+    predictions = _predict_pe(predictions, process_ids)

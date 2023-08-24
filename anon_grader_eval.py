@@ -92,7 +92,13 @@ results_df.to_csv(RESULTS_PATH)
 task.upload_artifact("Results df", artifact_object=results_df)
 
 # Choose the best model
-best_model = min(results, key=lambda x: results[x]["rmse"])  
+best_model = min(results, key=lambda x: results[x]["rmse"])
+# If more than 1 model has the same rmse, choose the one with the highest pearson
+if len([model for model in results if results[model]["rmse"] == results[best_model]["rmse"]]) > 1:
+    best_model = max(
+        [model for model in results if results[model]["rmse"] == results[best_model]["rmse"]],
+        key=lambda x: results[x]["pearson"],
+    )
 logging.info(f"Best model is {best_model}")
 
 # Predict on test data
