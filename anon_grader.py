@@ -35,7 +35,7 @@ def run_training(epochs, data_used, layers_trained, study_number):
         "study_number": study_number,
     }
 
-    EXPERIMENT_NAME = f'study_{hyperparams[study_number]}_{hyperparams["data_used"]}_{hyperparams["layers_trained"]}_epochs_{hyperparams["epochs"]}'
+    EXPERIMENT_NAME = f'study_{hyperparams["study_number"]}_{hyperparams["data_used"]}_{hyperparams["layers_trained"]}_epochs_{hyperparams["epochs"]}'
 
     # Set up environment
     task = Task.init(
