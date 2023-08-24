@@ -94,9 +94,10 @@ task.upload_artifact("Results df", artifact_object=results_df)
 # Choose the best model
 best_model = min(results, key=lambda x: results[x]["rmse"])
 # If more than 1 model has the same rmse, choose the one with the highest spearman
-if len([model for model in results if results[model]["rmse"] == results[best_model]["rmse"]]) > 1:
+best_models_rmse = [model for model in results if results[model]["rmse"] == results[best_model]["rmse"]]
+if len(best_models_rmse) > 1:
     best_model = max(
-        [model for model in results if results[model]["rmse"] == results[best_model]["rmse"]],
+        best_models_rmse,
         key=lambda x: results[x]["spearman"],
     )
 logging.info(f"Best model is {best_model}")
@@ -106,12 +107,12 @@ predictions = predict(trained_models_path, test_dataloader, best_model, DEVICE)
 test_data[f"RoBERTa"] = predictions
 
 # Calculate the metrics
-results = compute_metrics((predictions, test_data["human_rate"]), only_mse=False)
+results_test = {"RoBERTa": compute_metrics((test_data["RoBERTa"], test_data["human_rate"]), only_mse=False)}
 
 # Save predictions and results on test data
 test_data.to_csv(PRED_PATH2SAVE)
 task.upload_artifact("Predictions on test", artifact_object=test_data)
 
-results_df = pd.DataFrame.from_dict(results, orient="index").T
+results_df = pd.DataFrame.from_dict(results_test, orient="index").T
 results_df.to_csv(RESULTS_PATH2SAVE)
 task.upload_artifact("Results on test", artifact_object=results_df)
