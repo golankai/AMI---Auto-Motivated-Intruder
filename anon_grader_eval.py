@@ -93,11 +93,11 @@ task.upload_artifact("Results df", artifact_object=results_df)
 
 # Choose the best model
 best_model = min(results, key=lambda x: results[x]["rmse"])
-# If more than 1 model has the same rmse, choose the one with the highest pearson
+# If more than 1 model has the same rmse, choose the one with the highest spearman
 if len([model for model in results if results[model]["rmse"] == results[best_model]["rmse"]]) > 1:
     best_model = max(
         [model for model in results if results[model]["rmse"] == results[best_model]["rmse"]],
-        key=lambda x: results[x]["pearson"],
+        key=lambda x: results[x]["spearman"],
     )
 logging.info(f"Best model is {best_model}")
 
