@@ -75,7 +75,7 @@ for model_name in models_names:
     predictions = predict(trained_models_path, val_dataloader, model_name, DEVICE)
 
     # Remove extension from model name
-    val_data[f"model_{model_name[:-3]}"] = predictions
+    val_data[model_name] = predictions
 
 val_data.to_csv(PRED_PATH)
 task.upload_artifact("Predictions df", artifact_object=val_data)
@@ -92,7 +92,7 @@ results_df.to_csv(RESULTS_PATH)
 task.upload_artifact("Results df", artifact_object=results_df)
 
 # Choose the best model
-best_model = min(results, key=lambda x: results[x]["rmse"])
+best_model = min(results, key=lambda x: results[x]["rmse"])  
 logging.info(f"Best model is {best_model}")
 
 # Predict on test data

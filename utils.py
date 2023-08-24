@@ -188,7 +188,7 @@ def prepare_grader_data(data_splits: Dict[str, pd.DataFrame], device) -> Dataset
     return DatasetDict(datasets)
 
 
-def predict(trained_models_path: str, dataloader: DataLoader, model_name: str, device) -> list[float] :
+def predict(trained_models_path: str, dataloader: DataLoader, model_name: str, device) -> List[float] :
     """
     Predict with a trained model.
     :param trained_models_path: the path to the trained models
