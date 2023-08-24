@@ -10,9 +10,8 @@ import numpy as np
 from scipy import stats
 
 
-from langchain.agents import load_tools
-from langchain.llms import HuggingFaceHub, Cohere, OpenAI
-from langchain.chat_models import ChatOpenAI
+# from langchain.agents import load_tools
+# from langchain.chat_models import ChatOpenAI
 
 
 import torch as th
@@ -233,13 +232,13 @@ def read_data_for_grader(
 ) -> Dict[str, pd.DataFrame]:
     """
     Read the data for the anon grader.
-    :param study_nr: the study number to use. 1, 2 or 12.
+    :param study_nr: the study number to use. 1 or 12.
     :param data_used: the type of data to use. "famous", "famous_and_semi" or "all".
     :param seed: the seed for the random state.
     :param keep_more_than: the number of times a file_id should appear in the data. In study 2 most is less than 4.
     :return: the data for the anon grader.
     """
-    assert study_nr in [1, 2, 12], "Invalid study number."
+    assert study_nr in [1, 12], "Invalid study number."
 
     def _read_study_1():
         # Read data from study 1
@@ -256,8 +255,9 @@ def read_data_for_grader(
         )
         data.rename(columns={"got_name_truth_q2": "human_rate"}, inplace=True)
 
-        # Define population to use
-        data = choose_data(data, data_used)
+        # Round the human rate to 2 decimals
+        data["human_rate"] = data["human_rate"].round(2)
+
         return data
 
     def _read_study_2():
@@ -289,58 +289,61 @@ def read_data_for_grader(
 
         # Add a type column
         data["type"] = ["famous"] * len(data)
+
+        # Round the human rate to 2 decimals
+        data["human_rate"] = data["human_rate"].round(2)
+
         return data
+    
+    
+    data = _read_study_1()
 
-    match study_nr:
-        case 1:
-            data = _read_study_1()
-        case 2:
-            data = _read_study_2()
-        case 12:
-            data1 = _read_study_1()
-            data2 = _read_study_2()
-            # Combine the data from the two studies
-            data = pd.concat([data1, data2])
-        case _:
-            raise Exception("Invalid study number.")
-
-
-    # Round the human rate to 2 decimals
-    data["human_rate"] = data["human_rate"].round(2)
+    # Use only famous for val and test sets
+    data_famous = choose_data(data, "famous")
 
     # Split the data into training and remaining data
-    train_data, val_data = train_test_split(data, test_size=0.2, random_state=seed)
+    _, val_data = train_test_split(data_famous, test_size=0.2, random_state=seed)
 
-    # Split the remaining data into validation and test data
+    # Choose the data to use for training
+    train_data = choose_data(data, data_used)
+    # Remove the data used for validation and test
+    train_data = train_data[~train_data["file_id"].isin(val_data["file_id"])]
+
+    # Split the validation data into validation and test
     val_data, test_data = train_test_split(val_data, test_size=0.5, random_state=seed)
+
+    if study_nr == 12:
+        # Read data from study 2 and combine it with the train data from study 1
+        data2 = _read_study_2()
+        train_data = pd.concat([train_data, data2], ignore_index=True)
 
     return {"train": train_data, "val": val_data, "test": test_data}
 
 
-def get_exp_name(process_id: int) -> str:
-    """
-    Get the experiment name for the anon grader.
-    :param process_id: the process id.
-    :return: the experiment name.
-    """
-    match process_id:
-        case 11:
-            return "zero_shot"
-        case 120:
-            return "one_shot_0"
-        case 121:
-            return "one_shot_1"
-        case 13:
-            return "three_shot"
-        case 14:
-            return "CoT"
-        case 1511:
-            return "self_const_zero_shot"
-        case 1513:
-            return "self_const_three_shot"
-        case 111:
-            return "multi_persona"
-        case 16:
-            return "Role"
-        case _:
-            raise Exception("Invalid process id.")
+# def get_exp_name(process_id: int) -> str:
+#     """
+#     Get the experiment name for the anon grader.
+#     :param process_id: the process id.
+#     :return: the experiment name.
+#     """
+#     match process_id:
+#         case 11:
+#             return "zero_shot"
+#         case 120:
+#             return "one_shot_0"
+#         case 121:
+#             return "one_shot_1"
+#         case 13:
+#             return "three_shot"
+#         case 14:
+#             return "CoT"
+#         case 1511:
+#             return "self_const_zero_shot"
+#         case 1513:
+#             return "self_const_three_shot"
+#         case 111:
+#             return "multi_persona"
+#         case 16:
+#             return "Role"
+#         case _:
+#             raise Exception("Invalid process id.")

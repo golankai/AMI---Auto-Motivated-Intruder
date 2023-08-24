@@ -45,7 +45,7 @@ if not os.path.exists(ERROR_FILES_DIR):
     os.makedirs(ERROR_FILES_DIR)
 
 # Set seeds
-SEED = 111
+SEED = 42
 np.random.seed(SEED)
 th.manual_seed(SEED)
 
