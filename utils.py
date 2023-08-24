@@ -10,8 +10,8 @@ import numpy as np
 from scipy import stats
 
 
-# from langchain.agents import load_tools
-# from langchain.chat_models import ChatOpenAI
+from langchain.agents import load_tools
+from langchain.chat_models import ChatOpenAI
 
 
 import torch as th
@@ -355,32 +355,38 @@ def read_data_for_grader(
     return {"train": train_data, "val": val_data, "test": test_data}
 
 
-# def get_exp_name(process_id: int) -> str:
-#     """
-#     Get the experiment name for the anon grader.
-#     :param process_id: the process id.
-#     :return: the experiment name.
-#     """
-#     match process_id:
-#         case 11:
-#             return "zero_shot"
-#         case 120:
-#             return "one_shot_0"
-#         case 121:
-#             return "one_shot_1"
-#         case 13:
-#             return "three_shot"
-#         case 14:
-#             return "CoT"
-#         case 1511:
-#             return "self_const_zero_shot"
-#         case 1513:
-#             return "self_const_three_shot"
-#         case 111:
-#             return "multi_persona"
-#         case 16:
-#             return "Role"
-#         case _:
-#             raise Exception("Invalid process id.")
+def get_exp_name(process_id: int) -> str:
+    """
+    Get the experiment name for the anon grader.
+    :param process_id: the process id.
+    :return: the experiment name.
+    """
+    match process_id:
+        case 11:
+            return "zero_shot"
+        case 120:
+            return "one_shot_0"
+        case 121:
+            return "one_shot_1"
+        case 13:
+            return "three_shot"
+        case 14:
+            return "CoT"
+        case 1511:
+            return "self_const_zero_shot"
+        case 1513:
+            return "self_const_three_shot"
+        case 111:
+            return "multi_persona"
+        case 161:
+            return "Role1"
+        case 162:
+            return "Role2"
+        case 163:
+            return "Role3"
+        case 164:
+            return "Role4"
+        case _:
+            raise Exception("Invalid process id.")
 
 

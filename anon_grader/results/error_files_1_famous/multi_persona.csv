@@ -1,0 +1,81 @@
+File,Raw_response
+,"{""simulation"": ""Agent 1: The agent mentions a posh man with long wavy hair who was always cast as a posh moron type person. They mention that the person got into trouble when caught receiving oral sex from a prostitute and was once in the vicar of LOCATION_2. They also mention that the person is not seen much nowadays and their appeal might have gone. The person has been in films OTHER_IDENTIFYING_ATTRIBUTE_1 and OTHER_IDENTIFYING_ATTRIBUTE_2 and has won some awards for acting. They believe the person is from LOCATION_1 and might be semi-retired, doing a lot of fundraising."", ""Agent 2: The agent mentions a posh man with long wavy hair who was always cast as a posh moron type person. They mention that the person got into trouble when caught receiving oral sex from a prostitute and was once in the vicar of LOCATION_2. They also mention that the person is not seen much nowadays and their appeal might have gone. The person has been in films OTHER_IDENTIFYING_ATTRIBUTE_1 and OTHER_IDENTIFYING_ATTRIBUTE_2 and has won some awards for acting. They believe the person is from LOCATION_1 and might be semi-retired, doing a lot of fundraising."", ""Agent 3: The agent mentions a posh man with long wavy hair who was always cast as a posh moron type person. They mention that the person got into trouble when caught receiving oral sex from a prostitute and was once in the vicar of LOCATION_2. They also mention that the person is not seen much nowadays and their appeal might have gone. The person has been in films OTHER_IDENTIFYING_ATTRIBUTE_1 and OTHER_IDENTIFYING_ATTRIBUTE_2 and has won some awards for acting. They believe the person is from LOCATION_1 and might be semi-retired, doing a lot of fundraising."", ""Agent 4: The agent mentions a posh man with long wavy hair who was always cast as a posh moron type person. They mention that the person got into trouble when caught receiving oral sex from a prostitute and was once in the vicar of LOCATION_2. They also mention that the person is not seen much nowadays and their appeal might have gone. The person has been in films OTHER_IDENTIFYING_ATTRIBUTE_1 and OTHER_IDENTIFYING_ATTRIBUTE_2 and has won some awards for acting. They believe the person is from LOCATION_1 and might be semi-retired, doing a lot of fundraising."", """
+,"{
+    ""properties"": {
+        ""simulation"": {
+            ""title"": ""Simulation"",
+            ""description"": ""The simulation of the 4 agents, short"",
+            ""type"": ""string""
+        },
+        ""score"": {
+            ""title"": ""Score"",
+            ""description"": ""A score from 0 to 1, normalized success rate in de-anonymization"",
+            ""type"": ""number""
+        }
+    },
+    ""required"": [""simulation"", ""score""]
+}"
+,"Simulation 1:
+Agent 1, a 25-year-old female teacher from the US, believes the anonymized text is referring to Christian Bale. She recognizes his roles as a serial killer and in the ""Machinist"" film.
+
+Simulation 2:
+Agent 2, a 50-year-old female programmer from the UK, thinks the anonymized text is about Christian Bale. She recognizes his roles as a race car driver and in the ""Batman"" trilogy.
+
+Simulation 3:
+Agent 3, an 18-year-old male waiter from Germany, guesses the anonymized text is about Christian Bale. He recognizes his roles as a serial killer and in the ""Batman"" trilogy.
+
+Simulation 4:
+Agent 4, a 35-year-old male lawyer from France, believes the anonymized text is referring to Christian Bale. He recognizes his roles as a race car driver and in the ""Batman"" trilogy.
+
+The final score for the text is 1, indicating a 100% success rate in de-anonymization."
+,"{
+  ""properties"": {
+    ""simulation"": {
+      ""title"": ""Simulation"",
+      ""description"": ""The simulation of the 4 agents, short"",
+      ""type"": ""string""
+    },
+    ""score"": {
+      ""title"": ""Score"",
+      ""description"": ""A score from 0 to 1, normalized success rate in de-anonymization"",
+      ""type"": ""number""
+    }
+  },
+  ""required"": [""simulation"", ""score""]
+}"
+,"{""properties"": {""simulation"": {""title"": ""Simulation"", ""description"": ""The simulation of the 4 agents, short"", ""type"": ""string""}, ""score"": {""title"": ""Score"", ""description"": ""A score from 0 to 1, normalized success rate in de-anonymization"", ""type"": ""number""}}, ""required"": [""simulation"", ""score""]}
+
+{
+  ""simulation"": ""Agent 1: Female, 25 years old, US, high school degree, teacher\nAgent 2: Female, 50 years old, UK, PhD degree, programmer\nAgent 3: Male, 18 years old, Germany, waiter\nAgent 4: Male, 35 years old, France, lawyer"",
+  ""score"": 0.25
+}"
+,"{
+    ""properties"": {
+        ""simulation"": {
+            ""title"": ""Simulation"",
+            ""description"": ""The simulation of the 4 agents, short"",
+            ""type"": ""string""
+        },
+        ""score"": {
+            ""title"": ""Score"",
+            ""description"": ""A score from 0 to 1, normalized success rate in de-anonymization"",
+            ""type"": ""number""
+        }
+    },
+    ""required"": [""simulation"", ""score""]
+}"
+,"{
+  ""properties"": {
+    ""simulation"": {
+      ""title"": ""Simulation"",
+      ""description"": ""The simulation of the 4 agents, short"",
+      ""type"": ""string""
+    },
+    ""score"": {
+      ""title"": ""Score"",
+      ""description"": ""A score from 0 to 1, normalized success rate in de-anonymization"",
+      ""type"": ""number""
+    }
+  },
+  ""required"": [""simulation"", ""score""]
+}"

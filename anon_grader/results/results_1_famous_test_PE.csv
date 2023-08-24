@@ -1,0 +1,15 @@
+,rmse,avg_pred,spearman
+RoBERTa,0.4,0.41,0.33
+zero_shot,0.54,0.6,-0.3
+multi_persona,0.48,0.41,0.05
+one_shot_0,0.5,0.52,-0.12
+one_shot_1,0.54,0.55,-0.25
+three_shot,0.43,0.36,0.24
+CoT,0.56,0.8,0.36
+self_const_zero_shot,0.47,0.64,0.16
+self_const_three_shot,0.41,0.36,0.22
+Roles,0.59,0.79,0.04
+Role2,0.58,0.8,0.23
+Role1,0.61,0.73,-0.15
+Role3,0.62,0.78,-0.04
+Role4,0.65,0.87,0.07
