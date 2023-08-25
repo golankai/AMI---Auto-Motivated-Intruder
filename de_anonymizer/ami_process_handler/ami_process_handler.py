@@ -11,7 +11,10 @@ from .process_data.processes.p121_one_shot import process_121_data
 from .process_data.processes.p120_one_shot import process_120_data
 from .process_data.processes.p13_three_shot import process_13_data
 from .process_data.processes.p14_CoT import process_14_data
-from .process_data.processes.p16_roles import process_16_data
+from .process_data.processes.p161_role1 import process_161_data
+from .process_data.processes.p162_role2 import process_162_data
+from .process_data.processes.p163_role3 import process_163_data
+from .process_data.processes.p164_role4 import process_164_data
 
 class AMI_process_handler:
     def __init__(self, process_id) -> None:
@@ -41,8 +44,14 @@ class AMI_process_handler:
                     return process_14_data
                 case 111:
                     return process_111_data
-                case 16:
-                    return process_16_data
+                case 161:
+                    return process_161_data
+                case 162:
+                    return process_162_data
+                case 163:
+                    return process_163_data
+                case 164:
+                    return process_164_data
                 case _:
                     raise ValueError("you must match your process data with the id.")
 

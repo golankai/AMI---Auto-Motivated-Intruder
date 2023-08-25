@@ -31,7 +31,7 @@ P111_Q1_TEMPLATE = """
     Agent 4: male, 35 years old, from France, working as a lawyer.
     {format_instructions}
 
-   Simulate shortly their process and estimate the normilized success rate in de-anonimization.
+   Iמn the Simuation property. Summerize shortly their process and then give a finel score for the text, which is the normilized success rate in de-anonimization, between 0 and 1.
 """
 
 

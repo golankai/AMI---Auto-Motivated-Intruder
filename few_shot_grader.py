@@ -10,89 +10,65 @@ from de_anonymizer.de_anonymizer import DeAnonymizer
 from utils import compute_metrics, get_exp_name
 from conversations.conversation_handler import ResponseStatus
 
-# Processes to run
-process_ids = [16]  # [11, 111,  120, 121, 13, 14, 1511, 1513]
-# Run on one file or all, if file_id is empty, run on all
-# use with should_predict = True to run on one file, printing the results
-# then write manually in the predictions csv and run again on all with should_predict = False
-file_id = ""
-
-# Predict or not
-should_predict = False
 
 # Define constants
-ROLE_NR = 1 # if working with process 16
-calc_roles_mean = True # if working with process 16 and want to calculate the mean of the roles
 SUDY_NUMBER = 1
-NUM_SAMPLES = 0  # if 0, run on all
 DATA_USED = "famous"
 
-# Set up environment
-should_handle_data = True
-PRED_PATH = f"./anon_grader/results/predictions_{SUDY_NUMBER}_{DATA_USED}.csv"
-PRED_PATH2SAVE = (
-    f"./anon_grader/results/predictions_{SUDY_NUMBER}_{DATA_USED}_w_few_shot.csv"
-)
-RESULTS_PATH2SAVE = (
-    f"./anon_grader/results/results_{SUDY_NUMBER}_{DATA_USED}_w_few_shot.csv"
-)
-ERROR_FILES_DIR = f"./anon_grader/results/error_files_{SUDY_NUMBER}_{DATA_USED}"
-DEVICE = "cuda" if th.cuda.is_available() else "cpu"
-
-if not os.path.exists(ERROR_FILES_DIR):
-    os.makedirs(ERROR_FILES_DIR)
-
 # Set seeds
-SEED = 111
+SEED = 42
 np.random.seed(SEED)
 th.manual_seed(SEED)
 
-# If alreday have predictions with few-shot, read them
-if os.path.exists(PRED_PATH2SAVE):
-    predictions = pd.read_csv(PRED_PATH2SAVE, index_col=0)
-    results = pd.read_csv(RESULTS_PATH2SAVE, index_col=0).to_dict(orient="index")
-else:
-    # Read the predictions from the models
-    predictions = pd.read_csv(PRED_PATH, index_col=0)
-    # Calculate the scores for each model
-    results = {
-        model_name: compute_metrics(
-            (list(predictions[model_name]), list(predictions["human_rate"])),
-            only_mse=False,
-        )
-        for model_name in predictions.columns[5:]
-    }
-    # Keep the best model, based on the mse
-    best_model = min(results, key=lambda x: results[x]["rmse"])
-    results = {
-        "data": compute_metrics(
-            (list(predictions["human_rate"]), list(predictions["human_rate"])),
-            only_mse=False,
-        ),
-        "RoBERTa": results[best_model],
-    }
-    # Keep the predictions of the best model only
-    predictions = predictions[
-        ["type", "file_id", "name", "text", "human_rate", best_model]
-    ].rename(columns={best_model: "RoBERTa"})
+RESULTS_DIR = "./anon_grader/results/"
 
+PRED_PATH = os.path.join(RESULTS_DIR, f"predictions_{SUDY_NUMBER}_{DATA_USED}_test.csv")
+PRED_PATH2SAVE = os.path.join(RESULTS_DIR, f"predictions_{SUDY_NUMBER}_{DATA_USED}_test_PE.csv")
+RESULTS_PATH = os.path.join(RESULTS_DIR, f"results_{SUDY_NUMBER}_{DATA_USED}_test.csv")
+RESULTS_PATH2SAVE = os.path.join(RESULTS_DIR, f"results_{SUDY_NUMBER}_{DATA_USED}_test_PE.csv")
+ERROR_FILES_DIR = f"./anon_grader/results/error_files_{SUDY_NUMBER}_{DATA_USED}"
+if not os.path.exists(ERROR_FILES_DIR):
+    os.makedirs(ERROR_FILES_DIR)
 
-# ChatGPT interaction
+DEVICE = "cuda" if th.cuda.is_available() else "cpu"
+
+def _read_predictions_results(nm_samples, file_id="") -> pd.DataFrame:
+    # Read the predictions from the PE phase
+    if file_id == "" and os.path.exists(PRED_PATH2SAVE):
+        predictions = pd.read_csv(PRED_PATH2SAVE, index_col=0)
+        results = pd.read_csv(RESULTS_PATH2SAVE, index_col=0).to_dict(orient="index")
+        nm_samples = len(predictions) if nm_samples == 0 else nm_samples
+        if nm_samples != len(predictions):
+            raise ValueError(  
+                f"Number of samples in the predictions file is {len(predictions)}, but asked to run with {nm_samples}"
+            )
+    else:
+        predictions = pd.read_csv(PRED_PATH, index_col=0)
+        results = pd.read_csv(RESULTS_PATH, index_col=0).to_dict(orient="index")
+
+        # Decrease the predictions to NUM_SAMPLES or to the one file
+        if file_id != "":  # run on one file
+            predictions = predictions[predictions["file_id"] == file_id]
+        elif nm_samples != 0:  # run on NUM_SAMPLES
+            predictions = predictions.sample(n=NUM_SAMPLES, random_state=SEED)
+        else:  # run on all
+            pass
+    return predictions, results
+
 # Get the score for each text
 def _get_score_for_row(anon_text, de_anonymiser):
-    for _ in range(10):
+    for _ in range(5):
         response = de_anonymiser.re_identify(anon_text=anon_text)
         if response.get("status") == ResponseStatus.SUCCESS:
             return response.get("data").dict()["score"]
     return np.nan
-
 
 def _get_self_const_score(anon_text, base_process_id):
     # Define the de-anonymizer
     de_anonymiser = DeAnonymizer(
         llm_name="chat-gpt",
         process_id=base_process_id,
-        should_handle_data=should_handle_data,
+        should_handle_data=True,
     )
     # Run 3 times to get the score
     responses = []
@@ -102,21 +78,9 @@ def _get_self_const_score(anon_text, base_process_id):
     print("Self-Consistency score: ", score)
     return score
 
-
-# Run all the processes
-if should_predict:
-    # decrease the predictions to NUM_SAMPLES or to the one file
-    if file_id != "":  # run on one file
-        predictions = predictions[predictions["file_id"] == file_id]
-    elif NUM_SAMPLES != 0:  # run on NUM_SAMPLES
-        predictions = predictions.sample(n=NUM_SAMPLES, random_state=SEED)
-    else:  # run on all
-        pass
-
+def _predict_pe(predictions: pd.DataFrame, process_ids: list[int]) -> pd.DataFrame:
     for process_id in process_ids:
         EXPERIMENT_NAME = get_exp_name(process_id)
-        if process_id == 16:
-            EXPERIMENT_NAME += str(ROLE_NR)
         ERROR_FILE_PATH = f"{ERROR_FILES_DIR}/{EXPERIMENT_NAME}.csv"
 
         print(f"Running experiment: {EXPERIMENT_NAME}")
@@ -126,76 +90,85 @@ if should_predict:
             predictions[EXPERIMENT_NAME] = predictions["text"].apply(
                 _get_self_const_score, args=(11,)
             )
-            continue
         elif process_id == 1513:
             # Get the score for each text
             predictions[EXPERIMENT_NAME] = predictions["text"].apply(
                 _get_self_const_score, args=(13,)
             )
-            continue
         else:
-            pass
+            # Define the de-anonymizer
+            de_anonymiser = DeAnonymizer(
+                llm_name="chat-gpt",
+                process_id=process_id,
+                should_handle_data=True,
+            )
 
-        # Define the de-anonymizer
-        de_anonymiser = DeAnonymizer(
-            llm_name="chat-gpt",
-            process_id=process_id,
-            should_handle_data=should_handle_data,
-        )
-
-        # Get the score for each text
-        predictions[EXPERIMENT_NAME] = predictions["text"].apply(
-            _get_score_for_row, args=(de_anonymiser,)
-        )
+            # Get the score for each text
+            predictions[EXPERIMENT_NAME] = predictions["text"].apply(
+                _get_score_for_row, args=(de_anonymiser,)
+            )
 
         if file_id != "":  # got the printed results, no need to continue
             print("Predicted the given file, exiting...")
             sys.exit()
 
-        if should_handle_data:
-            error_files = de_anonymiser.get_error_files()
-            if error_files is not None:
-                error_files.to_csv(ERROR_FILE_PATH, index=False)
-                print(
-                    "Save error files to csv successfully! file-name: ", ERROR_FILE_PATH
-                )
+        error_files = de_anonymiser.get_error_files()
+        if error_files is not None:
+            error_files.to_csv(ERROR_FILE_PATH, index=False)
+            print(
+                "Save error files to csv successfully! file-name: ", ERROR_FILE_PATH
+            )
 
         # Count the fails
         fails = len(predictions[predictions[EXPERIMENT_NAME].isna()])
         print(f"Failed {fails} times! Experiment {EXPERIMENT_NAME} Done!\n")
-
+    
+    # If ran processes 16x, calculate the normalized results for all Roles
+    calc_roles_mean = any([process_id in [161, 162, 163, 164] for process_id in process_ids])
+    if calc_roles_mean:
+        roles_columns = [col for col in predictions.columns if col.startswith("Role")]
+        if "Roles" in roles_columns:
+            # Delete the Roles column from the predictions
+            roles_columns.remove("Roles")
+            predictions.drop(columns=["Roles"], inplace=True)
+        predictions["Roles"] = np.nan
+        predictions["Roles"] = predictions.apply(lambda row: np.mean([row[col] for col in roles_columns]), axis=1)
+    
     # Save the predictions
     predictions.to_csv(PRED_PATH2SAVE)
 
-# Calculate the rmse for this experiment
-preds_wo_none = predictions.dropna(subset=predictions.columns[5:])
+    return predictions
 
-results.update(
-    {
+    
+def _calculate_results(predictions):
+    # Prepare the predictions for the metrics
+    preds_wo_none = predictions.dropna(subset=predictions.columns[5:])  
+
+    # Calculate the overall results for each experiment
+    results = {
         experiment: compute_metrics(
             (list(preds_wo_none[experiment]), list(preds_wo_none["human_rate"])),
             only_mse=False,
         )
-        for experiment in preds_wo_none.columns[5:]
+        for experiment in preds_wo_none.columns[4:]
     }
-)
+    return results
 
-# If predictiones have Role_x experiments, calculate the normalized results for all Roles
-if calc_roles_mean:
-    roles_columns = [col for col in results.keys() if col.startswith("Role")]
 
-    predictions["Roles"] = predictions.apply(lambda row: np.mean([row[col] for col in roles_columns]), axis=1)
-    # Save the predictions
-    predictions.to_csv(PRED_PATH2SAVE)
-    results.update(
-        {
-            "Roles": compute_metrics(
-                (list(predictions["Roles"]), list(predictions["human_rate"])),
-                only_mse=False,
-            )
-        }
-    )
+
+if __name__ == "__main__":
+    # Processes to run
+    process_ids = [121] # [11, 111,  120, 121, 13, 14, 1511, 1513, 161, 162, 163, 164]
+    NUM_SAMPLES = 0 # if 0, run on all
+    file_id = ""  # if not empty, run on one file
     
-# Save the results
-results_df = pd.DataFrame.from_dict(results, orient="columns").T
-results_df.to_csv(RESULTS_PATH2SAVE)
+    # Read the predictions and results
+    predictions, results = _read_predictions_results(NUM_SAMPLES, file_id)
+    # predictions = _predict_pe(predictions, process_ids) # Comment out to run only the metrics
+
+    # Calculate the overall results for each experiment
+    results.update(_calculate_results(predictions))
+
+    # Save the results
+    results_df = pd.DataFrame.from_dict(results, orient="columns").T
+    results_df.to_csv(RESULTS_PATH2SAVE)

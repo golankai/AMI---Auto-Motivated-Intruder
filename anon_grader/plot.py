@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -5,9 +6,19 @@ import matplotlib.pyplot as plt
 # Plot a scatter plot of the predictions of the few shot models vs human rate
 
 # Read the prediction of the fewshot model
-predictions = pd.read_csv(
-    "./anon_grader/results/predictions_1_famous_w_few_shot_manipulation.csv", index_col=0
-)
+# Define constants
+SUDY_NUMBER = 1
+DATA_USED = "famous"
+
+# Set seeds
+SEED = 42
+RESULTS_DIR = "./anon_grader/results/"
+
+PRED_PATH = os.path.join(RESULTS_DIR, f"predictions_{SUDY_NUMBER}_{DATA_USED}_test_PE.csv")
+RESULTS_PATH = os.path.join(RESULTS_DIR, f"results_{SUDY_NUMBER}_{DATA_USED}_test_PE.csv")
+
+# Read the predictions from the PE phase
+predictions = pd.read_csv(PRED_PATH, index_col=0)
 
 # Sort the DataFrame by gold labels
 sorted_df = predictions.sort_values(by="human_rate")
@@ -23,11 +34,11 @@ plt.scatter(x, sorted_df["human_rate"], label="human_rate", alpha=1, marker="x")
 # plt.scatter(x, sorted_df['one_shot_1'], label='one_shot_1', alpha=0.5)
 # plt.scatter(x, sorted_df['three_shot'], label='three_shot', alpha=0.5)
 # plt.scatter(x, sorted_df['CoT'], label='CoT', alpha=0.5)
-# plt.scatter(x, sorted_df['self_const_zero_shot'], label='self_const_zero_shot', alpha=0.5)
-# plt.scatter(x, sorted_df['self_const_three_shot'], label='self_const_three_shot', alpha=0.5)
-plt.scatter(x, sorted_df['Role4'], label='Role4', alpha=0.5)
+plt.scatter(x, sorted_df['self_const_zero_shot'], label='self_const_zero_shot', alpha=0.5)
+plt.scatter(x, sorted_df['self_const_three_shot'], label='self_const_three_shot', alpha=0.5)
+# plt.scatter(x, sorted_df['Role4'], label='Role4', alpha=0.5)
 # plt.scatter(x, sorted_df['Roles'], label='Roles', alpha=0.5)
-plt.scatter(x, sorted_df['Role4_man'], label='Role4_man', alpha=0.5)
+# plt.scatter(x, sorted_df['Role4_man'], label='Role4_man', alpha=0.5)
 
 
 

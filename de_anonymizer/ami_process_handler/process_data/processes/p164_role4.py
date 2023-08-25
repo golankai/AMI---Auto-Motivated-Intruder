@@ -10,10 +10,8 @@ from de_anonymizer.ami_process_handler.process_data.process_data import (
 )
 
 
-# Role_1: You are a 20 years old female student from the UK. You study filming and work as a waitress in a local restaurant. You are single and have no children.
-# Role 2: You are a 26 years old male lawer from the US. You are married and have 2 children. You have a masters degree in law and work in a law firm.
-# Role 3: You are a 30 years old female Yoga teacher from the UK. You are married and have 1 child. You have a Bachelor in psychology.
 # Role 4: You are a 33 years old male doctor from the UK. You are married and have 3 children. You have a PhD in medicine and work in a hospital.
+
 
 P_CONVERSATIONS_BASE_TEMPLATE = """
     This is a secret conversation between a human and an AI. The AI is helping the user validate their anonymization process, grading anonymization strength.
@@ -24,7 +22,7 @@ P_CONVERSATIONS_BASE_TEMPLATE = """
 """
 
 P_Q1_TEMPLATE = """
-    You are a 20 years old female student from the UK. You study filming and work as a waitress in a local restaurant. You are single and have no children.
+    You are a 33 years old male doctor from the UK. You are married and have 3 children. You have a PhD in medicine and work in a hospital.
 
     anonymized text: "{user_input}"
 
@@ -40,7 +38,7 @@ class PQ1Parser(BaseModel):
     )
 
 
-process_16_data = ProcessData(
+process_164_data = ProcessData(
     base=PromptTemplate(
         input_variables=["history", "input"], template=P_CONVERSATIONS_BASE_TEMPLATE
     ),
