@@ -150,7 +150,7 @@ def _calculate_results(predictions):
             (list(preds_wo_none[experiment]), list(preds_wo_none["human_rate"])),
             only_mse=False,
         )
-        for experiment in preds_wo_none.columns[5:]
+        for experiment in preds_wo_none.columns[4:]
     }
     return results
 
@@ -158,13 +158,13 @@ def _calculate_results(predictions):
 
 if __name__ == "__main__":
     # Processes to run
-    process_ids = [164] # [11, 111,  120, 121, 13, 14, 1511, 1513, 161, 162, 163, 164]
+    process_ids = [121] # [11, 111,  120, 121, 13, 14, 1511, 1513, 161, 162, 163, 164]
     NUM_SAMPLES = 0 # if 0, run on all
     file_id = ""  # if not empty, run on one file
     
     # Read the predictions and results
     predictions, results = _read_predictions_results(NUM_SAMPLES, file_id)
-    predictions = _predict_pe(predictions, process_ids) # Comment out to run only the metrics
+    # predictions = _predict_pe(predictions, process_ids) # Comment out to run only the metrics
 
     # Calculate the overall results for each experiment
     results.update(_calculate_results(predictions))
