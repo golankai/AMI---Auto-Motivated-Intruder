@@ -19,20 +19,25 @@ class ExperimentAnonTexts(Enum):
     SINGLE_TEXT = 4
     ALL_SEMI_FAMOUS = 5
 
-############## --------------- Env parameters --------------- ##############
+############## --------------- Define the Mode --------------- ##############
 mode = Mode.EVALUATOR
 experimentMode = ExperimentAnonTexts.ALL_SEMI_FAMOUS
 
+############## --------------- Define the Study, Process and Experiment properties --------------- ##############
 study_number = 2
 process_id = 5
 experiment_number = 1
 should_handle_data = True # handle dataFrame if True. Otherwise, just print the conversation.
 
+############## --------------- For Selected Personas Experiment case --------------- ##############
 personas_list = ["adele", "craig", "jagger"]
 
+############## --------------- For Selected Texts Experiment case (one persona) --------------- ##############
 persona_name = "adele" 
-single_text_number = 576
 text_lists = [43, 47, 57, 61, 97, 112, 147]#, 157, 178, 197, 201, 209, 216, 242, 271, 287, 297, 302, 323, 357, 366, 377, 397, 423, 442, 468, 491, 497, 503, 547, 558, 576]
+
+############## --------------- For Single Text Experiment case --------------- ##############
+single_text_number = 576
 
 result_type = "ami" # score
 ############## --------------- ----------------- --------------- ##############
@@ -42,7 +47,6 @@ texts_dir = f"textwash_data/study{study_number}/person_descriptions/anon"
 result_base_path = f"results/{result_type}/study{study_number}/process{process_id}/experiment{experiment_number}"
 if not os.path.exists(result_base_path):
     os.mkdir(result_base_path)
-
 
 
 results_paths = ResultsPaths(
@@ -90,7 +94,7 @@ def intruder():
 
 def evaluator():
     result_analyzer = ExperimentEvaluation(results_paths=results_paths)
-    # result_analyzer.evaluate_per_persona(path=results_paths["evaluation"])
+    result_analyzer.persona_successful_rate()
     result_analyzer.overall_successful_rate()
     result_analyzer.to_json()
 
