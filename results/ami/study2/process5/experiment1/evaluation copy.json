@@ -98,10 +98,5 @@
         "successful_identification_rate": 0.7777777777777778,
         "num_of_files": 54,
         "num_of_re_identify_successfully": 42
-    },
-    "overall": {
-        "successful_identification_rate": 0.5777777777777777,
-        "num_of_files": 1080,
-        "num_of_re_identify_successfully": 624
     }
 }

@@ -1,8 +1,11 @@
+from dataclasses import dataclass
 import os
 import random
 from de_anonymizer.de_anonymizer import DeAnonymizer
 from evaluation.experiment_evaluation import ExperimentEvaluation
 from enum import Enum
+
+from results.paths import ResultsPaths
 
 
 class Mode(Enum):
@@ -14,13 +17,14 @@ class ExperimentAnonTexts(Enum):
     ALL_OF_SELECTED_PERSONAS = 2
     SELECTED_LIST = 3
     SINGLE_TEXT = 4
+    ALL_SEMI_FAMOUS = 5
 
-# Env parameters
-mode = Mode.INTRUDER
-experimentMode = ExperimentAnonTexts.ALL_OF_SELECTED_PERSONAS
+############## --------------- Env parameters --------------- ##############
+mode = Mode.EVALUATOR
+experimentMode = ExperimentAnonTexts.ALL_SEMI_FAMOUS
 
 study_number = 2
-process_id = 4
+process_id = 5
 experiment_number = 1
 should_handle_data = True # handle dataFrame if True. Otherwise, just print the conversation.
 
@@ -31,7 +35,7 @@ single_text_number = 576
 text_lists = [43, 47, 57, 61, 97, 112, 147]#, 157, 178, 197, 201, 209, 216, 242, 271, 287, 297, 302, 323, 357, 366, 377, 397, 423, 442, 468, 491, 497, 503, 547, 558, 576]
 
 result_type = "ami" # score
-############## ------------------------------- ##############
+############## --------------- ----------------- --------------- ##############
 
 texts_dir = f"textwash_data/study{study_number}/person_descriptions/anon"
 
@@ -39,13 +43,14 @@ result_base_path = f"results/{result_type}/study{study_number}/process{process_i
 if not os.path.exists(result_base_path):
     os.mkdir(result_base_path)
 
-results_paths = {
-    "raw": f"{result_base_path}/raw_results.csv",
-    "error_files_raw": f"{result_base_path}/raw_error_files.csv",
-    "process": f"{result_base_path}/processed.csv",
-    "evaluation": f"{result_base_path}/evaluation.json",
-}
 
+
+results_paths = ResultsPaths(
+    raw=f"{result_base_path}/raw_results.csv",
+    error_files_raw=f"{result_base_path}/raw_error_files.csv",
+    processed=f"{result_base_path}/processed.csv",
+    evaluation=f"{result_base_path}/evaluation.json",
+)
 
 # Preserve the same order of texts between experiments
 random.seed(42)
@@ -63,7 +68,8 @@ def intruder():
             texts_file_names = [f"{persona_name}_{text_number}.txt" for text_number in text_lists]
         case ExperimentAnonTexts.SINGLE_TEXT:
             texts_file_names = [f"{persona_name}_{single_text_number}.txt"]
-
+        case ExperimentAnonTexts.ALL_SEMI_FAMOUS:
+            texts_file_names = [file_name for file_name in os.listdir(texts_dir) if file_name.split("_")[0] == "semifamous"]
 
     de_anonymiser = DeAnonymizer(
         llm_name="chat-gpt", 
@@ -77,15 +83,17 @@ def intruder():
     de_anonymiser.re_identify_list(
         study_dir_path=texts_dir, 
         file_names=texts_file_names, 
-        result_path=results_paths["raw"],
-        error_files_path=results_paths["error_files_raw"]
+        result_path=results_paths.raw,
+        error_files_path=results_paths.error_files_raw
     )
 
 
 def evaluator():
-    result_analyzer = ExperimentEvaluation(raw_results_path=results_paths["raw"])
-    result_analyzer.process_results(path=results_paths["process"])
-    result_analyzer.evaluate(path=results_paths["evaluation"])
+    result_analyzer = ExperimentEvaluation(results_paths=results_paths)
+    # result_analyzer.evaluate_per_persona(path=results_paths["evaluation"])
+    result_analyzer.overall_successful_rate()
+    result_analyzer.to_json()
+
 
 match mode:
     case Mode.INTRUDER:

@@ -1,5 +1,7 @@
 import json
+import os
 import pandas as pd
+from results.paths import ResultsPaths
 from personas.personas import Persona
 from enum import Enum
 
@@ -24,18 +26,24 @@ class ColNames(Enum):
     NAME = "name"
 
 class ExperimentEvaluation:
-    def __init__(self, raw_results_path: str):
+    def __init__(self, results_paths: ResultsPaths):
         self.evaluation: dict = {}
-        self.df_results = pd.read_csv(raw_results_path)
+        self.results_paths = results_paths
 
-        if ColNames.NAME.value not in self.df_results.columns or ColNames.FILE.value not in self.df_results.columns:
-            raise Exception("The raw results file should include the following columns: File, name. current columns: ", self.df_results.columns)
+        if os.path.exists(self.results_paths.processed):
+            self.df_results = pd.read_csv(self.results_paths.processed)
+        else:
+            self.df_results = pd.read_csv(self.results_paths.raw)
+
+            if ColNames.NAME.value not in self.df_results.columns or ColNames.FILE.value not in self.df_results.columns:
+                raise Exception("The raw results file should include the following columns: File, name. current columns: ", self.df_results.columns)
+            
+            # Add persona column
+            self.add_persona_column()
+            self.process_results()
         
-        # Add persona column
-        self.add_persona_column()
         
-        
-    def process_results(self, path):
+    def process_results(self):
         # Sort by file name
         self.df_results.sort_values(by=[ColNames.FILE.value], inplace=True)
 
@@ -43,13 +51,10 @@ class ExperimentEvaluation:
         self.add_is_re_identify_successfully_column()
 
         # Save results
-        self.df_results.to_csv(path, index=False)
+        self.df_results.to_csv(self.results_paths.processed, index=False)
 
 
-    def evaluate(self, path):
-        if ColNames.REIDENTIFICATION.value not in self.df_results.columns:
-            self.process_results()
-
+    def persona_successful_rate(self):
         for persona in Persona:
             persona_df = self.df_results[self.df_results[ColNames.PERSONA.value] == persona.value]
             num_of_files = persona_df.shape[0]
@@ -59,14 +64,21 @@ class ExperimentEvaluation:
             num_of_re_identify_successfully = int(persona_df[ColNames.REIDENTIFICATION.value].sum()) # convert int64 to native int (for json)
 
             self.evaluation[persona.value] = {
-                # "accuracy": persona_df[ColNames.REIDENTIFICATION.value].mean(),
                 "successful_identification_rate": num_of_re_identify_successfully / num_of_files,
                 "num_of_files": num_of_files,
                 "num_of_re_identify_successfully": num_of_re_identify_successfully,
             }
 
-        with open(path, "w") as f:
-            json.dump(self.evaluation, f, indent=4)
+
+    def overall_successful_rate(self):
+        num_of_files = self.df_results.shape[0]
+        num_of_re_identify_successfully = int(self.df_results[ColNames.REIDENTIFICATION.value].sum()) # convert int64 to native int (for json)
+        
+        self.evaluation["overall"] = {
+            "successful_identification_rate": num_of_re_identify_successfully / num_of_files,
+            "num_of_files": num_of_files,
+            "num_of_re_identify_successfully": num_of_re_identify_successfully,
+        }
 
     
     def add_persona_column(self):
@@ -91,6 +103,19 @@ class ExperimentEvaluation:
 
     def get_results_data_frame(self):
         return self.df_results
+    
+
+    def to_json(self):
+        path = self.results_paths.evaluation
+        if os.path.exists(path):
+            with open(path, "r") as f:
+                json_data = json.load(f)
+
+            json_data.update(self.evaluation)
+            self.evaluation = json_data
+
+        with open(path, "w") as f:
+            json.dump(self.evaluation, f, indent=4)
 
 
     
