@@ -4,8 +4,10 @@ from langchain import PromptTemplate
 from langchain.output_parsers import PydanticOutputParser
 from pydantic import BaseModel, Field
 
-from de_anonymizer.ami_process_handler.process_data.process_data import ProcessData, QueryData
-
+from de_anonymizer.ami_process_handler.process_data.process_data import (
+    ProcessData,
+    QueryData,
+)
 
 
 P5_CONVERSATIONS_BASE_TEMPLATE = """
@@ -28,12 +30,18 @@ P5_Q1_TEMPLATE = """
     anonymized text: "{user_input}"
 """
 
+
 class P5Q1Parser(BaseModel):
     name: str = Field(description="Name of the person or UNKNOWN")
-    score: float = Field(description="Assign confidence score from 0 to 1 for your name re-identification correctness, where 1 is the most confident")
+    score: float = Field(
+        description="Assign confidence score from 0 to 1 for your name re-identification correctness, where 1 is the most confident"
+    )
+
 
 process_5_data = ProcessData(
-    base=PromptTemplate(input_variables=["history", "input"], template=P5_CONVERSATIONS_BASE_TEMPLATE),
+    base=PromptTemplate(
+        input_variables=["history", "input"], template=P5_CONVERSATIONS_BASE_TEMPLATE
+    ),
     queries=[
         QueryData(P5_Q1_TEMPLATE, PydanticOutputParser(pydantic_object=P5Q1Parser)),
     ],

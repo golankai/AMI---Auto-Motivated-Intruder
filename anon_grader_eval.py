@@ -2,34 +2,42 @@ import os
 import logging
 import pandas as pd
 import numpy as np
-from sklearn.model_selection import train_test_split
 
 import torch as th
-from torch.utils.data import DataLoader, Dataset
+from torch.utils.data import DataLoader
 
-from transformers import TrainingArguments, RobertaForSequenceClassification
+from transformers import RobertaForSequenceClassification
 
 from clearml import Task
 
 
-from utils import prepare_grader_data, compute_metrics
+from utils import prepare_grader_data, compute_metrics, read_data_for_grader, predict
 
 # Define constants
 SUDY_NUMBER = 1
-data_used = "famous_and_semi"
-EXPERIMENT_NAME = f'eval_study_{SUDY_NUMBER}_{data_used}'
+data_used = "famous"
+EXPERIMENT_NAME = "eval_anon_grader_models"
 
-task = Task.init(project_name="AMI", task_name=EXPERIMENT_NAME, reuse_last_task_id=False, task_type=Task.TaskTypes.testing)
+task = Task.init(
+    project_name="AMI_new",
+    task_name=EXPERIMENT_NAME,
+    task_type=Task.TaskTypes.testing,
+)
 
 # Set up environment
 trained_models_path = f"./anon_grader/trained_models/"
-data_dir = f"textwash_data/study{SUDY_NUMBER}/intruder_test/full_data_study.csv"
-PRED_PATH = "./anon_grader/results/predictions_" + data_used + ".csv"
-RESULTS_PATH = "./anon_grader/results/results_" + data_used + ".csv"
+RESULTS_DIR = "./anon_grader/results/"
+if not os.path.exists(RESULTS_DIR):
+    os.makedirs(RESULTS_DIR)
+PRED_PATH = os.path.join(RESULTS_DIR, f"predictions_{SUDY_NUMBER}_{data_used}_val.csv")
+PRED_PATH2SAVE = os.path.join(RESULTS_DIR, f"predictions_{SUDY_NUMBER}_{data_used}_test.csv")
+
+RESULTS_PATH = os.path.join(RESULTS_DIR, f"results_{SUDY_NUMBER}_{data_used}_val.csv")
+RESULTS_PATH2SAVE = os.path.join(RESULTS_DIR, f"results_{SUDY_NUMBER}_{data_used}_test.csv")
 
 DEVICE = "cuda" if th.cuda.is_available() else "cpu"
 
-logging.info(f'Working on device: {DEVICE}')
+logging.info(f"Working on device: {DEVICE}")
 
 # Cancel wandb logging
 os.environ["WANDB_DISABLED"] = "true"
@@ -42,33 +50,21 @@ th.manual_seed(SEED)
 
 
 # Read the data
-columns_to_read = ["type", "text", "file_id", "name", "got_name_truth_q2"]
-raw_data = pd.read_csv(data_dir, usecols=columns_to_read)
+data = read_data_for_grader(SUDY_NUMBER, data_used, SEED)
+val_data, test_data = data["val"], data["test"]
+datasets = prepare_grader_data({"val": val_data, "test": test_data}, DEVICE)
+val_dataset, test_dataset = datasets["val"], datasets["test"]
 
-# Aggregate by file_id and calculate the rate of re-identification
-data = (
-    raw_data.groupby(["type", "file_id", "name", "text"])
-    .agg({"got_name_truth_q2": "mean"})
-    .reset_index()
+# Create a DataLoaders
+val_dataloader = DataLoader(
+    val_dataset,
+    batch_size=16,
+    shuffle=False,
 )
-data.rename(columns={"got_name_truth_q2": "human_rate"}, inplace=True)
 
-# Define population to use
-data = data[data["type"].isin(["famous", "semifamous"])]
-
-# Preprocess the data
-# Split the data into training and remaining data
-train_data, val_data = train_test_split(data, test_size=0.2, random_state=SEED)
-
-# Split the remaining data into validation and test data
-val_data, test_data = train_test_split(val_data, test_size=0.5, random_state=SEED)
-
-test_dataset = prepare_grader_data({"test": test_data}, DEVICE)['test']
-
-# Create a DataLoader for the test dataset
 test_dataloader = DataLoader(
     test_dataset,
-    batch_size=64,
+    batch_size=16,
     shuffle=False,
 )
 
@@ -76,42 +72,47 @@ models_names = os.listdir(trained_models_path)
 
 # Predict with all models
 for model_name in models_names:
-    predictions = []
+    predictions = predict(trained_models_path, val_dataloader, model_name, DEVICE)
 
-    # Load the model
-    logging.info(f"Loading model from {model_name}")
+    # Remove extension from model name
+    val_data[model_name] = predictions
 
-    model_path = os.path.join(trained_models_path, model_name)
-    model = RobertaForSequenceClassification.from_pretrained("roberta-base", num_labels=1).to(DEVICE)
-    model.load_state_dict(th.load(model_path))
-    model.eval()
-
-    # Prediction
-    for batch in test_dataloader:
-        with th.no_grad():
-            
-            outputs = model(**batch)          
-            regression_values = outputs["logits"].squeeze().cpu().tolist()
-            
-        predictions.extend(regression_values)
-
-    # Clip predictions to [0, 1]
-    predictions = np.clip(predictions, 0, 1)
-
-    # Add predictions to the data
-
-    test_data[f"model_{model_name}"] = predictions
-
-test_data.to_csv(PRED_PATH)
-task.upload_artifact("Predictions df", artifact_object=test_data)
+val_data.to_csv(PRED_PATH)
+task.upload_artifact("Predictions df", artifact_object=val_data)
 
 # Calculate the overall mse for each model
 results = {
-    model_name: compute_metrics((test_data[model_name], test_data["human_rate"]))["mse"]
-    for model_name in test_data.columns[7:]
+    model_name: compute_metrics((val_data[model_name], val_data["human_rate"]), only_mse=False)
+    for model_name in val_data.columns[5:]
 }
 
 # Save the results
-results_df = pd.DataFrame.from_dict(results, orient="index", columns=["mse"])
+results_df = pd.DataFrame.from_dict(results, orient="columns").T
 results_df.to_csv(RESULTS_PATH)
 task.upload_artifact("Results df", artifact_object=results_df)
+
+# Choose the best model
+best_model = min(results, key=lambda x: results[x]["rmse"])
+# If more than 1 model has the same rmse, choose the one with the highest spearman
+best_models_rmse = [model for model in results if results[model]["rmse"] == results[best_model]["rmse"]]
+if len(best_models_rmse) > 1:
+    best_model = max(
+        best_models_rmse,
+        key=lambda x: results[x]["spearman"],
+    )
+logging.info(f"Best model is {best_model}")
+
+# Predict on test data
+predictions = predict(trained_models_path, test_dataloader, best_model, DEVICE)
+test_data[f"RoBERTa"] = predictions
+
+# Calculate the metrics
+results_test = {"RoBERTa": compute_metrics((test_data["RoBERTa"], test_data["human_rate"]), only_mse=False)}
+
+# Save predictions and results on test data
+test_data.to_csv(PRED_PATH2SAVE)
+task.upload_artifact("Predictions on test", artifact_object=test_data)
+
+results_df = pd.DataFrame.from_dict(results_test, orient="index")
+results_df.to_csv(RESULTS_PATH2SAVE)
+task.upload_artifact("Results on test", artifact_object=results_df)

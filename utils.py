@@ -6,10 +6,11 @@ from sklearn.model_selection import train_test_split
 import tqdm
 from typing import List, Dict, Any, Optional, Union, Tuple
 from re import sub, match
+import numpy as np
+from scipy import stats
 
 
 from langchain.agents import load_tools
-from langchain.llms import HuggingFaceHub, Cohere, OpenAI
 from langchain.chat_models import ChatOpenAI
 
 
@@ -17,6 +18,8 @@ import torch as th
 from torch.optim import AdamW
 from torch.utils.data import Dataset
 from datasets import DatasetDict
+from torch.utils.data import DataLoader
+
 
 from transformers import (
     RobertaTokenizerFast,
@@ -51,25 +54,13 @@ def read_data(dir: str):
     return df
 
 
-def load_model(llm_name: str):
+def load_model(temperature: float = 0.5):
     """
     Load the LLM model.
+    :param temperature: the temperature to use for the LLM model
+    :return: the LLM model
     """
-    # match llm_name:
-    #     case "chat-gpt":
-    #         return ChatOpenAI(model="gpt-3.5-turbo", temperature=0.5, max_tokens=512)
-    #     case "flan-t5":
-    #         repo_id = "declare-lab/flan-alpaca-large"
-    #     case "llama2":
-    #         repo_id = "meta-llama/Llama-2-70b-chat-hf"
-    #     case _:
-    #         # raise an exception
-    #         raise ValueError("llm name is not valid")
-
-    # llm = HuggingFaceHub(
-    #     repo_id=repo_id, model_kwargs={"temperature": 0.1, "max_length": 512}
-    # )
-    return ChatOpenAI(model="gpt-3.5-turbo", temperature=0.5, max_tokens=512)
+    return ChatOpenAI(model="gpt-3.5-turbo", temperature=temperature, max_tokens=512)
 
 
 def load_google_search_tool():
@@ -85,7 +76,7 @@ def load_google_search_tool():
 
 
 ######################################
-###   Grader Functions  
+###   Grader Functions
 ######################################
 
 from torch.utils.data import Dataset
@@ -164,15 +155,11 @@ def train_grader_model(
         train_dataset=train_dataset,
         eval_dataset=val_dataset,
         optimizers=(optimizer, scheduler),
-        compute_metrics=compute_metrics,
+        compute_metrics=lambda tup: compute_metrics(tup, only_mse=True),
     )
 
-    # Train the model with tqdm progress bar
-    with tqdm.trange(training_args.num_train_epochs, desc="Epoch") as t:
-        for epoch in t:
-            trainer.train()
-            t.set_description(f"Epoch {epoch}")
-
+    # Train the model 
+    trainer.train()
     return model
 
 
@@ -185,18 +172,15 @@ def prepare_grader_data(data_splits: Dict[str, pd.DataFrame], device) -> Dataset
     """
     # Load pre-trained RoBERTa tokenizer and model
     tokenizer = RobertaTokenizerFast.from_pretrained("roberta-base")
-    
+
     datasets = {}
     for split, data in data_splits.items():
         # Preprocessing
         texts = data["text"].tolist()
         labels = data["human_rate"].tolist()
 
-        
         # Tokenize input texts
-        encodings = tokenizer(
-            texts, truncation=True, padding=True, return_tensors="pt"
-        )
+        encodings = tokenizer(texts, truncation=True, padding=True, return_tensors="pt")
 
         # Create dataset objects
         datasets[split] = GraderDataset(encodings, labels, device)
@@ -204,18 +188,56 @@ def prepare_grader_data(data_splits: Dict[str, pd.DataFrame], device) -> Dataset
     return DatasetDict(datasets)
 
 
-def compute_metrics(eval_pred):
-    predictions, labels = eval_pred
-    mse = mean_squared_error(labels, predictions, squared=False)
-    return {"mse": mse}
+def predict(trained_models_path: str, dataloader: DataLoader, model_name: str, device) -> List[float] :
+    """
+    Predict with a trained model.
+    :param trained_models_path: the path to the trained models
+    :param dataloader: the dataloader to predict on
+    :param model_name: the name of the model to predict with
+    :param device: the device to predict on
+    :return: the predictions
+    """
+    predictions = []
 
-def choose_data(data: pd.DataFrame, data_used : str) -> pd.DataFrame:
-    '''
+    # Load the model
+    model_path = os.path.join(trained_models_path, model_name)
+    model = RobertaForSequenceClassification.from_pretrained(
+        "roberta-base", num_labels=1
+    ).to(device)
+    model.load_state_dict(th.load(model_path))
+    model.eval()
+
+    # Prediction
+    for batch in dataloader:
+        with th.no_grad():
+            outputs = model(**batch)
+            regression_values = outputs["logits"].squeeze().cpu().tolist()
+
+        predictions.extend(regression_values)
+
+    # Clip predictions to [0, 1]
+    predictions = np.clip(predictions, 0, 1)
+
+    return predictions
+
+
+def compute_metrics(eval_pred: Tuple[np.ndarray, np.ndarray], only_mse: bool = True):
+    predictions, labels = eval_pred
+    rmse = mean_squared_error(labels, predictions, squared=False).round(2)
+    if only_mse:
+        return {"rmse": rmse}
+    avg_pred = round(sum(predictions) / len(predictions), 2)
+    spearman = round(stats.spearmanr(labels, predictions)[0], 2)
+    return {"rmse": rmse, "avg_pred": avg_pred, "spearman": spearman}
+
+
+def choose_data(data: pd.DataFrame, data_used: str) -> pd.DataFrame:
+    """
     Choose the data to use based on the types.
     :param data: the data to choose from.
     :param data_used: the type of data to use.
     :return: the data to use.
-    '''
+    """
     if data_used == "all":
         return data
     elif data_used == "famous":
@@ -224,16 +246,147 @@ def choose_data(data: pd.DataFrame, data_used : str) -> pd.DataFrame:
         return data[data["type"].isin(["famous", "semifamous"])]
     else:
         raise Exception("Invalid data type.")
-    
+
+
 def get_layer_pattern(layers_trained: str) -> str:
-    '''
+    """
     Get the pattern for the layers to train.
     :param layers_trained: the layers to train.
     :return: the pattern for the layers to train.
-    '''
+    """
     if layers_trained == "class":
         return r"classifier.*"
     elif layers_trained == "class_and_11":
-        return r'classifier.*|roberta.encoder.layer.11.*'
+        return r"classifier.*|roberta.encoder.layer.11.*"
     else:
         raise Exception("Invalid layers trained.")
+
+
+def read_data_for_grader(
+    study_nr: int, data_used: str, seed: int, keep_more_than: int = 0
+) -> Dict[str, pd.DataFrame]:
+    """
+    Read the data for the anon grader.
+    :param study_nr: the study number to use. 1 or 12.
+    :param data_used: the type of data to use. "famous", "famous_and_semi" or "all".
+    :param seed: the seed for the random state.
+    :param keep_more_than: the number of times a file_id should appear in the data. In study 2 most is less than 4.
+    :return: the data for the anon grader.
+    """
+    assert study_nr in [1, 12], "Invalid study number."
+
+    def _read_study_1():
+        # Read data from study 1
+        data_dir = f"textwash_data/study1/intruder_test/full_data_study.csv"
+
+        columns_to_read = ["type", "text", "file_id", "name", "got_name_truth_q2"]
+        raw_data = pd.read_csv(data_dir, usecols=columns_to_read)
+
+        # Aggregate by file_id and calculate the rate of re-identification
+        data = (
+            raw_data.groupby(["type", "file_id", "name", "text"])
+            .agg({"got_name_truth_q2": "mean"})
+            .reset_index()
+        )
+        data.rename(columns={"got_name_truth_q2": "human_rate"}, inplace=True)
+
+        # Round the human rate to 2 decimals
+        data["human_rate"] = data["human_rate"].round(2)
+
+        return data
+
+    def _read_study_2():
+        # Read data from study 2
+        data_dir = f"textwash_data/study2/intruder_test/full_data_study.csv"
+
+        columns_to_read = ["text", "file_id", "person_long", "got_name_truth_q2_long"]
+        raw_data = pd.read_csv(data_dir, usecols=columns_to_read)
+
+        # keep only rows whose file_id appers at lease some times
+
+        file_id_counts = raw_data["file_id"].value_counts()
+        raw_data = raw_data[
+            raw_data["file_id"].isin(
+                file_id_counts[file_id_counts > keep_more_than].index
+            )
+        ]
+
+        # Aggregate by file_id and calculate the rate of re-identification
+        data = (
+            raw_data.groupby(["file_id", "person_long", "text"])
+            .agg({"got_name_truth_q2_long": "mean"})
+            .reset_index()
+        )
+        data.rename(
+            columns={"got_name_truth_q2_long": "human_rate", "person_long": "name"},
+            inplace=True,
+        )
+
+        # Add a type column
+        data["type"] = ["famous"] * len(data)
+
+        # Round the human rate to 2 decimals
+        data["human_rate"] = data["human_rate"].round(2)
+
+        return data
+    
+    
+    data = _read_study_1()
+
+    # Use only famous for val and test sets
+    data_famous = choose_data(data, "famous")
+
+    # Split the data into training and remaining data
+    _, val_data = train_test_split(data_famous, test_size=0.2, random_state=seed)
+
+    # Choose the data to use for training
+    train_data = choose_data(data, data_used)
+    # Remove the data used for validation and test
+    train_data = train_data[~train_data["file_id"].isin(val_data["file_id"])]
+
+    # Split the validation data into validation and test
+    val_data, test_data = train_test_split(val_data, test_size=0.5, random_state=seed)
+
+    if study_nr == 12:
+        # Read data from study 2 and combine it with the train data from study 1
+        data2 = _read_study_2()
+        train_data = pd.concat([train_data, data2], ignore_index=True)
+
+    return {"train": train_data, "val": val_data, "test": test_data}
+
+
+def get_exp_name(process_id: int) -> str:
+    """
+    Get the experiment name for the anon grader.
+    :param process_id: the process id.
+    :return: the experiment name.
+    """
+    match process_id:
+        case 11:
+            return "zero_shot"
+        case 120:
+            return "one_shot_0"
+        case 121:
+            return "one_shot_1"
+        case 13:
+            return "three_shot"
+        case 14:
+            return "CoT"
+        case 1511:
+            return "self_const_zero_shot"
+        case 1513:
+            return "self_const_three_shot"
+        case 111:
+            return "multi_persona"
+        case 161:
+            return "Role1"
+        case 162:
+            return "Role2"
+        case 163:
+            return "Role3"
+        case 164:
+            return "Role4"
+        case _:
+            raise Exception("Invalid process id.")
+
+

@@ -1,0 +1,126 @@
+File,Raw_response
+,"{
+  ""properties"": {
+    ""simulation"": {
+      ""title"": ""Simulation"",
+      ""description"": ""The simulation of the 4 agents, short"",
+      ""type"": ""string""
+    },
+    ""score"": {
+      ""title"": ""Score"",
+      ""description"": ""A score from 0 to 1, normalized success rate in de-anonymization"",
+      ""type"": ""number""
+    }
+  },
+  ""required"": [""simulation"", ""score""]
+}"
+,"{""simulation"": ""Agent 1: The agent suspects that the famous person is a wealthy and successful individual who is well-known internationally. They consider the person's well-spoken and put-together English demeanor, as well as their role in LOCATION_1. The agent's guess is a well-known actor."", ""Agent 2: The agent believes that the famous person is a highly intelligent individual, given their stunning performance in OTHER_IDENTIFYING_ATTRIBUTE_1 and OTHER_IDENTIFYING_ATTRIBUTE_2. They also consider the person's well-spoken and professional demeanor. The agent's guess is a renowned scientist."", ""Agent 3: The agent thinks that the famous person is a wealthy and successful individual who is well-known in LOCATION_1. They consider the person's well-dressed and imposing appearance. The agent's guess is a successful business tycoon."", ""Agent 4: The agent suspects that the famous person is a wealthy and successful individual who is well-known internationally. They consider the person's well-spoken and put-together English demeanor, as well as their role in LOCATION_1. The agent's guess is a famous politician."", ""score"": 0.25}"
+,"{""properties"": {""simulation"": {""title"": ""Simulation"", ""description"": ""The simulation of the 4 agents, short"", ""type"": ""string""}, ""score"": {""title"": ""Score"", ""description"": ""A score from 0 to 1, normalized success rate in de-anonymization"", ""type"": ""number""}}, ""required"": [""simulation"", ""score""]}
+
+{
+  ""simulation"": ""Agent 1: The agent is a 25-year-old female teacher from the US with a high school degree. Based on the anonymized text, the agent may have some difficulty in re-identifying the famous person due to limited knowledge of popular singers and their accomplishments. The agent may recognize the song 'I'm Still Standing' and the fact that the singer is less popular in the modern era, but may struggle with identifying the specific person. The agent may have some knowledge of TV shows and may recognize the mention of a show, but it may not be enough to accurately identify the singer. Overall, the agent's chances of successful re-identification are moderate."",
+  ""score"": 0.5
+}
+
+{
+  ""simulation"": ""Agent 2: The agent is a 50-year-old female programmer from the UK with a PhD degree. Based on the anonymized text, the agent may have a higher chance of re-identifying the famous person compared to Agent 1. The agent may have more knowledge and exposure to popular singers and their accomplishments. The agent may recognize the song 'I'm Still Standing' and the fact that the singer is less popular in the modern era. The agent may also have more familiarity with TV shows and may recognize the mention of a show. Overall, the agent's chances of successful re-identification are higher than Agent 1."",
+  ""score"": 0.7
+}
+
+{
+  ""simulation"": ""Agent 3: The agent is an 18-year-old male waiter from Germany. Based on the anonymized text, the agent may have limited knowledge and exposure to popular singers and their accomplishments. The agent may recognize the song 'I'm Still Standing' and the fact that the singer is less popular in the modern era. However, the agent may struggle with identifying the specific person due to limited familiarity with TV shows and potential language barriers. Overall, the agent's chances of successful re-identification are moderate."",
+  ""score"": 0.5
+}
+
+{
+  ""simulation"": ""Agent 4: The agent is a 35-year-old male lawyer"
+,"{
+    ""properties"": {
+        ""simulation"": {
+            ""title"": ""Simulation"",
+            ""description"": ""The simulation of the 4 agents, short"",
+            ""type"": ""string""
+        },
+        ""score"": {
+            ""title"": ""Score"",
+            ""description"": ""A score from 0 to 1, normalized success rate in de-anonymization"",
+            ""type"": ""number""
+        }
+    },
+    ""required"": [""simulation"", ""score""]
+}"
+,"{
+    ""properties"": {
+        ""simulation"": {
+            ""title"": ""Simulation"",
+            ""description"": ""The simulation of the 4 agents, short"",
+            ""type"": ""string""
+        },
+        ""score"": {
+            ""title"": ""Score"",
+            ""description"": ""A score from 0 to 1, normalized success rate in de-anonymization"",
+            ""type"": ""number""
+        }
+    },
+    ""required"": [""simulation"", ""score""]
+}"
+,"{
+    ""properties"": {
+        ""simulation"": {
+            ""title"": ""Simulation"",
+            ""description"": ""The simulation of the 4 agents, short"",
+            ""type"": ""string""
+        },
+        ""score"": {
+            ""title"": ""Score"",
+            ""description"": ""A score from 0 to 1, normalized success rate in de-anonymization"",
+            ""type"": ""number""
+        }
+    },
+    ""required"": [""simulation"", ""score""]
+}"
+,"{
+  ""properties"": {
+    ""simulation"": {
+      ""title"": ""Simulation"",
+      ""description"": ""The simulation of the 4 agents, short"",
+      ""type"": ""string""
+    },
+    ""score"": {
+      ""title"": ""Score"",
+      ""description"": ""A score from 0 to 1, normalized success rate in de-anonymization"",
+      ""type"": ""number""
+    }
+  },
+  ""required"": [""simulation"", ""score""]
+}"
+,"{
+    ""properties"": {
+        ""simulation"": {
+            ""title"": ""Simulation"",
+            ""description"": ""The simulation of the 4 agents, short"",
+            ""type"": ""string""
+        },
+        ""score"": {
+            ""title"": ""Score"",
+            ""description"": ""A score from 0 to 1, normalized success rate in de-anonymization"",
+            ""type"": ""number""
+        }
+    },
+    ""required"": [""simulation"", ""score""]
+}"
+,"{
+    ""properties"": {
+        ""simulation"": {
+            ""title"": ""Simulation"",
+            ""description"": ""The simulation of the 4 agents, short"",
+            ""type"": ""string""
+        },
+        ""score"": {
+            ""title"": ""Score"",
+            ""description"": ""A score from 0 to 1, normalized success rate in de-anonymization"",
+            ""type"": ""number""
+        }
+    },
+    ""required"": [""simulation"", ""score""]
+}"

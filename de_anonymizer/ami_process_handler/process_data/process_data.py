@@ -10,9 +10,11 @@ from langchain.prompts import (
     SystemMessagePromptTemplate,
 )
 
+
 class MessageType(Enum):
     HUMAN = 0
     SYSTEM = 1
+
 
 @dataclass
 class QueryData:
@@ -24,10 +26,14 @@ class QueryData:
         template, parser = self.template, self.parser
         prompt = None
         if self.type == MessageType.HUMAN:
-            prompt = HumanMessagePromptTemplate.from_template(template=template, output_parser=parser)
+            prompt = HumanMessagePromptTemplate.from_template(
+                template=template, output_parser=parser
+            )
         if self.type == MessageType.SYSTEM:
-            prompt = SystemMessagePromptTemplate.from_template(template=template, output_parser=parser)
-        
+            prompt = SystemMessagePromptTemplate.from_template(
+                template=template, output_parser=parser
+            )
+
         return prompt
 
 
@@ -35,6 +41,6 @@ class QueryData:
 class ProcessData:
     base: PromptTemplate
     queries: list[QueryData]
-    
+
     def get_base_template(self) -> PromptTemplate:
         return self.base
