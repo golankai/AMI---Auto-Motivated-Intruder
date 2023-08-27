@@ -1,0 +1,14 @@
+File,Raw_response
+jagger_711.txt,"{
+    ""properties"": {
+        ""name"": {
+            ""title"": ""Name"",
+            ""description"": ""The person is "",
+            ""type"": ""string""
+        }
+    },
+    ""required"": [""name""]
+}"
+jagger_101.txt,"Based on the provided anonymized text, it is not possible for me to accurately identify the specific person mentioned. Therefore, the name should be returned as ""UNKNOWN"" according to the output schema."
+adele_718.txt,"Based on the information provided, the person mentioned in the text is Adele."
+jagger_277.txt,"Based on the given information, the person's name is ""PERSON_FIRSTNAME_1 PERSON_LASTNAME_1""."

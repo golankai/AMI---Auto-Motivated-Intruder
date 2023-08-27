@@ -97,18 +97,30 @@ class DeAnonymizer:
         if self.should_handle_data:
             conv_responses = self.process_handler.get_conv_responses()
             self.data_handler.add_flatten_row(conv_responses, file_name)
+            
         return response
+        
 
-    def re_identify_list(self, study_dir_path, file_names, save_to_csv=False):
+    def re_identify_list(self, study_dir_path, file_names, result_path, error_files_path):        
         for i, file_name in enumerate(file_names):
             with open(
                 os.path.join(study_dir_path, file_name), "r", encoding="utf-8"
             ) as f:
                 anon_text = f.read()
-            self.re_identify(anon_text, file_name)
+            _ = self.re_identify(anon_text, file_name)
+        
+        self.save_results(result_path, error_files_path)
 
     def get_results(self) -> pd.DataFrame:
         return self.data_handler.get_df() if self.should_handle_data else None
 
     def get_error_files(self) -> pd.DataFrame:
         return self.data_handler.get_error_files() if self.should_handle_data else None
+    
+    def save_results(self, path, error_files_path):
+        if not self.should_handle_data:
+            print("No results to save!")
+            return
+        
+        self.data_handler.save_to_csv(path, error_files_path)
+        

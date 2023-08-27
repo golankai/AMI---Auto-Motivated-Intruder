@@ -1,0 +1,167 @@
+personas_1,personas_2,personas_3,score_1,score_2,score_3,File
+Tom Cruise,Brad Pitt,Leonardo DiCaprio,0.8,0.7,0.6,craig_596.txt
+PERSON_FIRSTNAME_4 PERSON_LASTNAME_4,PERSON_FIRSTNAME_2 PERSON_LASTNAME_1,PERSON_FIRSTNAME_5 PERSON_LASTNAME_2,0.9,0.8,0.7,craig_713.txt
+John Lennon,Paul McCartney,The Beatles,0.8,0.7,0.9,jagger_286.txt
+Alicia,Sophia,Isabella,0.8,0.6,0.7,adele_923.txt
+Jennifer Lawrence,Bradley Cooper,Emma Stone,0.8,0.7,0.6,craig_328.txt
+Elton John,Mick Jagger,Rod Stewart,0.9,0.8,0.7,jagger_422.txt
+Adele,Simon Konecki,Angelo Adkins,0.9,0.8,0.7,adele_97.txt
+John Smith,Emma Johnson,Michael Brown,0.8,0.6,0.7,craig_992.txt
+John Smith,Emma Johnson,Michael Davis,0.8,0.6,0.7,craig_375.txt
+Adele,London,singer,0.9,0.8,0.7,adele_423.txt
+Taylor Swift,Adele,Beyonce,0.8,0.7,0.6,adele_112.txt
+Taylor Swift,Adele,Beyonce,0.8,0.7,0.6,adele_366.txt
+Adele,Taylor Swift,Beyonce,0.9,0.8,0.7,adele_271.txt
+John Smith,Emily Johnson,Michael Brown,0.8,0.6,0.7,craig_978.txt
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_2,PERSON_FIRSTNAME_4 PERSON_LASTNAME_3,PERSON_FIRSTNAME_2 PERSON_LASTNAME_5,0.8,0.7,0.6,adele_748.txt
+Taylor Swift,Adele,Beyonce,0.8,0.7,0.6,adele_209.txt
+Taylor Swift,Adele,Ed Sheeran,0.9,0.8,0.7,adele_1067.txt
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_2,PERSON_FIRSTNAME_1 PERSON_LASTNAME_2,PERSON_FIRSTNAME_4 PERSON_LASTNAME_5,0.8,0.6,0.7,jagger_792.txt
+Emma,Olivia,Sophia,0.8,0.7,0.6,adele_147.txt
+Taylor Swift,Adele,Ed Sheeran,0.8,0.7,0.6,adele_503.txt
+Tom Cruise,Brad Pitt,Leonardo DiCaprio,0.8,0.7,0.6,craig_788.txt
+Adele,Taylor Swift,Beyonce,0.9,0.8,0.7,adele_851.txt
+Adele,John Smith,Emma Watson,0.9,0.7,0.6,adele_178.txt
+Adele,Beyoncé,Taylor Swift,0.8,0.7,0.6,adele_1002.txt
+PERSON_FIRSTNAME,DATE_2,LOCATION,0.9,0.8,0.7,adele_996.txt
+,,,,,,craig_253.txt
+John Lennon,Paul McCartney,Mick Jagger,0.9,0.8,0.7,jagger_441.txt
+Adele,Taylor Swift,Ed Sheeran,0.9,0.8,0.7,adele_57.txt
+Adele,Beyonce,Taylor Swift,0.8,0.7,0.6,adele_798.txt
+John Smith,Michael Johnson,David Brown,0.8,0.6,0.7,jagger_771.txt
+John Doe,Jane Smith,Michael Johnson,0.8,0.6,0.7,jagger_141.txt
+Taylor Swift,Adele,Beyonce,0.8,0.7,0.6,adele_673.txt
+Adele,Sam Smith,Ed Sheeran,0.8,0.6,0.4,adele_682.txt
+Adele,Taylor Swift,Beyonce,0.9,0.8,0.7,adele_297.txt
+John Smith,Emma Johnson,Michael Brown,0.8,0.6,0.7,craig_413.txt
+John Smith,Sarah Johnson,Michael Brown,0.8,0.6,0.7,jagger_496.txt
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,PRONOUN,,0.8,0.6,,jagger_984.txt
+Jennifer Lopez,Shakira,Beyonce,0.8,0.7,0.6,jagger_917.txt
+John Smith,Sarah Johnson,Michael Brown,0.8,0.6,0.7,jagger_897.txt
+Elton John,Mick Jagger,Freddie Mercury,0.9,0.8,0.7,jagger_567.txt
+David Bowie,Mick Jagger,Elton John,0.8,0.6,0.7,jagger_513.txt
+Taylor Swift,Adele,Katy Perry,0.8,0.7,0.6,adele_216.txt
+rock music enthusiast,concertgoer,music historian,0.8,0.6,0.7,jagger_557.txt
+Tom Hanks,Brad Pitt,Leonardo DiCaprio,0.8,0.7,0.6,craig_58.txt
+Tom Hanks,Robert De Niro,Brad Pitt,0.8,0.7,0.6,craig_1053.txt
+John Smith,Emma Johnson,Michael Davis,0.8,0.6,0.7,craig_1049.txt
+Mick Jagger,Paul McCartney,Elton John,0.8,0.6,0.7,jagger_296.txt
+John Smith,Sarah Johnson,Michael Brown,0.8,0.6,0.7,jagger_458.txt
+Brad Pitt,Leonardo DiCaprio,Tom Cruise,0.8,0.6,0.7,craig_912.txt
+Madonna,Mick Jagger,David Bowie,0.8,0.6,0.7,jagger_262.txt
+Adele,Taylor Swift,Beyonce,0.8,0.6,0.7,adele_287.txt
+Taylor Swift,Adele,Beyonce,0.9,0.8,0.7,adele_1051.txt
+Taylor Swift,Adele,Ed Sheeran,0.9,0.8,0.7,adele_242.txt
+Tom Hanks,Brad Pitt,Leonardo DiCaprio,0.8,0.6,0.7,craig_40.txt
+Daniel Craig,James Bond,action hero,0.8,0.7,0.9,craig_227.txt
+Freddie Mercury,Brian May,Roger Taylor,0.9,0.8,0.7,jagger_146.txt
+Daniel Radcliffe,Emma Watson,Rupert Grint,0.9,0.8,0.7,craig_612.txt
+Adele,Taylor Swift,Beyoncé,0.8,0.6,0.7,adele_302.txt
+Adele,Ed Sheeran,Taylor Swift,0.9,0.8,0.7,adele_357.txt
+Taylor Swift,Adele,Beyonce,0.8,0.7,0.6,adele_836.txt
+Adele,Ed Sheeran,Sam Smith,0.9,0.7,0.6,adele_323.txt
+Adele,Taylor Swift,Ed Sheeran,0.9,0.7,0.6,adele_656.txt
+Mick Jagger,The Rolling Stones,Keith Richards,0.8,0.7,0.6,jagger_11.txt
+Elvis Presley,Mick Jagger,David Bowie,0.9,0.8,0.7,jagger_322.txt
+Mick Jagger,Keith Richards,Charlie Watts,0.9,0.6,0.4,jagger_1021.txt
+John Smith,Michael Johnson,David Miller,0.8,0.6,0.7,jagger_42.txt
+Adele,Taylor Swift,Beyoncé,0.8,0.6,0.7,adele_468.txt
+Elvis Presley,Mick Jagger,David Bowie,0.9,0.8,0.7,jagger_711.txt
+Tom Cruise,Daniel Radcliffe,Robert Downey Jr.,0.9,0.8,0.7,craig_149.txt
+Daniel Craig,James Bond,UK Celebrity,0.9,0.7,0.8,craig_32.txt
+Elvis Presley,Mick Jagger,Bruce Springsteen,0.8,0.7,0.6,jagger_241.txt
+Adele,Taylor Swift,Beyonce,0.9,0.8,0.7,adele_397.txt
+Mick Jagger,Keith Richards,Ronnie Wood,0.9,0.8,0.7,jagger_701.txt
+John Smith,Emma Johnson,Michael Brown,0.8,0.6,0.7,jagger_1.txt
+Actor/Actress,Detective,Writer,0.8,0.6,0.7,craig_439.txt
+John Lennon,Paul McCartney,George Harrison,0.9,0.8,0.7,jagger_392.txt
+Taylor Swift,Adele,Beyonce,0.9,0.8,0.7,adele_442.txt
+,,,,,,adele_197.txt
+Taylor Swift,Adele,Ed Sheeran,0.9,0.8,0.7,adele_47.txt
+Adele,Mariah Carey,Whitney Houston,0.9,0.8,0.7,adele_943.txt
+Tom Cruise,Brad Pitt,Leonardo DiCaprio,0.8,0.7,0.6,craig_703.txt
+John Smith,Michael Johnson,David Williams,0.8,0.6,0.7,jagger_376.txt
+John Smith,Sarah Johnson,Michael Brown,0.8,0.6,0.7,jagger_96.txt
+Tom Hanks,Brad Pitt,Leonardo DiCaprio,0.8,0.7,0.6,craig_823.txt
+,,,,,,jagger_1026.txt
+Tom Cruise,Brad Pitt,Leonardo DiCaprio,0.8,0.7,0.6,craig_263.txt
+PERSON_FIRSTNAME_2,PERSON_FIRSTNAME_1,,0.8,0.6,,craig_928.txt
+Emma Watson,Daniel Radcliffe,Leonardo DiCaprio,0.9,0.8,0.7,craig_538.txt
+Tom Hanks,Emma Watson,Daniel Craig,0.8,0.6,0.7,craig_188.txt
+Tom Cruise,Brad Pitt,Leonardo DiCaprio,0.8,0.7,0.6,craig_644.txt
+John Smith,David Johnson,Michael Brown,0.8,0.6,0.7,jagger_116.txt
+Adele,Taylor Swift,Ed Sheeran,0.9,0.8,0.7,adele_61.txt
+John Doe,Jane Smith,Michael Johnson,0.8,0.6,0.7,jagger_487.txt
+Tom Cruise,Brad Pitt,Leonardo DiCaprio,0.8,0.7,0.6,craig_1078.txt
+Daniel Craig,Emma Watson,Tom Hanks,0.8,0.6,0.7,craig_677.txt
+Adele,Alicia Keys,Sam Smith,0.9,0.8,0.7,adele_43.txt
+Tom Hanks,Jennifer Lawrence,Leonardo DiCaprio,0.9,0.8,0.7,craig_273.txt
+Mick Jagger,Keith Richards,Ronnie Wood,0.9,0.8,0.7,jagger_617.txt
+Tom Hanks,Brad Pitt,Leonardo DiCaprio,0.8,0.6,0.7,craig_259.txt
+Brad Pitt,Angelina Jolie,Tom Cruise,0.8,0.7,0.6,craig_528.txt
+Mick Jagger,Keith Richards,Steven Tyler,0.8,0.7,0.6,jagger_336.txt
+Adele,Taylor Swift,Beyoncé,0.8,0.6,0.7,adele_491.txt
+Tom Cruise,Chris Hemsworth,Robert Downey Jr.,0.8,0.7,0.6,craig_1017.txt
+PERSON_FIRSTNAME_3,PERSON_FIRSTNAME_2 PERSON_LASTNAME_1,PERSON_FIRSTNAME_1 PERSON_LASTNAME_2,0.9,0.7,0.6,adele_938.txt
+John Smith,Emily Johnson,Michael Brown,0.8,0.6,0.7,adele_691.txt
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_3,PERSON_FIRSTNAME_3 OTHER_IDENTIFYING_ATTRIBUTE_1,PERSON_FIRSTNAME_4 PERSON_LASTNAME_2,0.9,0.8,0.7,craig_832.txt
+Taylor Swift,Adele,Ed Sheeran,0.9,0.8,0.7,adele_1043.txt
+PERSON_LASTNAME_1,LOCATION_2 musician,PRONOUN,0.8,0.6,0.9,adele_741.txt
+Adele,Beyonce,Ariana Grande,0.8,0.6,0.7,adele_497.txt
+Mick Jagger,Keith Richards,David Bowie,0.9,0.8,0.7,jagger_857.txt
+Daniel Craig,Rachel Weisz,Liverpool Football Club Fan,0.9,0.8,0.7,craig_908.txt
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,PERSON_FIRSTNAME_2 PERSON_LASTNAME_2,PRONOUN,0.8,0.7,0.6,jagger_1066.txt
+Adele,London,21,0.9,0.8,0.7,adele_876.txt
+Freddie Mercury,Robert Plant,Mick Jagger,0.9,0.8,0.7,jagger_846.txt
+Mick Jagger,The Rolling Stones,Keith Richards,0.9,0.8,0.7,jagger_208.txt
+John Smith,Emma Johnson,Michael Davis,0.8,0.6,0.7,jagger_561.txt
+Tom Hanks,Brad Pitt,Leonardo DiCaprio,0.8,0.6,0.7,craig_873.txt
+PERSON_FIRSTNAME_1,PRONOUN,LOCATION_2,0.8,0.6,0.7,adele_558.txt
+John Smith,Emma Thompson,Michael Jackson,0.8,0.6,0.9,jagger_672.txt
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,PERSON_FIRSTNAME_3 PERSON_LASTNAME_2,PERSON_FIRSTNAME_2 PERSON_LASTNAME_1,0.9,0.8,0.7,jagger_101.txt
+Tom,Chris,Michael,0.9,0.8,0.7,craig_98.txt
+Mick Jagger,Keith Richards,David Bowie,0.9,0.8,0.7,jagger_402.txt
+Adele,John Doe,Taylor Swift,0.9,0.3,0.7,adele_718.txt
+John Smith,Sarah Johnson,Michael Brown,0.8,0.6,0.7,craig_493.txt
+,,,,,,craig_698.txt
+John Smith,Emma Johnson,Michael Brown,0.8,0.6,0.7,jagger_258.txt
+John,London,The Beatles,0.9,0.8,0.7,jagger_623.txt
+Elvis Presley,Mick Jagger,David Bowie,0.9,0.8,0.7,jagger_293.txt
+Tom Hanks,Brad Pitt,Leonardo DiCaprio,0.8,0.7,0.6,craig_378.txt
+Adele,Beyonce,Ariana Grande,0.8,0.6,0.7,adele_867.txt
+Taylor Swift,Adele,Beyonce,0.9,0.8,0.7,adele_793.txt
+Adele,Sam Smith,Sia,0.8,0.6,0.7,adele_962.txt
+Tom Cruise,Brad Pitt,Leonardo DiCaprio,0.9,0.8,0.7,craig_114.txt
+Tom Cruise,Brad Pitt,George Clooney,0.8,0.7,0.6,craig_403.txt
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_2,PERSON_FIRSTNAME_2 PERSON_LASTNAME_1,PRONOUN,0.8,0.9,0.7,craig_137.txt
+Daniel Craig,Rachel Weisz,Pierce Brosnan,0.9,0.8,0.7,craig_10.txt
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,PERSON_FIRSTNAME_2 PERSON_LASTNAME_1,PERSON_FIRSTNAME_3,0.9,0.8,0.7,jagger_52.txt
+Adele,Amy,Taylor,0.9,0.7,0.6,adele_591.txt
+Tom Hanks,Jennifer Lawrence,Chris Hemsworth,0.8,0.6,0.7,craig_123.txt
+Adele,Taylor Swift,Ed Sheeran,0.9,0.8,0.7,adele_576.txt
+John,Michael,David,0.8,0.6,0.7,craig_332.txt
+Tom Hardy,Daniel Craig,Idris Elba,0.9,0.8,0.7,craig_879.txt
+Mick Jagger,Keith Richards,Brian Jones,0.9,0.8,0.7,jagger_77.txt
+Tom Cruise,Brad Pitt,Leonardo DiCaprio,0.8,0.6,0.7,craig_476.txt
+PERSON_FIRSTNAME_3 PERSON_LASTNAME_1,PERSON_FIRSTNAME_1 PERSON_LASTNAME_2,PERSON_FIRSTNAME_2 PERSON_LASTNAME_3,0.8,0.7,0.6,craig_17.txt
+,,,,,,jagger_738.txt
+Tom Hanks,Johnny Depp,Leonardo DiCaprio,0.8,0.6,0.7,craig_819.txt
+Taylor Swift,Adele,Ed Sheeran,0.8,0.6,0.7,adele_157.txt
+Mick Jagger,Keith Richards,Ronnie Wood,0.9,0.8,0.7,jagger_782.txt
+Justin Bieber,Mick Jagger,Beyonce,0.8,0.6,0.7,jagger_129.txt
+Mick Jagger,The Rolling Stones,Rockstar,0.9,0.8,0.7,jagger_467.txt
+Taylor Swift,Adele,Beyonce,0.9,0.8,0.7,adele_607.txt
+Daniel Craig,James Bond,007,0.9,0.8,0.7,craig_1005.txt
+Mick Jagger,Jerry Hall,Keith Richards,0.9,0.8,0.7,jagger_213.txt
+Tom Cruise,Daniel Craig,Angelina Jolie,0.8,0.6,0.7,craig_886.txt
+Adele,Taylor Swift,Ed Sheeran,0.9,0.7,0.6,adele_618.txt
+Adele,Ed Sheeran,Taylor Swift,0.8,0.6,0.7,adele_377.txt
+Elvis Presley,Mick Jagger,Bruce Springsteen,0.8,0.7,0.6,jagger_582.txt
+Daniel Radcliffe,Emma Watson,Rupert Grint,0.9,0.8,0.7,craig_393.txt
+Taylor Swift,Adele,Ed Sheeran,0.8,0.7,0.6,adele_1048.txt
+Daniel Craig,Tom Hardy,Jude Law,0.9,0.7,0.6,craig_469.txt
+Elton John,Mick Jagger,Bruce Springsteen,0.9,0.7,0.6,jagger_277.txt
+Taylor Swift,Adele,Lady Gaga,0.9,0.8,0.7,adele_667.txt
+,,,,,,craig_381.txt
+Adele,Ed Sheeran,Sam Smith,0.9,0.7,0.6,adele_201.txt
+Adele,Taylor Swift,Beyonce,0.9,0.8,0.7,adele_547.txt
