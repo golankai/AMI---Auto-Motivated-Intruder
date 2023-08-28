@@ -1,0 +1,167 @@
+name,score,File
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_2,0.9,craig_596.txt
+PERSON_FIRSTNAME_4 PERSON_LASTNAME_4,0.95,craig_713.txt
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_3,0.85,jagger_286.txt
+PERSON_FIRSTNAME_1,0.9,adele_923.txt
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_2,0.8,craig_328.txt
+PERSON_FIRSTNAME_1,0.8,jagger_422.txt
+PERSON_FIRSTNAME_3 PERSON_LASTNAME_3,0.9,adele_97.txt
+PERSON_FIRSTNAME ORGANIZATION_1 PERSON_LASTNAME ORGANIZATION_1,0.8,craig_992.txt
+PERSON_FIRSTNAME PERSON_LASTNAME,0.8,craig_375.txt
+Adele,0.9,adele_423.txt
+Taylor Swift,0.9,adele_112.txt
+Adele,0.9,adele_366.txt
+PERSON_FIRSTNAME_2,0.9,adele_271.txt
+PERSON_LASTNAME_1,0.8,craig_978.txt
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,adele_748.txt
+PERSON_FIRSTNAME_1,0.95,adele_209.txt
+Taylor Swift,0.9,adele_1067.txt
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_2,0.8,jagger_792.txt
+PERSON_FIRSTNAME_1,0.8,adele_147.txt
+PERSON_FIRSTNAME_2,0.8,adele_503.txt
+PERSON_FIRSTNAME_3 PERSON_LASTNAME_4,0.8,craig_788.txt
+Adele,0.9,adele_851.txt
+Adele,0.9,adele_178.txt
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,adele_1002.txt
+PERSON_FIRSTNAME DATE_2,0.8,adele_996.txt
+PERSON_FIRSTNAME_4 PERSON_LASTNAME_1,0.9,craig_253.txt
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,jagger_441.txt
+Adele,0.9,adele_57.txt
+PERSON_FIRSTNAME_1,0.95,adele_798.txt
+John Doe,0.9,jagger_771.txt
+Freddie Mercury,0.9,jagger_141.txt
+Adele,0.9,adele_673.txt
+Adele,0.9,adele_682.txt
+PERSON_FIRSTNAME_1,0.85,adele_297.txt
+PERSON_LASTNAME_1,0.8,craig_413.txt
+John Doe,0.8,jagger_496.txt
+John Doe,0.9,jagger_984.txt
+John Smith,0.8,jagger_917.txt
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.9,jagger_897.txt
+PERSON_FIRSTNAME_1,0.9,jagger_567.txt
+David Bowie,0.9,jagger_513.txt
+Taylor Swift,0.9,adele_216.txt
+UNKNOWN,0.9,jagger_557.txt
+PERSON_FIRSTNAME_3,0.8,craig_58.txt
+John Smith,0.8,craig_1053.txt
+Tom Cruise,0.9,craig_1049.txt
+John Lennon,0.9,jagger_296.txt
+John Smith,0.9,jagger_458.txt
+PERSON_FIRSTNAME_2,0.8,craig_912.txt
+Taylor Swift,0.9,jagger_262.txt
+Taylor Swift,0.9,adele_287.txt
+PERSON_FIRSTNAME_1,0.8,adele_1051.txt
+Taylor Swift,0.8,adele_242.txt
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_2,0.8,craig_40.txt
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_1,0.8,craig_227.txt
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,jagger_146.txt
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_3,0.9,craig_612.txt
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,adele_302.txt
+PERSON_FIRSTNAME_4,0.8,adele_357.txt
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,adele_836.txt
+Adele,0.9,adele_323.txt
+Taylor Swift,0.9,adele_656.txt
+Elton John,0.9,jagger_11.txt
+David Bowie,0.9,jagger_322.txt
+Mick Jagger,0.9,jagger_1021.txt
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,jagger_42.txt
+PERSON_FIRSTNAME_2,0.9,adele_468.txt
+John Smith,0.9,jagger_711.txt
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_2,0.8,craig_149.txt
+Daniel Craig,0.9,craig_32.txt
+John Doe,0.8,jagger_241.txt
+PERSON_FIRSTNAME_1,0.8,adele_397.txt
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,jagger_701.txt
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,jagger_1.txt
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_4,0.8,craig_439.txt
+PERSON_FIRSTNAME_1,0.8,jagger_392.txt
+Taylor Swift,0.9,adele_442.txt
+PERSON_LASTNAME_1,0.8,adele_197.txt
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,adele_47.txt
+PERSON_FIRSTNAME_3,0.8,adele_943.txt
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_2,0.9,craig_703.txt
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_2,0.9,jagger_376.txt
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.9,jagger_96.txt
+PERSON_FIRSTNAME_3 PERSON_LASTNAME_3,0.8,craig_823.txt
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.9,jagger_1026.txt
+Tom Cruise,0.8,craig_263.txt
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_2,0.8,craig_928.txt
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,craig_538.txt
+PERSON_FIRSTNAME_3 PERSON_LASTNAME_1,0.8,craig_188.txt
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_3,0.8,craig_644.txt
+John Smith,0.8,jagger_116.txt
+PERSON_FIRSTNAME_1,0.8,adele_61.txt
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_1,0.9,jagger_487.txt
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_3,0.8,craig_1078.txt
+Daniel Craig,0.9,craig_677.txt
+Adele,0.9,adele_43.txt
+,,craig_273.txt
+Mick Jagger,0.9,jagger_617.txt
+PERSON_FIRSTNAME_7 PERSON_LASTNAME_1,0.8,craig_259.txt
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_2,0.8,craig_528.txt
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,jagger_336.txt
+PERSON_FIRSTNAME_1,0.9,adele_491.txt
+Tom Cruise,0.8,craig_1017.txt
+PERSON_FIRSTNAME_3,0.8,adele_938.txt
+PERSON_LASTNAME_1,0.8,adele_691.txt
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_3,0.9,craig_832.txt
+PERSON_FIRSTNAME_1,0.8,adele_1043.txt
+PERSON_LASTNAME_1,0.8,adele_741.txt
+PERSON_FIRSTNAME_1,0.9,adele_497.txt
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,jagger_857.txt
+Daniel Craig,0.9,craig_908.txt
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,jagger_1066.txt
+Adele,0.9,adele_876.txt
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,jagger_846.txt
+John Smith,0.9,jagger_208.txt
+PERSON_FIRSTNAME_3 PERSON_LASTNAME_1,0.8,jagger_561.txt
+PERSON_FIRSTNAME_3 PERSON_LASTNAME_1,0.9,craig_873.txt
+PERSON_FIRSTNAME_1,0.95,adele_558.txt
+Sir Elton John,0.9,jagger_672.txt
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,jagger_101.txt
+PERSON_FIRSTNAME_1,0.8,craig_98.txt
+Mick Jagger,0.9,jagger_402.txt
+Adele,0.9,adele_718.txt
+PERSON_FIRSTNAME PERSON_LASTNAME,0.8,craig_493.txt
+Brad Pitt,0.9,craig_698.txt
+John Lennon,0.9,jagger_258.txt
+John Lennon,0.95,jagger_623.txt
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_1,0.8,jagger_293.txt
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_2,0.8,craig_378.txt
+Adele,0.9,adele_867.txt
+PERSON_FIRSTNAME_3 PERSON_LASTNAME_2,0.8,adele_793.txt
+Adele,0.9,adele_962.txt
+Tom Hanks,0.9,craig_114.txt
+Tom Cruise,0.9,craig_403.txt
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_1,0.9,craig_137.txt
+Daniel Craig,0.9,craig_10.txt
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.9,jagger_52.txt
+Adele,0.9,adele_591.txt
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_3,0.8,craig_123.txt
+Taylor Swift,0.9,adele_576.txt
+John Doe,0.8,craig_332.txt
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_2,0.8,craig_879.txt
+Mick Jagger,0.8,jagger_77.txt
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_3,0.8,craig_476.txt
+PERSON_FIRSTNAME_3 PERSON_LASTNAME_1,0.8,craig_17.txt
+PRONOUN,0.9,jagger_738.txt
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,craig_819.txt
+Taylor Swift,0.9,adele_157.txt
+Mick Jagger,0.9,jagger_782.txt
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.9,jagger_129.txt
+Mick Jagger,0.9,jagger_467.txt
+Taylor Swift,0.9,adele_607.txt
+Daniel Craig,0.9,craig_1005.txt
+Mick Jagger,0.95,jagger_213.txt
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_3,0.8,craig_886.txt
+Adele,0.9,adele_618.txt
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,adele_377.txt
+Elvis Presley,0.9,jagger_582.txt
+Emma Watson,0.9,craig_393.txt
+Taylor Swift,0.9,adele_1048.txt
+Daniel Craig,0.9,craig_469.txt
+John Doe,0.9,jagger_277.txt
+PERSON_FIRSTNAME_1,0.8,adele_667.txt
+Tom Cruise,0.9,craig_381.txt
+Adele,0.9,adele_201.txt
+PERSON_LASTNAME_1,0.9,adele_547.txt

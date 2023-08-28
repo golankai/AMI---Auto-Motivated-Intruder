@@ -1,22 +1,22 @@
 name,score,File
 UNKNOWN,0.0,craig_596.txt
-PERSON_FIRSTNAME_4 PERSON_LASTNAME_4,0.8,craig_713.txt
-Mick Jagger,0.9,jagger_286.txt
-Madonna,0.8,adele_923.txt
-Reese Witherspoon,0.9,craig_328.txt
-Elton John,0.9,jagger_422.txt
+UNKNOWN,0.0,craig_713.txt
+Freddie Mercury,0.9,jagger_286.txt
+Madonna,0.9,adele_923.txt
+Reese Witherspoon,0.8,craig_328.txt
+Mick Jagger,0.9,jagger_422.txt
 Adele,0.9,adele_97.txt
-Angelina Jolie,0.9,craig_992.txt
+UNKNOWN,0.0,craig_992.txt
 UNKNOWN,0.0,craig_375.txt
 Adele,0.9,adele_423.txt
-Adele,0.9,adele_112.txt
+Adele,0.8,adele_112.txt
 Adele,0.9,adele_366.txt
-Adele,0.9,adele_271.txt
+PERSON_FIRSTNAME_2,0.8,adele_271.txt
 Daniel Radcliffe,0.8,craig_978.txt
-Adele,0.9,adele_748.txt
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,adele_748.txt
 Taylor Swift,0.9,adele_209.txt
-Adele,0.9,adele_1067.txt
-PERSON_FIRSTNAME_2 PERSON_LASTNAME_2,0.9,jagger_792.txt
+Taylor Swift,0.9,adele_1067.txt
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_2,1.0,jagger_792.txt
 Emma Watson,0.8,adele_147.txt
 Adele,0.9,adele_503.txt
 UNKNOWN,0.0,craig_788.txt
@@ -25,25 +25,25 @@ Adele,0.9,adele_178.txt
 Adele,0.9,adele_1002.txt
 Taylor Swift,0.9,adele_996.txt
 Daniel Craig,0.9,craig_253.txt
-Elton John,0.9,jagger_441.txt
+Mick Jagger,0.9,jagger_441.txt
 Adele,0.9,adele_57.txt
 Adele,0.9,adele_798.txt
-Keith Richards,0.9,jagger_771.txt
+Mick Jagger,0.9,jagger_771.txt
 Mick Jagger,0.9,jagger_141.txt
 Adele,0.9,adele_673.txt
 Adele,0.9,adele_682.txt
 Adele,0.9,adele_297.txt
 UNKNOWN,0.0,craig_413.txt
-Bob Dylan,0.9,jagger_496.txt
-UNKNOWN,0.0,jagger_984.txt
-Madonna,0.9,jagger_917.txt
+Paul McCartney,0.9,jagger_496.txt
+Bono,0.8,jagger_984.txt
+Shakira,0.9,jagger_917.txt
 Taylor Swift,0.9,jagger_897.txt
 Elvis Presley,0.9,jagger_567.txt
-David Bowie,0.9,jagger_513.txt
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_1,0.8,jagger_513.txt
 Taylor Swift,0.9,adele_216.txt
 Mick Jagger,0.9,jagger_557.txt
 UNKNOWN,0.0,craig_58.txt
-UNKNOWN,0.0,craig_1053.txt
+Harrison Ford,0.9,craig_1053.txt
 UNKNOWN,0.0,craig_1049.txt
 Mick Jagger,0.9,jagger_296.txt
 Bono,0.9,jagger_458.txt
@@ -52,42 +52,42 @@ Mick Jagger,0.9,jagger_262.txt
 Adele,0.9,adele_287.txt
 Taylor Swift,0.9,adele_1051.txt
 Adele,0.9,adele_242.txt
-Brad Pitt,0.9,craig_40.txt
+UNKNOWN,0.0,craig_40.txt
 Daniel Craig,0.9,craig_227.txt
 Freddie Mercury,0.9,jagger_146.txt
 Daniel Radcliffe,0.9,craig_612.txt
 Adele,0.9,adele_302.txt
 Adele,0.9,adele_357.txt
-Madonna,0.9,adele_836.txt
+UNKNOWN,0.0,adele_836.txt
 Adele,0.9,adele_323.txt
 Adele,0.9,adele_656.txt
-Mick Jagger,0.9,jagger_11.txt
-Mick Jagger,0.9,jagger_322.txt
+John Lennon,0.9,jagger_11.txt
+Mick Jagger,0.95,jagger_322.txt
 Mick Jagger,0.9,jagger_1021.txt
 Mick Jagger,0.9,jagger_42.txt
 Adele,0.9,adele_468.txt
 Mick Jagger,0.9,jagger_711.txt
 Daniel Radcliffe,0.9,craig_149.txt
 Daniel Craig,0.9,craig_32.txt
-Mick Jagger,0.9,jagger_241.txt
+Elvis Presley,0.9,jagger_241.txt
 Adele,0.9,adele_397.txt
 Mick Jagger,0.9,jagger_701.txt
-Bono,0.9,jagger_1.txt
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,jagger_1.txt
 UNKNOWN,0.0,craig_439.txt
-Elton John,0.9,jagger_392.txt
-Taylor Swift,0.9,adele_442.txt
-UNKNOWN,0.0,adele_197.txt
+UNKNOWN,0.0,jagger_392.txt
+Madonna,0.9,adele_442.txt
+Adele,0.9,adele_197.txt
 Taylor Swift,0.9,adele_47.txt
 Adele,0.9,adele_943.txt
 Daniel Craig,0.9,craig_703.txt
-Bono,0.8,jagger_376.txt
+UNKNOWN,0.0,jagger_376.txt
 Michael Jackson,0.9,jagger_96.txt
 Tom Hanks,0.9,craig_823.txt
 Elton John,0.9,jagger_1026.txt
 Daniel Craig,0.9,craig_263.txt
-UNKNOWN,0.8,craig_928.txt
+UNKNOWN,0.0,craig_928.txt
 Leonardo DiCaprio,0.9,craig_538.txt
-UNKNOWN,0.0,craig_188.txt
+Daniel Craig,0.9,craig_188.txt
 Tom Hanks,0.9,craig_644.txt
 Elton John,0.9,jagger_116.txt
 Taylor Swift,0.9,adele_61.txt
@@ -95,73 +95,73 @@ Bono,0.9,jagger_487.txt
 Daniel Craig,0.9,craig_1078.txt
 Daniel Craig,0.9,craig_677.txt
 Adele,0.9,adele_43.txt
-UNKNOWN,0.0,craig_273.txt
+Tom Hanks,0.9,craig_273.txt
 Mick Jagger,0.9,jagger_617.txt
 UNKNOWN,0.0,craig_259.txt
 UNKNOWN,0.0,craig_528.txt
 Mick Jagger,0.9,jagger_336.txt
 Adele,0.9,adele_491.txt
-UNKNOWN,0.0,craig_1017.txt
-Taylor Swift,0.9,adele_938.txt
-Barack Obama,0.8,adele_691.txt
-Daniel Craig,0.9,craig_832.txt
+Keanu Reeves,0.9,craig_1017.txt
+Taylor Swift,0.95,adele_938.txt
+Barack Obama,0.9,adele_691.txt
+Daniel Radcliffe,0.9,craig_832.txt
 Adele,0.9,adele_1043.txt
 Adele,0.9,adele_741.txt
 Adele,0.9,adele_497.txt
-Mick Jagger,0.9,jagger_857.txt
+Mick Jagger,0.8,jagger_857.txt
 Daniel Craig,0.9,craig_908.txt
-Justin Timberlake,0.9,jagger_1066.txt
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,jagger_1066.txt
 Adele,0.9,adele_876.txt
-UNKNOWN,0.0,jagger_846.txt
+Freddie Mercury,0.9,jagger_846.txt
 Mick Jagger,0.9,jagger_208.txt
 Elvis Presley,0.9,jagger_561.txt
-Leonardo DiCaprio,0.9,craig_873.txt
+Tom Cruise,0.9,craig_873.txt
 Adele,0.9,adele_558.txt
 Mick Jagger,0.9,jagger_672.txt
-Bono,0.9,jagger_101.txt
-Tom Hiddleston,0.9,craig_98.txt
+Freddie Mercury,0.9,jagger_101.txt
+Tom Cruise,0.9,craig_98.txt
 Mick Jagger,0.9,jagger_402.txt
 Adele,0.9,adele_718.txt
 UNKNOWN,0.0,craig_493.txt
 Tom Hanks,0.9,craig_698.txt
 Paul McCartney,0.9,jagger_258.txt
-Paul McCartney,0.9,jagger_623.txt
+Paul McCartney,0.8,jagger_623.txt
 Elvis Presley,0.9,jagger_293.txt
-UNKNOWN,0.0,craig_378.txt
+Leonardo DiCaprio,0.9,craig_378.txt
 Adele,0.9,adele_867.txt
 Adele,0.9,adele_793.txt
 Adele,0.9,adele_962.txt
 Tom Cruise,0.9,craig_114.txt
-UNKNOWN,0.0,craig_403.txt
-Daniel Craig,0.8,craig_137.txt
+Tom Cruise,0.9,craig_403.txt
+Keanu Reeves,0.8,craig_137.txt
 Daniel Craig,0.9,craig_10.txt
 Bono,0.9,jagger_52.txt
-Adele,0.9,adele_591.txt
-Tom Cruise,0.9,craig_123.txt
-Adele,0.9,adele_576.txt
-UNKNOWN,0.0,craig_332.txt
-Tom Hardy,0.9,craig_879.txt
+Adele,0.95,adele_591.txt
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_3,0.8,craig_123.txt
+PERSON_FIRSTNAME_3,0.8,adele_576.txt
+Arnold Schwarzenegger,0.8,craig_332.txt
+Daniel Craig,0.9,craig_879.txt
 Mick Jagger,0.9,jagger_77.txt
-Hugh Jackman,0.9,craig_476.txt
-Leonardo DiCaprio,0.8,craig_17.txt
-Kanye West,0.9,jagger_738.txt
-Daniel Craig,0.9,craig_819.txt
+Tom Hanks,0.9,craig_476.txt
+Daniel Craig,0.95,craig_17.txt
+Johnny Depp,0.8,jagger_738.txt
+UNKNOWN,0.0,craig_819.txt
 Adele,0.9,adele_157.txt
 Mick Jagger,0.9,jagger_782.txt
 Mick Jagger,0.9,jagger_129.txt
-Mick Jagger,0.9,jagger_467.txt
+Mick Jagger,0.95,jagger_467.txt
 Adele,0.9,adele_607.txt
 Daniel Craig,0.9,craig_1005.txt
 Mick Jagger,0.9,jagger_213.txt
-Daniel Craig,0.8,craig_886.txt
+Daniel Craig,0.9,craig_886.txt
 Adele,0.9,adele_618.txt
-Adele,0.9,adele_377.txt
+Elton John,0.9,adele_377.txt
 Elton John,0.9,jagger_582.txt
 Daniel Radcliffe,0.9,craig_393.txt
-Taylor Swift,0.9,adele_1048.txt
+PERSON_FIRSTNAME_3,0.8,adele_1048.txt
 Daniel Craig,0.9,craig_469.txt
-Paul McCartney,0.9,jagger_277.txt
-Adele,0.9,adele_667.txt
-Keanu Reeves,0.9,craig_381.txt
+Elton John,0.9,jagger_277.txt
+PERSON_FIRSTNAME_1,0.8,adele_667.txt
+Tom Cruise,0.9,craig_381.txt
 Adele,0.9,adele_201.txt
 Adele,0.9,adele_547.txt

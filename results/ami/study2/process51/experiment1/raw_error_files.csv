@@ -1,0 +1,16 @@
+File,Raw_response
+craig_273.txt,"{
+  ""properties"": {
+    ""name"": {
+      ""title"": ""Name"",
+      ""description"": ""Name of the person or UNKNOWN"",
+      ""type"": ""string""
+    },
+    ""score"": {
+      ""title"": ""Score"",
+      ""description"": ""Assign confidence score from 0 to 1 for your name re-identification correctness, where 1 is the most confident"",
+      ""type"": ""number""
+    }
+  },
+  ""required"": [""name"", ""score""]
+}"
