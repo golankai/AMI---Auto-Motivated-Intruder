@@ -21,7 +21,7 @@ class ExperimentAnonTexts(Enum):
 
 ############## --------------- Define the Mode --------------- ##############
 mode = Mode.EVALUATOR
-experimentMode = ExperimentAnonTexts.ALL_SEMI_FAMOUS
+experimentMode = ExperimentAnonTexts.ALL_OF_SELECTED_PERSONAS
 
 ############## --------------- Define the Study, Process and Experiment properties --------------- ##############
 study_number = 2

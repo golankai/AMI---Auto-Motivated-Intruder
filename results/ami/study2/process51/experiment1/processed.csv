@@ -1,0 +1,167 @@
+name,score,File,Persona,is_reidentified
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,adele_1002.txt,adele,False
+PERSON_FIRSTNAME_1,0.8,adele_1043.txt,adele,False
+Taylor Swift,0.9,adele_1048.txt,adele,False
+PERSON_FIRSTNAME_1,0.8,adele_1051.txt,adele,False
+Taylor Swift,0.9,adele_1067.txt,adele,False
+Taylor Swift,0.9,adele_112.txt,adele,False
+PERSON_FIRSTNAME_1,0.8,adele_147.txt,adele,False
+Taylor Swift,0.9,adele_157.txt,adele,False
+Adele,0.9,adele_178.txt,adele,True
+PERSON_LASTNAME_1,0.8,adele_197.txt,adele,False
+Adele,0.9,adele_201.txt,adele,True
+PERSON_FIRSTNAME_1,0.95,adele_209.txt,adele,False
+Taylor Swift,0.9,adele_216.txt,adele,False
+Taylor Swift,0.8,adele_242.txt,adele,False
+PERSON_FIRSTNAME_2,0.9,adele_271.txt,adele,False
+Taylor Swift,0.9,adele_287.txt,adele,False
+PERSON_FIRSTNAME_1,0.85,adele_297.txt,adele,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,adele_302.txt,adele,False
+Adele,0.9,adele_323.txt,adele,True
+PERSON_FIRSTNAME_4,0.8,adele_357.txt,adele,False
+Adele,0.9,adele_366.txt,adele,True
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,adele_377.txt,adele,False
+PERSON_FIRSTNAME_1,0.8,adele_397.txt,adele,False
+Adele,0.9,adele_423.txt,adele,True
+Adele,0.9,adele_43.txt,adele,True
+Taylor Swift,0.9,adele_442.txt,adele,False
+PERSON_FIRSTNAME_2,0.9,adele_468.txt,adele,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,adele_47.txt,adele,False
+PERSON_FIRSTNAME_1,0.9,adele_491.txt,adele,False
+PERSON_FIRSTNAME_1,0.9,adele_497.txt,adele,False
+PERSON_FIRSTNAME_2,0.8,adele_503.txt,adele,False
+PERSON_LASTNAME_1,0.9,adele_547.txt,adele,False
+PERSON_FIRSTNAME_1,0.95,adele_558.txt,adele,False
+Adele,0.9,adele_57.txt,adele,True
+Taylor Swift,0.9,adele_576.txt,adele,False
+Adele,0.9,adele_591.txt,adele,True
+Taylor Swift,0.9,adele_607.txt,adele,False
+PERSON_FIRSTNAME_1,0.8,adele_61.txt,adele,False
+Adele,0.9,adele_618.txt,adele,True
+Taylor Swift,0.9,adele_656.txt,adele,False
+PERSON_FIRSTNAME_1,0.8,adele_667.txt,adele,False
+Adele,0.9,adele_673.txt,adele,True
+Adele,0.9,adele_682.txt,adele,True
+PERSON_LASTNAME_1,0.8,adele_691.txt,adele,False
+Adele,0.9,adele_718.txt,adele,True
+PERSON_LASTNAME_1,0.8,adele_741.txt,adele,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,adele_748.txt,adele,False
+PERSON_FIRSTNAME_3 PERSON_LASTNAME_2,0.8,adele_793.txt,adele,False
+PERSON_FIRSTNAME_1,0.95,adele_798.txt,adele,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,adele_836.txt,adele,False
+Adele,0.9,adele_851.txt,adele,True
+Adele,0.9,adele_867.txt,adele,True
+Adele,0.9,adele_876.txt,adele,True
+PERSON_FIRSTNAME_1,0.9,adele_923.txt,adele,False
+PERSON_FIRSTNAME_3,0.8,adele_938.txt,adele,False
+PERSON_FIRSTNAME_3,0.8,adele_943.txt,adele,False
+Adele,0.9,adele_962.txt,adele,True
+PERSON_FIRSTNAME_3 PERSON_LASTNAME_3,0.9,adele_97.txt,adele,False
+PERSON_FIRSTNAME DATE_2,0.8,adele_996.txt,adele,False
+Daniel Craig,0.9,craig_10.txt,craig,True
+Daniel Craig,0.9,craig_1005.txt,craig,True
+Tom Cruise,0.8,craig_1017.txt,craig,False
+Tom Cruise,0.9,craig_1049.txt,craig,False
+John Smith,0.8,craig_1053.txt,craig,False
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_3,0.8,craig_1078.txt,craig,False
+Tom Hanks,0.9,craig_114.txt,craig,False
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_3,0.8,craig_123.txt,craig,False
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_1,0.9,craig_137.txt,craig,False
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_2,0.8,craig_149.txt,craig,False
+PERSON_FIRSTNAME_3 PERSON_LASTNAME_1,0.8,craig_17.txt,craig,False
+PERSON_FIRSTNAME_3 PERSON_LASTNAME_1,0.8,craig_188.txt,craig,False
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_1,0.8,craig_227.txt,craig,False
+PERSON_FIRSTNAME_4 PERSON_LASTNAME_1,0.9,craig_253.txt,craig,False
+PERSON_FIRSTNAME_7 PERSON_LASTNAME_1,0.8,craig_259.txt,craig,False
+Tom Cruise,0.8,craig_263.txt,craig,False
+,,craig_273.txt,craig,False
+Daniel Craig,0.9,craig_32.txt,craig,True
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_2,0.8,craig_328.txt,craig,False
+John Doe,0.8,craig_332.txt,craig,False
+PERSON_FIRSTNAME PERSON_LASTNAME,0.8,craig_375.txt,craig,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_2,0.8,craig_378.txt,craig,False
+Tom Cruise,0.9,craig_381.txt,craig,False
+Emma Watson,0.9,craig_393.txt,craig,False
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_2,0.8,craig_40.txt,craig,False
+Tom Cruise,0.9,craig_403.txt,craig,False
+PERSON_LASTNAME_1,0.8,craig_413.txt,craig,False
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_4,0.8,craig_439.txt,craig,False
+Daniel Craig,0.9,craig_469.txt,craig,True
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_3,0.8,craig_476.txt,craig,False
+PERSON_FIRSTNAME PERSON_LASTNAME,0.8,craig_493.txt,craig,False
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_2,0.8,craig_528.txt,craig,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,craig_538.txt,craig,False
+PERSON_FIRSTNAME_3,0.8,craig_58.txt,craig,False
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_2,0.9,craig_596.txt,craig,False
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_3,0.9,craig_612.txt,craig,False
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_3,0.8,craig_644.txt,craig,False
+Daniel Craig,0.9,craig_677.txt,craig,True
+Brad Pitt,0.9,craig_698.txt,craig,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_2,0.9,craig_703.txt,craig,False
+PERSON_FIRSTNAME_4 PERSON_LASTNAME_4,0.95,craig_713.txt,craig,False
+PERSON_FIRSTNAME_3 PERSON_LASTNAME_4,0.8,craig_788.txt,craig,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,craig_819.txt,craig,False
+PERSON_FIRSTNAME_3 PERSON_LASTNAME_3,0.8,craig_823.txt,craig,False
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_3,0.9,craig_832.txt,craig,False
+PERSON_FIRSTNAME_3 PERSON_LASTNAME_1,0.9,craig_873.txt,craig,False
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_2,0.8,craig_879.txt,craig,False
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_3,0.8,craig_886.txt,craig,False
+Daniel Craig,0.9,craig_908.txt,craig,True
+PERSON_FIRSTNAME_2,0.8,craig_912.txt,craig,False
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_2,0.8,craig_928.txt,craig,False
+PERSON_LASTNAME_1,0.8,craig_978.txt,craig,False
+PERSON_FIRSTNAME_1,0.8,craig_98.txt,craig,False
+PERSON_FIRSTNAME ORGANIZATION_1 PERSON_LASTNAME ORGANIZATION_1,0.8,craig_992.txt,craig,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,jagger_1.txt,jagger,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,jagger_101.txt,jagger,False
+Mick Jagger,0.9,jagger_1021.txt,jagger,True
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.9,jagger_1026.txt,jagger,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,jagger_1066.txt,jagger,False
+Elton John,0.9,jagger_11.txt,jagger,False
+John Smith,0.8,jagger_116.txt,jagger,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.9,jagger_129.txt,jagger,False
+Freddie Mercury,0.9,jagger_141.txt,jagger,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,jagger_146.txt,jagger,False
+John Smith,0.9,jagger_208.txt,jagger,False
+Mick Jagger,0.95,jagger_213.txt,jagger,True
+John Doe,0.8,jagger_241.txt,jagger,False
+John Lennon,0.9,jagger_258.txt,jagger,False
+Taylor Swift,0.9,jagger_262.txt,jagger,False
+John Doe,0.9,jagger_277.txt,jagger,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_3,0.85,jagger_286.txt,jagger,False
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_1,0.8,jagger_293.txt,jagger,False
+John Lennon,0.9,jagger_296.txt,jagger,False
+David Bowie,0.9,jagger_322.txt,jagger,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,jagger_336.txt,jagger,False
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_2,0.9,jagger_376.txt,jagger,False
+PERSON_FIRSTNAME_1,0.8,jagger_392.txt,jagger,False
+Mick Jagger,0.9,jagger_402.txt,jagger,True
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,jagger_42.txt,jagger,False
+PERSON_FIRSTNAME_1,0.8,jagger_422.txt,jagger,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,jagger_441.txt,jagger,False
+John Smith,0.9,jagger_458.txt,jagger,False
+Mick Jagger,0.9,jagger_467.txt,jagger,True
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_1,0.9,jagger_487.txt,jagger,False
+John Doe,0.8,jagger_496.txt,jagger,False
+David Bowie,0.9,jagger_513.txt,jagger,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.9,jagger_52.txt,jagger,False
+UNKNOWN,0.9,jagger_557.txt,jagger,False
+PERSON_FIRSTNAME_3 PERSON_LASTNAME_1,0.8,jagger_561.txt,jagger,False
+PERSON_FIRSTNAME_1,0.9,jagger_567.txt,jagger,False
+Elvis Presley,0.9,jagger_582.txt,jagger,False
+Mick Jagger,0.9,jagger_617.txt,jagger,True
+John Lennon,0.95,jagger_623.txt,jagger,False
+Sir Elton John,0.9,jagger_672.txt,jagger,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,jagger_701.txt,jagger,False
+John Smith,0.9,jagger_711.txt,jagger,False
+PRONOUN,0.9,jagger_738.txt,jagger,False
+Mick Jagger,0.8,jagger_77.txt,jagger,True
+John Doe,0.9,jagger_771.txt,jagger,False
+Mick Jagger,0.9,jagger_782.txt,jagger,True
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_2,0.8,jagger_792.txt,jagger,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,jagger_846.txt,jagger,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,jagger_857.txt,jagger,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.9,jagger_897.txt,jagger,False
+John Smith,0.8,jagger_917.txt,jagger,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.9,jagger_96.txt,jagger,False
+John Doe,0.9,jagger_984.txt,jagger,False

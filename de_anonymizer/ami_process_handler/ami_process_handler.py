@@ -3,6 +3,8 @@ from .process_data.processes.p2_guess3 import process_2_data
 from .process_data.processes.p3_complete_sent import process_3_data
 from .process_data.processes.p4_LoMP import process_4_data
 from .process_data.processes.p5_guess1 import process_5_data
+from .process_data.processes.p5_1_no_goal import process_5_1_data
+from .process_data.processes.p5_2_goal_wo_knowledge import process_5_2_data
 
 # Grader imports
 from .process_data.processes.p11_zero_shot_grader import process_11_data
@@ -32,6 +34,10 @@ class AMI_process_handler:
                     return process_4_data
                 case 5:
                     return process_5_data
+                case 51:
+                    return process_5_1_data
+                case 52:
+                    return process_5_2_data
                 case 11:
                     return process_11_data
                 case 120:
