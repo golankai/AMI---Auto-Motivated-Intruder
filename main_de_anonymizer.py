@@ -99,8 +99,9 @@ def evaluator():
     result_analyzer.to_json()
 
 
-match mode:
-    case Mode.INTRUDER:
-        intruder()
-    case Mode.EVALUATOR:
-        evaluator()
+if __name__ == "__main__":
+    match mode:
+        case Mode.INTRUDER:
+            intruder()
+        case Mode.EVALUATOR:
+            evaluator()
