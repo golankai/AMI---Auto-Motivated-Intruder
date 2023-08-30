@@ -1,8 +1,7 @@
-from dataclasses import dataclass
 import os
 import random
 from de_anonymizer.de_anonymizer import DeAnonymizer
-from evaluation.experiment_evaluation import ExperimentEvaluation
+from de_anonymizer.evaluation.experiment_evaluation import ExperimentEvaluation
 from enum import Enum
 
 from results.paths import ResultsPaths
