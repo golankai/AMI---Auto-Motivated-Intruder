@@ -21,12 +21,12 @@ class ExperimentAnonTexts(Enum):
 
 ############## --------------- Define the Mode --------------- ##############
 mode = Mode.EVALUATOR
-experimentMode = ExperimentAnonTexts.ALL_OF_SELECTED_PERSONAS
+experimentMode = ExperimentAnonTexts.ALL
 
 ############## --------------- Define the Study, Process and Experiment properties --------------- ##############
 study_number = 2
 process_id = 5
-experiment_number = 1
+experiment_number = 3
 should_handle_data = True # handle dataFrame if True. Otherwise, just print the conversation.
 
 ############## --------------- For Selected Personas Experiment case --------------- ##############
