@@ -1,0 +1,22 @@
+{
+    "adele": {
+        "successful_identification_rate": 0.1864406779661017,
+        "num_of_files": 59,
+        "num_of_re_identify_successfully": 11
+    },
+    "craig": {
+        "successful_identification_rate": 0.037037037037037035,
+        "num_of_files": 54,
+        "num_of_re_identify_successfully": 2
+    },
+    "jagger": {
+        "successful_identification_rate": 0.1320754716981132,
+        "num_of_files": 53,
+        "num_of_re_identify_successfully": 7
+    },
+    "overall": {
+        "successful_identification_rate": 0.12048192771084337,
+        "num_of_files": 166,
+        "num_of_re_identify_successfully": 20
+    }
+}

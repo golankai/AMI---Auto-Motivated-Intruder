@@ -1,0 +1,167 @@
+name,File,Persona,is_reidentified
+UNKNOWN,adele_1002.txt,adele,False
+UNKNOWN,adele_1043.txt,adele,False
+UNKNOWN,adele_1048.txt,adele,False
+UNKNOWN,adele_1051.txt,adele,False
+UNKNOWN,adele_1067.txt,adele,False
+UNKNOWN,adele_112.txt,adele,False
+UNKNOWN,adele_147.txt,adele,False
+UNKNOWN,adele_157.txt,adele,False
+Adele,adele_178.txt,adele,True
+UNKNOWN,adele_197.txt,adele,False
+UNKNOWN,adele_201.txt,adele,False
+UNKNOWN,adele_209.txt,adele,False
+Taylor Swift,adele_216.txt,adele,False
+UNKNOWN,adele_242.txt,adele,False
+UNKNOWN,adele_271.txt,adele,False
+UNKNOWN,adele_287.txt,adele,False
+Adele,adele_297.txt,adele,True
+UNKNOWN,adele_302.txt,adele,False
+Adele,adele_323.txt,adele,True
+UNKNOWN,adele_357.txt,adele,False
+UNKNOWN,adele_366.txt,adele,False
+UNKNOWN,adele_377.txt,adele,False
+UNKNOWN,adele_397.txt,adele,False
+Adele,adele_423.txt,adele,True
+UNKNOWN,adele_43.txt,adele,False
+UNKNOWN,adele_442.txt,adele,False
+UNKNOWN,adele_468.txt,adele,False
+PERSON_FIRSTNAME_1,adele_47.txt,adele,False
+UNKNOWN,adele_491.txt,adele,False
+PERSON_FIRSTNAME_1,adele_497.txt,adele,False
+UNKNOWN,adele_503.txt,adele,False
+UNKNOWN,adele_547.txt,adele,False
+UNKNOWN,adele_558.txt,adele,False
+Adele,adele_57.txt,adele,True
+UNKNOWN,adele_576.txt,adele,False
+Adele,adele_591.txt,adele,True
+PERSON_FIRSTNAME_1,adele_607.txt,adele,False
+UNKNOWN,adele_61.txt,adele,False
+Adele,adele_618.txt,adele,True
+Adele,adele_656.txt,adele,True
+UNKNOWN,adele_667.txt,adele,False
+UNKNOWN,adele_673.txt,adele,False
+Adele,adele_682.txt,adele,True
+UNKNOWN,adele_691.txt,adele,False
+,adele_718.txt,adele,False
+PERSON_LASTNAME_1,adele_741.txt,adele,False
+PERSON_LASTNAME_1,adele_748.txt,adele,False
+UNKNOWN,adele_793.txt,adele,False
+UNKNOWN,adele_798.txt,adele,False
+UNKNOWN,adele_836.txt,adele,False
+Adele,adele_851.txt,adele,True
+UNKNOWN,adele_867.txt,adele,False
+Adele,adele_876.txt,adele,True
+UNKNOWN,adele_923.txt,adele,False
+UNKNOWN,adele_938.txt,adele,False
+UNKNOWN,adele_943.txt,adele,False
+UNKNOWN,adele_962.txt,adele,False
+UNKNOWN,adele_97.txt,adele,False
+UNKNOWN,adele_996.txt,adele,False
+Daniel Craig,craig_10.txt,craig,True
+UNKNOWN,craig_1005.txt,craig,False
+UNKNOWN,craig_1017.txt,craig,False
+UNKNOWN,craig_1049.txt,craig,False
+UNKNOWN,craig_1053.txt,craig,False
+UNKNOWN,craig_1078.txt,craig,False
+UNKNOWN,craig_114.txt,craig,False
+UNKNOWN,craig_123.txt,craig,False
+UNKNOWN,craig_137.txt,craig,False
+UNKNOWN,craig_149.txt,craig,False
+UNKNOWN,craig_17.txt,craig,False
+UNKNOWN,craig_188.txt,craig,False
+UNKNOWN,craig_227.txt,craig,False
+UNKNOWN,craig_253.txt,craig,False
+UNKNOWN,craig_259.txt,craig,False
+UNKNOWN,craig_263.txt,craig,False
+UNKNOWN,craig_273.txt,craig,False
+UNKNOWN,craig_32.txt,craig,False
+UNKNOWN,craig_328.txt,craig,False
+UNKNOWN,craig_332.txt,craig,False
+UNKNOWN,craig_375.txt,craig,False
+UNKNOWN,craig_378.txt,craig,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_3,craig_381.txt,craig,False
+UNKNOWN,craig_393.txt,craig,False
+UNKNOWN,craig_40.txt,craig,False
+UNKNOWN,craig_403.txt,craig,False
+PERSON_LASTNAME_1,craig_413.txt,craig,False
+UNKNOWN,craig_439.txt,craig,False
+UNKNOWN,craig_469.txt,craig,False
+UNKNOWN,craig_476.txt,craig,False
+UNKNOWN,craig_493.txt,craig,False
+UNKNOWN,craig_528.txt,craig,False
+UNKNOWN,craig_538.txt,craig,False
+UNKNOWN,craig_58.txt,craig,False
+UNKNOWN,craig_596.txt,craig,False
+UNKNOWN,craig_612.txt,craig,False
+UNKNOWN,craig_644.txt,craig,False
+UNKNOWN,craig_677.txt,craig,False
+UNKNOWN,craig_698.txt,craig,False
+UNKNOWN,craig_703.txt,craig,False
+UNKNOWN,craig_713.txt,craig,False
+UNKNOWN,craig_788.txt,craig,False
+UNKNOWN,craig_819.txt,craig,False
+UNKNOWN,craig_823.txt,craig,False
+UNKNOWN,craig_832.txt,craig,False
+PERSON_LASTNAME_1,craig_873.txt,craig,False
+UNKNOWN,craig_879.txt,craig,False
+UNKNOWN,craig_886.txt,craig,False
+UNKNOWN,craig_908.txt,craig,False
+UNKNOWN,craig_912.txt,craig,False
+UNKNOWN,craig_928.txt,craig,False
+UNKNOWN,craig_978.txt,craig,False
+UNKNOWN,craig_98.txt,craig,False
+UNKNOWN,craig_992.txt,craig,False
+UNKNOWN,jagger_1.txt,jagger,False
+,jagger_101.txt,jagger,False
+Mick Jagger,jagger_1021.txt,jagger,True
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,jagger_1026.txt,jagger,False
+UNKNOWN,jagger_1066.txt,jagger,False
+UNKNOWN,jagger_11.txt,jagger,False
+UNKNOWN,jagger_116.txt,jagger,False
+UNKNOWN,jagger_129.txt,jagger,False
+UNKNOWN,jagger_141.txt,jagger,False
+UNKNOWN,jagger_146.txt,jagger,False
+UNKNOWN,jagger_208.txt,jagger,False
+Mick Jagger,jagger_213.txt,jagger,True
+UNKNOWN,jagger_241.txt,jagger,False
+UNKNOWN,jagger_258.txt,jagger,False
+UNKNOWN,jagger_262.txt,jagger,False
+,jagger_277.txt,jagger,False
+UNKNOWN,jagger_286.txt,jagger,False
+UNKNOWN,jagger_293.txt,jagger,False
+UNKNOWN,jagger_296.txt,jagger,False
+UNKNOWN,jagger_322.txt,jagger,False
+UNKNOWN,jagger_336.txt,jagger,False
+UNKNOWN,jagger_376.txt,jagger,False
+UNKNOWN,jagger_392.txt,jagger,False
+Mick Jagger,jagger_402.txt,jagger,True
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,jagger_42.txt,jagger,False
+UNKNOWN,jagger_422.txt,jagger,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,jagger_441.txt,jagger,False
+UNKNOWN,jagger_458.txt,jagger,False
+Mick Jagger,jagger_467.txt,jagger,True
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_1,jagger_487.txt,jagger,False
+UNKNOWN,jagger_496.txt,jagger,False
+UNKNOWN,jagger_513.txt,jagger,False
+UNKNOWN,jagger_52.txt,jagger,False
+UNKNOWN,jagger_557.txt,jagger,False
+UNKNOWN,jagger_561.txt,jagger,False
+UNKNOWN,jagger_567.txt,jagger,False
+Elton John,jagger_582.txt,jagger,False
+UNKNOWN,jagger_617.txt,jagger,False
+UNKNOWN,jagger_623.txt,jagger,False
+UNKNOWN,jagger_672.txt,jagger,False
+Mick Jagger,jagger_701.txt,jagger,True
+,jagger_711.txt,jagger,False
+UNKNOWN,jagger_738.txt,jagger,False
+Mick Jagger,jagger_77.txt,jagger,True
+PERSON_LASTNAME_1,jagger_771.txt,jagger,False
+Mick Jagger,jagger_782.txt,jagger,True
+UNKNOWN,jagger_792.txt,jagger,False
+UNKNOWN,jagger_846.txt,jagger,False
+UNKNOWN,jagger_857.txt,jagger,False
+UNKNOWN,jagger_897.txt,jagger,False
+UNKNOWN,jagger_917.txt,jagger,False
+UNKNOWN,jagger_96.txt,jagger,False
+UNKNOWN,jagger_984.txt,jagger,False

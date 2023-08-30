@@ -1,0 +1,167 @@
+name,score,characteristics_1,characteristics_2,characteristics_3,File,Persona,is_reidentified
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_1,0.8,pop-soul artist,raised by single mother,best-selling female album artist,adele_1002.txt,adele,False
+PERSON_FIRSTNAME_1,0.8,singer-songwriter,fame from awards,attended ORGANIZATION_1,adele_1043.txt,adele,False
+PERSON_FIRSTNAME_3,0.8,singer,songwriter,award winner,adele_1048.txt,adele,False
+PERSON_FIRSTNAME_1,0.8,LOCATION_1 singer,NUMERIC_5 years old,blonde and looks very mature and grown OTHER_IDENTIFYING_ATTRIBUTE_2 PRONOUN features,adele_1051.txt,adele,False
+Taylor Swift,0.8,singer,break-up songs,outgoing,adele_1067.txt,adele,False
+PERSON_FIRSTNAME_1,0.8,singer,from LOCATION_1,lost a lot of weight,adele_112.txt,adele,False
+PERSON_FIRSTNAME_1,0.8,fiery red hair,freckles,works as a scientist,adele_147.txt,adele,False
+PERSON_FIRSTNAME_1,0.8,singer and songwriter,rose to fame in the early DATE_2,released albums titled after their age,adele_157.txt,adele,False
+Adele,0.8,English singer-songwriter,Sold over 60 million records,Known for powerful voice,adele_178.txt,adele,True
+PERSON_LASTNAME_1,0.8,singer,powerful voice,stage fright,adele_197.txt,adele,False
+PERSON_FIRSTNAME_2,0.8,British singer,Award winner in DATE_2,Supportive of LGBT community,adele_201.txt,adele,False
+PERSON_FIRSTNAME_1,0.8,LOCATION_2,ORGANIZATION_1,PERSON_LASTNAME_1,adele_209.txt,adele,False
+PERSON_FIRSTNAME_1,0.7,musician,famous,heart break,adele_216.txt,adele,False
+PERSON_FIRSTNAME_2,0.8,singer,famous since around DATE_3,pop music,adele_242.txt,adele,False
+PERSON_FIRSTNAME_2,0.5,singer,married,Grammy awards,adele_271.txt,adele,False
+PERSON_FIRSTNAME_3 PERSON_LASTNAME_1,0.8,singer and songwriter,graduated in arts,divorced from PERSON_FIRSTNAME_1 PERSON_LASTNAME_2,adele_287.txt,adele,False
+PERSON_FIRSTNAME_1,0.8,female,singer,international success,adele_297.txt,adele,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,award-winning singer,graduated from ORGANIZATION_1 school,covered in tabloid press,adele_302.txt,adele,False
+Adele,0.8,singer,white with brown hair,tall height,adele_323.txt,adele,True
+PERSON_FIRSTNAME_4,0.8,british singer/songwriter,best selling artist,Grammy award winner,adele_357.txt,adele,False
+PERSON_FIRSTNAME_1,0.8,singer,songwriter,has won multiple awards,adele_366.txt,adele,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,singer,MBE,top selling music artist,adele_377.txt,adele,False
+PERSON_FIRSTNAME_1,0.8,LOCATION_1 born,NUMERIC_5 million records sold,BRIT Award winner,adele_397.txt,adele,False
+Adele,0.8,singer,pop and power ballads,rich,adele_423.txt,adele,True
+PERSON_FIRSTNAME_1,0.8,incredible voice,genre between soul and pop,Grammy and Brit Awards winner,adele_43.txt,adele,False
+Taylor Swift,0.9,singer/songwriter,world's best selling music artist,released theme song for a movie,adele_442.txt,adele,False
+Taylor Swift,0.8,female,singer-songwriter,Grammy winner,adele_468.txt,adele,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,singer songwriter,active in the music industry since DATE_2,self confessed ORGANIZATION_1 supporter,adele_47.txt,adele,False
+PERSON_FIRSTNAME_1,0.8,famous singer songwriter,born in LOCATION_1,sold over NUMERIC_7 million records,adele_491.txt,adele,False
+PERSON_FIRSTNAME_1,0.8,talented,awarded an OTHER_IDENTIFYING_ATTRIBUTE_2,criticized and praised over body image,adele_497.txt,adele,False
+PERSON_FIRSTNAME_2,0.8,singer,ginger hair,recent weight loss,adele_503.txt,adele,False
+PERSON_LASTNAME_1,0.9,world's best selling artist,born in LOCATION_1,has NUMERIC_1 child with ex husband PERSON_FIRSTNAME_1,adele_547.txt,adele,False
+PERSON_FIRSTNAME_1,0.8,musician,weight loss,accomplished,adele_558.txt,adele,False
+Adele,0.9,singer,songwriter,famous worldwide,adele_57.txt,adele,True
+John Smith,0.8,singer,award-winning,charitable,adele_576.txt,adele,False
+Adele,0.9,singer/songwriter,graduated from performing arts and technology school,won Brit award for rising star,adele_591.txt,adele,True
+Taylor Swift,0.8,record-breaking pop singer-songwriter,emotional and heartfelt music,famous for TV appearances,adele_607.txt,adele,False
+PERSON_FIRSTNAME_1,0.8,singer songwriter,attended famous arts school,record breaking albums,adele_61.txt,adele,False
+Adele,0.8,singer,songwriter,married,adele_618.txt,adele,True
+PERSON_FIRSTNAME_1,0.8,singer,song writer,best-selling music artist,adele_656.txt,adele,False
+Taylor Swift,0.8,world wide celebrity,quirky personality,beautiful voice,adele_667.txt,adele,False
+PERSON_FIRSTNAME_3,0.8,singer,famous,divorced,adele_673.txt,adele,False
+Adele,0.8,Singer,Divorced,Weight loss,adele_682.txt,adele,True
+John Smith,0.8,self-confident,engaging in debates,romantic personality,adele_691.txt,adele,False
+Adele,0.9,singer,songwriter,Grammy awards,adele_718.txt,adele,True
+PERSON_LASTNAME_1,0.8,LOCATION_2 musician,soulful and powerful voice,won many awards,adele_741.txt,adele,False
+PERSON_LASTNAME_1,0.8,singer,songwriter,Grammy winner,adele_748.txt,adele,False
+Taylor Swift,0.2,singer-songwriter,divorced,Grammy winner,adele_793.txt,adele,False
+PERSON_FIRSTNAME_1,0.7,singer,powerful and emotive voice,won Grammy and Brit awards,adele_798.txt,adele,False
+PERSON_LASTNAME_1,0.7,singer songwriter,supports football club,richest musician under age NUMERIC_7,adele_836.txt,adele,False
+Adele,0.9,blonde/brown hair,married until recently,won 5 Grammys,adele_851.txt,adele,True
+Adele,0.8,distinctive voice,MBE recipient,Grammy winner,adele_867.txt,adele,True
+Adele,0.8,singer,songwriter,world's best selling music artist,adele_876.txt,adele,True
+Jane Doe,0.8,female singer,attractive,seductive,adele_923.txt,adele,False
+PERSON_FIRSTNAME_3,0.8,singer-songwriter,attended ORGANIZATION_1 in LOCATION_4,signed to ORGANIZATION_3 in DATE_3,adele_938.txt,adele,False
+PERSON_FIRSTNAME_3,0.8,singer,songwriter,powerful voice,adele_943.txt,adele,False
+PERSON_FIRSTNAME_1,0.8,singer,song writer,unique appearance,adele_962.txt,adele,False
+PERSON_FIRSTNAME_3 PERSON_LASTNAME_3,0.8,successful singer/songwriter,awards winner,recent weight loss,adele_97.txt,adele,False
+PERSON_FIRSTNAME DATE_2,0.8,singer,Grammy winner,divorced,adele_996.txt,adele,False
+Daniel Craig,0.8,British actor,Known for playing James Bond,Married to English actress Rachel Weisz,craig_10.txt,craig,True
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.7,NUMERIC_3 year old,LOCATION_1 actor,seventh man to portray secret agent OTHER_IDENTIFYING_ATTRIBUTE_1,craig_1005.txt,craig,False
+PERSON_FIRSTNAME_1,0.8,actor,intense eyes,great physique,craig_1017.txt,craig,False
+John Doe,0.8,brown hair,green eyes,tall,craig_1049.txt,craig,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_2,0.8,born on DATE_1,actor,best known for playing OTHER_IDENTIFYING_ATTRIBUTE_3,craig_1053.txt,craig,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_2,0.8,actor,married,has children,craig_1078.txt,craig,False
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_3,0.8,blue eyes,sandy colored hair,tall,craig_114.txt,craig,False
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_3,0.8,fellow actor,married to PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,"from LOCATION_4, a city called LOCATION_5",craig_123.txt,craig,False
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_1,0.8,stoic,OTHER_IDENTIFYING_ATTRIBUTE_2,funny,craig_137.txt,craig,False
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_2,0.8,actor,best known for playing PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,starred in NUMERIC_1 more instalments,craig_149.txt,craig,False
+PERSON_FIRSTNAME_3 PERSON_LASTNAME_1,0.8,blonde hair,serious actor,smouldering look,craig_17.txt,craig,False
+PERSON_FIRSTNAME_3 PERSON_LASTNAME_1,0.8,actor,married to PERSON_FIRSTNAME_1 PERSON_LASTNAME_2,has houses in LOCATION_4 and LOCATION_2,craig_188.txt,craig,False
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_1,0.8,actor,known for playing OTHER_IDENTIFYING_ATTRIBUTE_1 bond,specializes in action films,craig_227.txt,craig,False
+PERSON_LASTNAME_4,0.8,actor,secrete agent,Commander,craig_253.txt,craig,False
+PERSON_FIRSTNAME_7 PERSON_LASTNAME_1,0.8,LOCATION_1 actor,Born on DATE_1,Married to PERSON_FIRSTNAME_5 PERSON_LASTNAME_2,craig_259.txt,craig,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,blond hair,blue eyes,round face,craig_263.txt,craig,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_2,0.8,playing OTHER_IDENTIFYING_ATTRIBUTE_3,starred in OTHER_IDENTIFYING_ATTRIBUTE_5,nominated for a BAFTA award,craig_273.txt,craig,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,girl with the OTHER_IDENTIFYING_ATTRIBUTE_3,OTHER_IDENTIFYING_ATTRIBUTE_2 bond films,honorary commander in the LOCATION_2 navy,craig_32.txt,craig,False
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_2,0.7,Broadway performer,Blonde,Has an accent,craig_328.txt,craig,False
+John Doe,0.8,partially melted wax work,sagging eyebrows,receding hair line,craig_332.txt,craig,False
+PERSON_FIRSTNAME PERSON_LASTNAME,0.8,OTHER_IDENTIFYING_ATTRIBUTE,NUMERIC_1,NUMERIC_2,craig_375.txt,craig,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_2,0.5,best known for PRONOUN role as PERSON_FIRSTNAME_2 PERSON_LASTNAME_1,earned a golden globe award nomination for best actor in OTHER_IDENTIFYING_ATTRIBUTE_2,"heavily involved in charity and has worked with various charities including comic relief, aids charities, or is international",craig_378.txt,craig,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_3,0.8,athletic,handsome,humorous,craig_381.txt,craig,False
+Tom Hiddleston,0.8,English actor,Iconic role as Loki,Passionate about charity work,craig_393.txt,craig,False
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_2,0.8,leading actor,portrayal of eponymous character,starred in multiple films,craig_40.txt,craig,False
+PERSON_FIRSTNAME_1,0.8,blond hair,piercing blue eyes,accent chameleon,craig_403.txt,craig,False
+PERSON_LASTNAME_1,0.8,actor,philanthropist,politically active,craig_413.txt,craig,False
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_4,0.8,born in DATE_5,acted in DATE_1,known for playing OTHER_IDENTIFYING_ATTRIBUTE_2,craig_439.txt,craig,False
+Daniel Craig,0.8,white male actor,known for portraying James Bond,married to fellow actress,craig_469.txt,craig,True
+PERSON_LASTNAME_3,0.8,male actor,known for playing PERSON_FIRSTNAME_3 PERSON_LASTNAME_2,strongly opposed to OTHER_IDENTIFYING_ATTRIBUTE_2 vote,craig_476.txt,craig,False
+PERSON_FIRSTNAME PERSON_LASTNAME,0.8,ORGANIZATION_1,LOCATION,DATE,craig_493.txt,craig,False
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_2,0.8,piercing blue eyes,playing LOCATION_1 icon,not wanting to play OTHER_IDENTIFYING_ATTRIBUTE_1 anymore,craig_528.txt,craig,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,"born on DATE_1 DATE_1, DATE_1",trained in acting at the ORGANIZATION DATE_1 theatre,moved to LOCATION_1 to train at the ORGANIZATION_1,craig_538.txt,craig,False
+PERSON_FIRSTNAME_3,0.8,OTHER_IDENTIFYING_ATTRIBUTE_1 actor,PRONOUN strong OTHER_IDENTIFYING_ATTRIBUTE_1 accent,PRONOUN handsome good looks,craig_58.txt,craig,False
+John Smith,0.8,actor,married twice,graduated from national youth theatre,craig_596.txt,craig,False
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_3,0.7,Actor,Son of an Art OCCUPATION_1,Played PERSON_FIRSTNAME_3 PERSON_LASTNAME_1 in the OTHER_IDENTIFYING_ATTRIBUTE_2 film series,craig_612.txt,craig,False
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_3,0.8,actor,married to PERSON_FIRSTNAME_1 PERSON_LASTNAME_2,involved in ORGANIZATION_1,craig_644.txt,craig,False
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_2,0.8,actor,famous for looks and charm,best known for playing PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,craig_677.txt,craig,False
+PERSON_FIRSTNAME_5 PERSON_LASTNAME_2,0.8,LOCATION_1 actor,married to PERSON_FIRSTNAME_4 PERSON_LASTNAME_3,dislikes politics and politicians,craig_698.txt,craig,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_2,0.5,actor,average height,awards,craig_703.txt,craig,False
+PERSON_FIRSTNAME_4 PERSON_LASTNAME_4,0.8,actor,advocate for mine elimination,married and divorced with actress,craig_713.txt,craig,False
+PERSON_FIRSTNAME_3 PERSON_LASTNAME_4,0.5,actor,born on DATE_3,known for PRONOUN role in OTHER_IDENTIFYING_ATTRIBUTE_4,craig_788.txt,craig,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,LOCATION_1 born actor,played PERSON_FIRSTNAME_2 OTHER_IDENTIFYING_ATTRIBUTE_1 in NUMERIC_2 of the OTHER_IDENTIFYING_ATTRIBUTE_1 films,starred in OTHER_IDENTIFYING_ATTRIBUTE_3 in DATE_2,craig_819.txt,craig,False
+Tom Cruise,0.8,actor,married to actress,highest paid actor,craig_823.txt,craig,False
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_3,0.8,actor,success,dislike,craig_832.txt,craig,False
+PERSON_LASTNAME_1,0.8,actor,critically-acclaimed film series,net worth of US NUMERIC_1 million,craig_873.txt,craig,False
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_2,0.7,LOCATION_1 actor,rugby player,waiter,craig_879.txt,craig,False
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_3,0.8,OTHER_IDENTIFYING_ATTRIBUTE_5,OTHER_IDENTIFYING_ATTRIBUTE_3,DATE_2,craig_886.txt,craig,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_2,0.8,actor,played James Bond,married to actress PERSON_FIRSTNAME_2 PERSON_LASTNAME_1,craig_908.txt,craig,False
+PERSON_FIRSTNAME_2,0.6,LOCATION_1 actor,very attractive,best known in PERSON_FIRSTNAME_3 PERSON_LASTNAME_1 films,craig_912.txt,craig,False
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_2,0.8,British actor,married to acress PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,charismatic and confident,craig_928.txt,craig,False
+PERSON_LASTNAME_1,0.8,dyspraxia,rap music,close to family,craig_978.txt,craig,False
+PERSON_FIRSTNAME_2,0.8,blonde hair,piercing blue eyes,actor,craig_98.txt,craig,False
+PERSON_FIRSTNAME PERSON_LASTNAME,0.8,born in LOCATION ORGANIZATION_1,involved with multiple charities,appointed as global advocate for elimination of mines and explosive hazards,craig_992.txt,craig,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,lead singer,famous rock band,multiple awards,jagger_1.txt,jagger,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,front man of ORGANIZATION_1,"singer, songwriter, actor, and film producer",lead vocalist and founder member of ORGANIZATION_1,jagger_101.txt,jagger,False
+Mick Jagger,0.8,singer,songwriter,actor,jagger_1021.txt,jagger,True
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.5,lead vocalist,songwriter,singer,jagger_1026.txt,jagger,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,lead singer of ORGANIZATION_1,wore a band logo t-shirt,pretentious wanna-be fan,jagger_1066.txt,jagger,False
+PERSON_LASTNAME_1,0.8,singer,songwriter,actor,jagger_11.txt,jagger,False
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_2,0.8,talented,performing arts center named after them,distinctive voice,jagger_116.txt,jagger,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.9,rock star,unique sense of fashion,long hair,jagger_129.txt,jagger,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,singer,songwriter,actor,jagger_141.txt,jagger,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,singer,songwriter,actor,jagger_146.txt,jagger,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,lead singer of rock band,divorced,linked to multiple women,jagger_208.txt,jagger,False
+Mick Jagger,0.8,Lead singer of the Rolling Stones,Famous singer,Successful acting and film career,jagger_213.txt,jagger,True
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_1,0.8,singer,lead singer of ORGANIZATION_1,inducted into the rock and roll hall of fame,jagger_241.txt,jagger,False
+Paul McCartney,0.8,musician,former member of The Beatles,knighted,jagger_258.txt,jagger,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,large mouth,long hair,electric on-stage presence,jagger_262.txt,jagger,False
+John Lennon,0.8,singer,songwriter,actor,jagger_277.txt,jagger,False
+PERSON_LASTNAME_2,0.8,singer,songwriter,actor,jagger_286.txt,jagger,False
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_1,0.8,singer,rock legend,lead singer of rock band,jagger_293.txt,jagger,False
+John Lennon,0.8,musician,front man of a rock group,inducted into Hall of Fame,jagger_296.txt,jagger,False
+Mick Jagger,0.8,Rock and roll singer,White with dark hair,Had high profile relationships,jagger_322.txt,jagger,True
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,snake hipped,big lipped,paging rock star,jagger_336.txt,jagger,False
+Elton John,0.8,singer,actor,songwriter,jagger_376.txt,jagger,False
+John Lennon,0.8,singer-songwriter,lead singer,founding member,jagger_392.txt,jagger,False
+Mick Jagger,0.8,rock and roll legend,wild party lifestyle,notorious ladies man,jagger_402.txt,jagger,True
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,lead singer,fit,enjoyed life,jagger_42.txt,jagger,False
+Elton John,0.8,singer,actor,founder of an organization,jagger_422.txt,jagger,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,singer,founding member of ORGANIZATION_1,popular and influential front man in rock 'n' roll,jagger_441.txt,jagger,False
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_1,0.8,musician,frontman of a band,knighted,jagger_458.txt,jagger,False
+Mick Jagger,0.8,legendary musician,scandalous,knighted by the Queen,jagger_467.txt,jagger,True
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_1,0.8,musician,front man,awards,jagger_487.txt,jagger,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.2,singer-songwriter,rock and roll hall of fame,knighted for services to popular music,jagger_496.txt,jagger,False
+David Bowie,0.8,singer,actor,rock star,jagger_513.txt,jagger,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,rock singer,songwriter,actor,jagger_52.txt,jagger,False
+John Smith,0.8,rock musician,influential,multiple relationships,jagger_557.txt,jagger,False
+John Smith,0.8,musician,energetic performer,great grandfather,jagger_561.txt,jagger,False
+PERSON_FIRSTNAME_1,0.8,musician,pop and rock,expressive stage moves,jagger_567.txt,jagger,False
+John Lennon,0.8,Lead Vocalist of ORGANIZATION_1,"Singer, actor, songwriter, and film producer",Knighted for service to popular music,jagger_582.txt,jagger,False
+PERSON_LASTNAME_1,0.8,singer,unique rock and roll voice,married and divorced,jagger_617.txt,jagger,False
+PERSON_FIRSTNAME_1,0.8,singer,songwriter,actor,jagger_623.txt,jagger,False
+PERSON_FIRSTNAME_6,0.8,performing in a band called the ORGANIZATION_1,pouting lips and snake hips,honored by the Queen and given knighthood,jagger_672.txt,jagger,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.7,singer,songwriter,rock scene,jagger_701.txt,jagger,False
+John Doe,0.8,singer,songwriter,lead singer of rock and roll band,jagger_711.txt,jagger,False
+John Doe,0.8,Free spirit,Quirky charm,Outspoken,jagger_738.txt,jagger,False
+Mick Jagger,0.9,Lead singer of the Rolling Stones,Started the band with Keith Richards,Father of multiple children,jagger_77.txt,jagger,True
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,rock and roll band member,singer,actor,jagger_771.txt,jagger,False
+Mick Jagger,0.8,singer,member of the band,worked with famous individuals,jagger_782.txt,jagger,True
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_2,0.8,singer,member of rock band,left school in DATE_2,jagger_792.txt,jagger,False
+John Doe,0.8,rock singer,founding member of a rock group,attended ORGANIZATION_2,jagger_846.txt,jagger,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,legend of rock music,singer and frontman of band,known for excellent live performances,jagger_857.txt,jagger,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,singer,associated with ORGANIZATION_1,possibly a druggy,jagger_897.txt,jagger,False
+John Smith,0.8,singer,philanthropist,energetic,jagger_917.txt,jagger,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.5,lead singer,founding member,unique voice,jagger_96.txt,jagger,False
+PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,0.8,lead singer in rock band,long dark hair,vast net worth,jagger_984.txt,jagger,False

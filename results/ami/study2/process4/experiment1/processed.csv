@@ -1,0 +1,167 @@
+place_holder,characteristics_1,characteristics_2,characteristics_3,gender,min_age,max_age,nation,name,File,Persona,is_reidentified
+PERSON_FIRSTNAME_1,pop-soul artist,best-selling female album artist,richest musician,unknown,25,35,unknown,PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,adele_1002.txt,adele,False
+PERSON_FIRSTNAME_1,singer-songwriter,universal fame,numerous accolades,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1,adele_1043.txt,adele,False
+PERSON_FIRSTNAME_3,singer,songwriter,award winner,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_3,adele_1048.txt,adele,False
+PERSON_FIRSTNAME_1,singer,song writer,blonde,unknown,unknown,unknown,unknown,Taylor Swift,adele_1051.txt,adele,False
+PERSON_FIRSTNAME_2,singer,songwriter,icon,unknown,unknown,unknown,unknown,Taylor Swift,adele_1067.txt,adele,False
+PERSON_FIRSTNAME_1,singer,commercial success,weight loss,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1,adele_112.txt,adele,False
+PERSON_FIRSTNAME_1,fiery red hair,freckles,works as a scientist,unknown,30,40,unknown,Alice,adele_147.txt,adele,False
+PERSON_FIRSTNAME_1,singer,songwriter,theme tune artist,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1,adele_157.txt,adele,False
+,,,,,,,,,adele_178.txt,adele,False
+PERSON_LASTNAME_1,powerful voice,impressive ballads,stage fright,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,adele_197.txt,adele,False
+PERSON_FIRSTNAME_2,British singer,Supportive of LGBT community,Major contributor to charity,unknown,unknown,unknown,unknown,Adele,adele_201.txt,adele,True
+PERSON_FIRSTNAME_1,LOCATION_2,ORGANIZATION_1,PERSON_LASTNAME_1,unknown,unknown,unknown,unknown,Taylor Swift,adele_209.txt,adele,False
+PERSON_FIRSTNAME_1,musician,famous,married,unknown,unknown,unknown,unknown,Taylor Swift,adele_216.txt,adele,False
+PERSON_FIRSTNAME_2,singer,pop music,awards,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_2,adele_242.txt,adele,False
+PERSON_FIRSTNAME_2,LOCATION_1,OTHER_IDENTIFYING_ATTRIBUTE_3,OTHER_IDENTIFYING_ATTRIBUTE_2,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_2,adele_271.txt,adele,False
+PERSON_FIRSTNAME_3,singer,songwriter,divorced,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_2 PERSON_LASTNAME_1,adele_287.txt,adele,False
+PERSON_FIRSTNAME_1,female singer,international success,best selling album,female,unknown,unknown,unknown,unknown,adele_297.txt,adele,False
+PERSON_FIRSTNAME_1,award winning,singer and songwriter,international fame,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,adele_302.txt,adele,False
+PERSON_FIRSTNAME_1,singer,supporter of ORGANIZATION_1,performed at high profile events,unknown,unknown,unknown,UK,Adele,adele_323.txt,adele,True
+PERSON_FIRSTNAME_4,british singer/songwriter,best selling artist,Grammy award winner,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_4,adele_357.txt,adele,False
+PERSON_FIRSTNAME_1,singer,songwriter,awards,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1,adele_366.txt,adele,False
+PERSON_FIRSTNAME_1,singer,songwriter,MBE,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,adele_377.txt,adele,False
+PERSON_FIRSTNAME_1,singer,best selling artist,Grammy winner,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1,adele_397.txt,adele,False
+PERSON_FIRSTNAME_1,singer,pop and power ballads genre,struggled with postpartum depression,unknown,unknown,unknown,unknown,Adele,adele_423.txt,adele,True
+PERSON_FIRSTNAME_1,incredible voice,moving balads,Grammy Awards,unknown,unknown,unknown,unknown,Adele,adele_43.txt,adele,True
+PERSON_FIRSTNAME_1,singer/songwriter,world's best selling music artist,officiated and planned marriages,unknown,unknown,unknown,unknown,Taylor Swift,adele_442.txt,adele,False
+PERSON_FIRSTNAME_2,female,single,dramatic weight loss,female,30,40,unknown,Taylor Swift,adele_468.txt,adele,False
+PERSON_FIRSTNAME_1,singer,songwriter,philanthropist,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,adele_47.txt,adele,False
+PERSON_FIRSTNAME_1,singer,songwriter,richest musician,unknown,unknown,unknown,unknown,Adele,adele_491.txt,adele,True
+PERSON_FIRSTNAME_1,talented,voice from heaven,awarded an OTHER_IDENTIFYING_ATTRIBUTE_2 for PRONOUN services to popular music,unknown,unknown,unknown,unknown,Adele,adele_497.txt,adele,True
+PERSON_FIRSTNAME_2,singer,ginger hair,recent weight loss,unknown,30,40,unknown,PERSON_FIRSTNAME_2,adele_503.txt,adele,False
+PERSON_LASTNAME_1,beautiful,voice of an angel,best selling artist,unknown,unknown,unknown,unknown,PERSON_LASTNAME_1,adele_547.txt,adele,False
+PERSON_FIRSTNAME_1,broken past relationships,weight loss,down to earth,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1,adele_558.txt,adele,False
+PERSON_FIRSTNAME_1,songwriter,singer,married,unknown,unknown,unknown,unknown,Adele,adele_57.txt,adele,True
+PERSON_FIRSTNAME_3,singer,songwriter,charity work,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_3,adele_576.txt,adele,False
+,,,,,,,,,adele_591.txt,adele,False
+PERSON_FIRSTNAME_1,record breaking,emotional and heart-felt music,A-list friends,unknown,thirty,NUMERIC_1,unknown,PERSON_FIRSTNAME_1,adele_607.txt,adele,False
+PERSON_FIRSTNAME_1,singer,songwriter,award-winning,unknown,unknown,unknown,unknown,Taylor Swift,adele_61.txt,adele,False
+PERSON_FIRSTNAME_2,talented singer-songwriter,famous fit school attendee,award-winning musician,unknown,unknown,unknown,unknown,Adele,adele_618.txt,adele,True
+PERSON_FIRSTNAME_1,singer,song writer,best-selling music artist,unknown,unknown,unknown,unknown,Adele,adele_656.txt,adele,True
+PERSON_FIRSTNAME_1,world wide celebrity,quirky personality,beautiful voice,unknown,30,40,unknown,Taylor Swift,adele_667.txt,adele,False
+PERSON_FIRSTNAME_3,singer,divorced,successful,unknown,,,,,adele_673.txt,adele,False
+PERSON_FIRSTNAME_1,singer songwriter,divorced with a child,graduated from ORGANIZATION_1,unknown,unknown,unknown,unknown,Adele,adele_682.txt,adele,True
+PERSON_LASTNAME_1,self-confident,powerful,assertive,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,adele_691.txt,adele,False
+PERSON_FIRSTNAME_3,singer,songwriter,divorced,unknown,unknown,unknown,unknown,Adele,adele_718.txt,adele,True
+PERSON_LASTNAME_1,soulful and powerful voice,famous hits,awards won,unknown,unknown,unknown,unknown,PERSON_LASTNAME_1,adele_741.txt,adele,False
+PERSON_FIRSTNAME_1,singer,songwriter,award winner,unknown,unknown,unknown,unknown,MBE,adele_748.txt,adele,False
+PERSON_FIRSTNAME_3,DATE_1,NUMERIC_1,NUMERIC_9,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_3 PERSON_LASTNAME_2,adele_793.txt,adele,False
+PERSON_FIRSTNAME_1,singer,Grammy awards winner,MBE recipient,unknown,unknown,unknown,unknown,Adele,adele_798.txt,adele,True
+PERSON_LASTNAME_1,singer,songwriter,richest musician,unknown,unknown,unknown,unknown,Ed Sheeran,adele_836.txt,adele,False
+PERSON_FIRSTNAME_1,blonde/brown hair,won NUMERIC_5 Grammys,Married for NUMERIC_4 years,female,NUMERIC_7,NUMERIC_8,unknown,Adele,adele_851.txt,adele,True
+PERSON_FIRSTNAME_1,distinctive voice,MBE recipient,dramatic weight loss,female,unknown,unknown,unknown,PERSON_FIRSTNAME_1,adele_867.txt,adele,False
+PERSON_FIRSTNAME_2,LOCATION_1,NUMERIC_1,OTHER_IDENTIFYING_ATTRIBUTE_1,unknown,unknown,unknown,unknown,Adele,adele_876.txt,adele,True
+PERSON_FIRSTNAME_1,high status,amazing female singer,attractive,unknown,unknown,unknown,unknown,unknown,adele_923.txt,adele,False
+PERSON_FIRSTNAME_3,LOCATION_3,DATE_5,ORGANIZATION_3,unknown,unknown,unknown,unknown,Taylor Swift,adele_938.txt,adele,False
+PERSON_FIRSTNAME_3,singer songwriter,best selling music artist,powerful voice,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_3,adele_943.txt,adele,False
+PERSON_FIRSTNAME_1,singer,song writer,Emmys winner,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1,adele_962.txt,adele,False
+PERSON_FIRSTNAME_3,successful,singer/songwriter,awards,unknown,30,40,unknown,PERSON_FIRSTNAME_3 PERSON_LASTNAME_3,adele_97.txt,adele,False
+PERSON_FIRSTNAME,singer,Grammy winner,divorced,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME,adele_996.txt,adele,False
+PERSON_FIRSTNAME_1,british actor,married to the english actress,well known sort after actors in the uk,unknown,unknown,unknown,unknown,Daniel Craig,craig_10.txt,craig,True
+PERSON_FIRSTNAME_2,NUMERIC_3,LOCATION_1,OTHER_IDENTIFYING_ATTRIBUTE_1,unknown,30,40,unknown,PERSON_FIRSTNAME_2 PERSON_LASTNAME_3,craig_1005.txt,craig,False
+PERSON_FIRSTNAME_1,actor,intense eyes,great physique,unknown,unknown,unknown,unknown,unknown,craig_1017.txt,craig,False
+PRONOUN,LOCATION_1,OTHER_IDENTIFYING_ATTRIBUTE_3,DATE_4,unknown,unknown,unknown,unknown,PRONOUN,craig_1049.txt,craig,False
+PERSON_FIRSTNAME_1,actor,award-winning,international,unknown,40,50,unknown,PERSON_FIRSTNAME_1 PERSON_LASTNAME_2,craig_1053.txt,craig,False
+,,,,,,,,,craig_1078.txt,craig,False
+PERSON_FIRSTNAME_1,blue eyes,nice smile,tall,unknown,late 20s,early 40s,unknown,PERSON_FIRSTNAME_3 PERSON_LASTNAME_1,craig_114.txt,craig,False
+PERSON_FIRSTNAME_2,fellow actor,married to another actress,from a city called LOCATION_5,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_2 PERSON_LASTNAME_3,craig_123.txt,craig,False
+PERSON_FIRSTNAME_1,stoic,funny,confident,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1 PERSON_LASTNAME_2,craig_137.txt,craig,False
+PERSON_FIRSTNAME_1,eponymous film series,drama serial,mystery comedy,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,craig_149.txt,craig,False
+PERSON_FIRSTNAME_3 PERSON_LASTNAME_1,smouldering look,blonde hair,serious actor,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_3 PERSON_LASTNAME_1,craig_17.txt,craig,False
+,,,,,,,,,craig_188.txt,craig,False
+PERSON_FIRSTNAME_2 PERSON_LASTNAME_1,actor,well known,plays fantastically,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1 PERSON_LASTNAME_2,craig_227.txt,craig,False
+,,,,,,,,,craig_253.txt,craig,False
+PERSON_FIRSTNAME_7,LOCATION_1,DATE_2,OTHER_IDENTIFYING_ATTRIBUTE_1,unknown,unknown,unknown,unknown,Tom Hanks,craig_259.txt,craig,False
+PERSON_FIRSTNAME_1,blond hair,blue eyes,round face,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,craig_263.txt,craig,False
+PERSON_FIRSTNAME_1,best known for playing OTHER_IDENTIFYING_ATTRIBUTE_3,nominated for a BAFTA award,an LOCATION_1 actor,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1 PERSON_LASTNAME_2,craig_273.txt,craig,False
+PERSON_FIRSTNAME_1,girl with the OTHER_IDENTIFYING_ATTRIBUTE_3 and OTHER_IDENTIFYING_ATTRIBUTE_2 bond films,list celebrity and a household name in the uk,made an honorary commander in the LOCATION_2 navy,unknown,unknown,unknown,unknown,Daniel Craig,craig_32.txt,craig,True
+PERSON_FIRSTNAME_1,Broadway performer,Blonde,Accent,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,craig_328.txt,craig,False
+PERSON_FIRSTNAME_1,partially melted wax work,sagging eyebrows,receding hair line,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1,craig_332.txt,craig,False
+PERSON_FIRSTNAME,ORGANIZATION_2,DATE,LOCATION,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME,craig_375.txt,craig,False
+PERSON_FIRSTNAME_1,PRONOUN role as PERSON_FIRSTNAME_2 PERSON_LASTNAME_1,golden globe award nomination for best actor in OTHER_IDENTIFYING_ATTRIBUTE_2,"involvement in charity and work with various charities including comic relief, aids charities, or is international",unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1 PERSON_LASTNAME_2,craig_378.txt,craig,False
+PERSON_FIRSTNAME_1,athletic,handsome,talented,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1,craig_381.txt,craig,False
+PERSON_FIRSTNAME_1,PRONOUN,NUMERIC_4 years old,DATE_1 till now,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_2 PERSON_LASTNAME_2,craig_393.txt,craig,False
+PERSON_FIRSTNAME_1,eponymous,grittier side,nuanced take,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_2 PERSON_LASTNAME_2,craig_40.txt,craig,False
+PERSON_FIRSTNAME_1,piercing blue eyes,blond hair,suave accent,unknown,early fifties,unknown,unknown,unknown,craig_403.txt,craig,False
+,,,,,,,,,craig_413.txt,craig,False
+,,,,,,,,,craig_439.txt,craig,False
+PERSON_FIRSTNAME_1,white male,privileged background,married to fellow actress,male,30,40,unknown,PERSON_FIRSTNAME_1,craig_469.txt,craig,False
+PERSON_FIRSTNAME_2,male,actor,married,unknown,50,59,unknown,PERSON_FIRSTNAME_2 PERSON_LASTNAME_3,craig_476.txt,craig,False
+PERSON_FIRSTNAME,ORGANIZATION_1,PERSON_FIRSTNAME,PERSON_LASTNAME,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME,craig_493.txt,craig,False
+PERSON_FIRSTNAME_1,piercing blue eyes,playing LOCATION_1 icon,not wanting to play OTHER_IDENTIFYING_ATTRIBUTE_1 anymore,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_2 PERSON_LASTNAME_2,craig_528.txt,craig,False
+PERSON_FIRSTNAME_1,DATE_1,LOCATION_1,ORGANIZATION_1,unknown,30,40,unknown,PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,craig_538.txt,craig,False
+PERSON_FIRSTNAME_3,OTHER_IDENTIFYING_ATTRIBUTE_1,OTHER_IDENTIFYING_ATTRIBUTE_2,OTHER_IDENTIFYING_ATTRIBUTE_3,unknown,unknown,unknown,unknown,Tom Hanks,craig_58.txt,craig,False
+PERSON_FIRSTNAME_1,LOCATION_1,OCCUPATION_1,ORGANIZATION_1,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_2 PERSON_LASTNAME_2,craig_596.txt,craig,False
+PERSON_FIRSTNAME_2,Actor,Art,Bafta award,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_2 PERSON_LASTNAME_3,craig_612.txt,craig,False
+PERSON_FIRSTNAME_2,actor,married,graduated,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_2 PERSON_LASTNAME_3,craig_644.txt,craig,False
+PERSON_FIRSTNAME_1,eponymous film series,looks and charm,best bond,unknown,unknown,unknown,unknown,Daniel Craig,craig_677.txt,craig,True
+PERSON_FIRSTNAME_5,LOCATION_1,PERSON_FIRSTNAME_3,DATE_2,unknown,unknown,unknown,unknown,Tom Hanks,craig_698.txt,craig,False
+,,,,,,,,,craig_703.txt,craig,False
+PERSON_FIRSTNAME_4,actor,advocate,married,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_4 PERSON_LASTNAME_4,craig_713.txt,craig,False
+PERSON_FIRSTNAME_3,LOCATION_2,DATE_3,OTHER_IDENTIFYING_ATTRIBUTE_4,unknown,30,40,unknown,Tom Cruise,craig_788.txt,craig,False
+PERSON_FIRSTNAME_1,LOCATION_1,NUMERIC_2,DATE_2,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,craig_819.txt,craig,False
+PERSON_FIRSTNAME_3,LOCATION_1,LOCATION_2,DATE_2,unknown,unknown,unknown,unknown,Tom Hanks,craig_823.txt,craig,False
+PERSON_FIRSTNAME_3,OTHER_IDENTIFYING_ATTRIBUTE_1,OTHER_IDENTIFYING_ATTRIBUTE_2,OTHER_IDENTIFYING_ATTRIBUTE_4,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_2 PERSON_LASTNAME_3,craig_832.txt,craig,False
+,,,,,,,,,craig_873.txt,craig,False
+PERSON_FIRSTNAME_2,actor,rugby player,waiter,unknown,unknown,unknown,unknown,Daniel Craig,craig_879.txt,craig,True
+PERSON_FIRSTNAME_2,OTHER_IDENTIFYING_ATTRIBUTE_5,OTHER_IDENTIFYING_ATTRIBUTE_3,OTHER_IDENTIFYING_ATTRIBUTE_1,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_2 PERSON_LASTNAME_3,craig_886.txt,craig,False
+,,,,,,,,,craig_908.txt,craig,False
+PERSON_FIRSTNAME_2,easy on the eyes,attractive,international fame,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_2,craig_912.txt,craig,False
+PERSON_FIRSTNAME_1,classic drama training,married to acress PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,british actor,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_2 PERSON_LASTNAME_2,craig_928.txt,craig,False
+PRONOUN,dyspraxia,rap music,atheism,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1,craig_978.txt,craig,False
+PERSON_FIRSTNAME_1,blonde hair,piercing blue eyes,actor,unknown,30,40,unknown,PERSON_FIRSTNAME_1,craig_98.txt,craig,False
+PERSON_FIRSTNAME,ORGANIZATION_1,LOCATION,DATE,unknown,30,40,unknown,PERSON_FIRSTNAME ORGANIZATION_1 PERSON_LASTNAME ORGANIZATION_1,craig_992.txt,craig,False
+PERSON_FIRSTNAME_1,lead singer,well-known,multiple awards,unknown,unknown,unknown,unknown,John Smith,jagger_1.txt,jagger,False
+PERSON_FIRSTNAME_1,front man of the ORGANIZATION_1,"singer, songwriter, actor, and film producer",lead vocalist and NUMERIC_1 of the founder members of the ORGANIZATION_1,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,jagger_101.txt,jagger,False
+PERSON_FIRSTNAME_1,singer,songwriter,actor,unknown,unknown,unknown,unknown,Mick Jagger,jagger_1021.txt,jagger,True
+PERSON_FIRSTNAME_1,lead vocalist,songwriter,knighted,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1,jagger_1026.txt,jagger,False
+PERSON_FIRSTNAME_1,shaggy hair,loud but superb fashion choice,funny voice,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,jagger_1066.txt,jagger,False
+PERSON_FIRSTNAME_1,singer,songwriter,actor,unknown,unknown,unknown,unknown,John Lennon,jagger_11.txt,jagger,False
+PERSON_FIRSTNAME_1,talented,distinctive voice,eventful life,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_2 PERSON_LASTNAME_2,jagger_116.txt,jagger,False
+PERSON_FIRSTNAME_1,rock star,unique sense of fashion,recognised for appearance,unknown,30,40,unknown,PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,jagger_129.txt,jagger,False
+PERSON_FIRSTNAME_1,singer,songwriter,actor,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_2 PERSON_LASTNAME_1,jagger_141.txt,jagger,False
+PERSON_FIRSTNAME_1,singer,songwriter,actor,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,jagger_146.txt,jagger,False
+PERSON_FIRSTNAME_1,lead singer,rock band,successful,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,jagger_208.txt,jagger,False
+PERSON_FIRSTNAME_1,singer,lead singer of the rolling stones band,actor,unknown,unknown,unknown,UK,Mick Jagger,jagger_213.txt,jagger,True
+PERSON_FIRSTNAME_2,singer,song writer,lead singer,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_2 PERSON_LASTNAME_1,jagger_241.txt,jagger,False
+PERSON_FIRSTNAME_5,PERSON_LASTNAME_1,DATE_1,ORGANIZATION_1,unknown,unknown,unknown,unknown,John Smith,jagger_258.txt,jagger,False
+PERSON_FIRSTNAME_1,large mouth,long hair,electric on-stage presence,unknown,unknown,unknown,unknown,Elvis Presley,jagger_262.txt,jagger,False
+,,,,,,,,,jagger_277.txt,jagger,False
+PERSON_FIRSTNAME_1,singer,songwriter,actor,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_2 PERSON_LASTNAME_2,jagger_286.txt,jagger,False
+PERSON_FIRSTNAME_2,rock legend,lead singer,charismatic stage presence,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_2 PERSON_LASTNAME_1,jagger_293.txt,jagger,False
+PERSON_FIRSTNAME_1,musician,front man,knighted,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,jagger_296.txt,jagger,False
+PERSON_FIRSTNAME_1,rock and roll singer,distinctive looking,knighthood,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_3 PERSON_LASTNAME_1,jagger_322.txt,jagger,False
+PERSON_FIRSTNAME_1,snake hipped,big lipped,paging rock star,unknown,40,50,unknown,PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,jagger_336.txt,jagger,False
+,,,,,,,,,jagger_376.txt,jagger,False
+PERSON_FIRSTNAME_1,singer-song writer,lead singer,founding member,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1,jagger_392.txt,jagger,False
+PERSON_FIRSTNAME_1,wild party lifestyle,dance moves,extravagant stage presence,unknown,30,40,unknown,Elvis Presley,jagger_402.txt,jagger,False
+PERSON_FIRSTNAME_1,lead singer,old,fit,unknown,unknown,unknown,unknown,John Doe,jagger_42.txt,jagger,False
+PERSON_FIRSTNAME_1,singer,actor,founder of ORGANIZATION_1,unknown,unknown,unknown,unknown,Elton John,jagger_422.txt,jagger,False
+,,,,,,,,,jagger_441.txt,jagger,False
+PERSON_FIRSTNAME_2,musician,actor,knighted,unknown,unknown,unknown,unknown,John Doe,jagger_458.txt,jagger,False
+PERSON_FIRSTNAME_1,NUMERIC_1,ORGANIZATION_1,NUMERIC_2,unknown,unknown,unknown,unknown,Mick Jagger,jagger_467.txt,jagger,True
+PERSON_FIRSTNAME_2,musician,front man,awards,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_2 PERSON_LASTNAME_1,jagger_487.txt,jagger,False
+PERSON_FIRSTNAME_1,NUMERIC_1 year old,LOCATION_1 singer-songwriter,NUMERIC_9 films,unknown,40,50,unknown,PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,jagger_496.txt,jagger,False
+PERSON_FIRSTNAME_2,singer,song writer,actor,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_2 PERSON_LASTNAME_1,jagger_513.txt,jagger,False
+,,,,,,,,,jagger_52.txt,jagger,False
+PRONOUN,PRONOUN,NUMERIC_4%,OTHER_IDENTIFYING_ATTRIBUTE_1,unknown,unknown,unknown,unknown,David Bowie,jagger_557.txt,jagger,False
+PERSON_FIRSTNAME_1,PERSON_FIRSTNAME_1,LOCATION_1,DATE_1,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1,jagger_561.txt,jagger,False
+PERSON_FIRSTNAME_1,ORGANIZATION_1,PRONOUN,DATE_1,unknown,unknown,unknown,unknown,Elvis Presley,jagger_567.txt,jagger,False
+PERSON_FIRSTNAME_1,singer,actor,songwriter,unknown,60,70,unknown,Elvis Presley,jagger_582.txt,jagger,False
+PERSON_FIRSTNAME_1,singer,songwriter,producer,unknown,unknown,unknown,unknown,Mick Jagger,jagger_617.txt,jagger,True
+PERSON_FIRSTNAME_1,singer,songwriter,actor,unknown,unknown,unknown,unknown,John Lennon,jagger_623.txt,jagger,False
+PERSON_FIRSTNAME_3,performing in a band called the ORGANIZATION_1,known for PRONOUN charitable work,honored by the Queen and given knighthood,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_3,jagger_672.txt,jagger,False
+PERSON_FIRSTNAME_1,singer,songwriter,front man,unknown,unknown,unknown,unknown,Mick Jagger,jagger_701.txt,jagger,True
+PERSON_FIRSTNAME_1,singer,songwriter,lead singer,unknown,unknown,unknown,unknown,John Smith,jagger_711.txt,jagger,False
+,,,,,,,,,jagger_738.txt,jagger,False
+PERSON_FIRSTNAME_2,lead singer,father,actor,unknown,unknown,unknown,unknown,Mick Jagger,jagger_77.txt,jagger,True
+PERSON_FIRSTNAME_1,singer,songwriter,actor,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,jagger_771.txt,jagger,False
+PRONOUN,singer,member of ORGANIZATION_1,worked with PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,unknown,40,50,unknown,Mick Jagger,jagger_782.txt,jagger,True
+PERSON_FIRSTNAME_2,singer,rock band member,married,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_2 PERSON_LASTNAME_2,jagger_792.txt,jagger,False
+PERSON_FIRSTNAME_1,leading singer,rock group,most popular frontmen,unknown,unknown,unknown,unknown,Robert Plant,jagger_846.txt,jagger,False
+PERSON_FIRSTNAME_1,legend of rock music,singer and frontman of a band,major influence in pop music,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,jagger_857.txt,jagger,False
+PERSON_FIRSTNAME_1,sings a song with PRONOUN,has OTHER_IDENTIFYING_ATTRIBUTE_1 in PRONOUN name,member of the ORGANIZATION_1 or a similar band,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1,jagger_897.txt,jagger,False
+PRONOUN,singer,fhilanthropist,songwriter,unknown,unknown,unknown,unknown,Unknown,jagger_917.txt,jagger,False
+PERSON_FIRSTNAME_1,lead singer,world famous band,distinctive dance style,unknown,unknown,unknown,unknown,John Smith,jagger_96.txt,jagger,False
+PERSON_FIRSTNAME_1,lead singer,songwriting,rock and roll hall of fame,unknown,unknown,unknown,unknown,PERSON_FIRSTNAME_1 PERSON_LASTNAME_1,jagger_984.txt,jagger,False
