@@ -1,0 +1,152 @@
+File,Raw_response
+adele_178.txt,"{
+  ""properties"": {
+    ""place_holder"": {
+      ""title"": ""Place Holder"",
+      ""description"": ""The main persona placeholder name in the text"",
+      ""type"": ""string""
+    }
+  },
+  ""required"": [""place_holder""]
+}"
+craig_253.txt,"{
+    ""properties"": {
+        ""place_holder"": {
+            ""title"": ""Place Holder"",
+            ""description"": ""The main persona placeholder name in the text"",
+            ""type"": ""string""
+        }
+    },
+    ""required"": [""place_holder""]
+}"
+jagger_441.txt,"{
+  ""properties"": {
+    ""place_holder"": {
+      ""title"": ""Place Holder"",
+      ""description"": ""The main persona placeholder name in the text"",
+      ""type"": ""string""
+    }
+  },
+  ""required"": [""place_holder""]
+}"
+adele_673.txt,"{""properties"": {""min_age"": {""title"": ""Min Age"", ""description"": ""The minimum estimated age of the main persona (use your knowledge)"", ""type"": ""string""}, ""max_age"": {""title"": ""Max Age"", ""description"": ""The maximum estimated age of the main persona (use your knowledge)"", ""type"": ""string""}}, ""required"": [""min_age"", ""max_age""]}"
+craig_413.txt,"{
+""properties"": {
+""place_holder"": {
+""title"": ""Place Holder"",
+""description"": ""The main persona placeholder name in the text"",
+""type"": ""string""
+}
+},
+""required"": [""place_holder""]
+}"
+craig_439.txt,"{
+  ""properties"": {
+    ""place_holder"": {
+      ""title"": ""Place Holder"",
+      ""description"": ""The main persona placeholder name in the text"",
+      ""type"": ""string""
+    }
+  },
+  ""required"": [""place_holder""]
+}"
+craig_703.txt,"{
+  ""properties"": {
+    ""place_holder"": {
+      ""title"": ""Place Holder"",
+      ""description"": ""The main persona placeholder name in the text"",
+      ""type"": ""string""
+    }
+  },
+  ""required"": [""place_holder""]
+}"
+jagger_376.txt,"{
+  ""properties"": {
+    ""place_holder"": {
+      ""title"": ""Place Holder"",
+      ""description"": ""The main persona placeholder name in the text"",
+      ""type"": ""string""
+    }
+  },
+  ""required"": [""place_holder""]
+}"
+craig_188.txt,"{
+    ""properties"": {
+        ""place_holder"": {
+            ""title"": ""Place Holder"",
+            ""description"": ""The main persona placeholder name in the text"",
+            ""type"": ""string""
+        }
+    },
+    ""required"": [""place_holder""]
+}"
+craig_1078.txt,"{
+    ""properties"": {
+        ""place_holder"": {
+            ""title"": ""Place Holder"",
+            ""description"": ""The main persona placeholder name in the text"",
+            ""type"": ""string""
+        }
+    },
+    ""required"": [""place_holder""]
+}"
+craig_908.txt,"{
+    ""properties"": {
+        ""place_holder"": {
+            ""title"": ""Place Holder"",
+            ""description"": ""The main persona placeholder name in the text"",
+            ""type"": ""string""
+        }
+    },
+    ""required"": [""place_holder""]
+}"
+craig_873.txt,"{
+  ""properties"": {
+    ""place_holder"": {
+      ""title"": ""Place Holder"",
+      ""description"": ""The main persona placeholder name in the text"",
+      ""type"": ""string""
+    }
+  },
+  ""required"": [""place_holder""]
+}"
+jagger_52.txt,"{
+  ""properties"": {
+    ""place_holder"": {
+      ""title"": ""Place Holder"",
+      ""description"": ""The main persona placeholder name in the text"",
+      ""type"": ""string""
+    }
+  },
+  ""required"": [""place_holder""]
+}"
+adele_591.txt,"{
+  ""properties"": {
+    ""place_holder"": {
+      ""title"": ""Place Holder"",
+      ""description"": ""The main persona placeholder name in the text"",
+      ""type"": ""string""
+    }
+  },
+  ""required"": [""place_holder""]
+}"
+jagger_738.txt,"{
+  ""properties"": {
+    ""place_holder"": {
+      ""title"": ""Place Holder"",
+      ""description"": ""The main persona placeholder name in the text"",
+      ""type"": ""string""
+    }
+  },
+  ""required"": [""place_holder""]
+}"
+jagger_277.txt,"{
+  ""properties"": {
+    ""place_holder"": {
+      ""title"": ""Place Holder"",
+      ""description"": ""The main persona placeholder name in the text"",
+      ""type"": ""string""
+    }
+  },
+  ""required"": [""place_holder""]
+}"
