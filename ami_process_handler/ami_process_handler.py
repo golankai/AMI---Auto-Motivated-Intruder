@@ -1,9 +1,9 @@
-from .process_data.processes.p1_direct import process_1_data
+from .process_data.processes.p1_gk_one import process_1_data
 from .process_data.processes.p2_guess3 import process_2_data
 from .process_data.processes.p3_complete_sent import process_3_data
-from .process_data.processes.p4_LoMP import process_4_data
-from .process_data.processes.p5_guess1 import process_5_data
-from .process_data.processes.p5_1_no_goal import process_5_1_data
+from .process_data.processes.p4_gk_multi import process_4_data
+from .process_data.processes.p5_zero_shot_conf_guess import process_5_data
+from .process_data.processes.p5_zero_shot import process_5_1_data
 from .process_data.processes.p5_2_goal_wo_knowledge import process_5_2_data
 
 # Grader imports
