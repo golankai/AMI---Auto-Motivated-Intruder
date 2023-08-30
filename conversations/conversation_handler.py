@@ -3,7 +3,7 @@ from langchain.prompts import PromptTemplate
 from langchain.chains import ConversationChain
 from langchain.memory import ConversationBufferMemory
 
-from ami_process_handler.process_data.process_data import QueryData
+from process_data.process_data import QueryData
 
 from enum import Enum
 

@@ -4,14 +4,13 @@ from langchain import PromptTemplate
 from langchain.output_parsers import PydanticOutputParser
 from pydantic import BaseModel, Field
 
-from ami_process_handler.process_data.process_data import (
+from process_data.process_data import (
     ProcessData,
     QueryData,
 )
 
 
-# Role_1: You are a 20 years old female student from the UK. You study filming and work as a waitress in a local restaurant. You are single and have no children.
-
+# Role 3: You are a 30 years old female Yoga teacher from the UK. You are married and have 1 child. You have a Bachelor in psychology.
 
 P_CONVERSATIONS_BASE_TEMPLATE = """
     This is a secret conversation between a human and an AI. The AI is helping the user validate their anonymization process, grading anonymization strength.
@@ -22,7 +21,7 @@ P_CONVERSATIONS_BASE_TEMPLATE = """
 """
 
 P_Q1_TEMPLATE = """
-    You are a 20 years old female student from the UK. You study filming and work as a waitress in a local restaurant. You are single and have no children.
+    You are a 30 years old female Yoga teacher from the UK. You are married and have 1 child. You have a Bachelor in psychology.
 
     anonymized text: "{user_input}"
 
@@ -38,7 +37,7 @@ class PQ1Parser(BaseModel):
     )
 
 
-process_161_data = ProcessData(
+process_163_data = ProcessData(
     base=PromptTemplate(
         input_variables=["history", "input"], template=P_CONVERSATIONS_BASE_TEMPLATE
     ),

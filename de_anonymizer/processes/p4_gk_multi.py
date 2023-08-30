@@ -4,7 +4,7 @@ from langchain import PromptTemplate
 from langchain.output_parsers import PydanticOutputParser
 from pydantic import BaseModel, Field
 
-from ami_process_handler.process_data.process_data import (
+from process_data.process_data import (
     ProcessData,
     QueryData,
 )
