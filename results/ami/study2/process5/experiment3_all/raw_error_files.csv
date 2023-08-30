@@ -1,0 +1,46 @@
+File,Raw_response
+gervais_555.txt,"{
+  ""properties"": {
+    ""name"": {
+      ""title"": ""Name"",
+      ""description"": ""Name of the person or UNKNOWN"",
+      ""type"": ""string""
+    },
+    ""score"": {
+      ""title"": ""Score"",
+      ""description"": ""Assign confidence score from 0 to 1 for your name re-identification correctness, where 1 is the most confident"",
+      ""type"": ""number""
+    }
+  },
+  ""required"": [""name"", ""score""]
+}"
+rowling_598.txt,"{
+  ""properties"": {
+    ""name"": {
+      ""title"": ""Name"",
+      ""description"": ""Name of the person or UNKNOWN"",
+      ""type"": ""string""
+    },
+    ""score"": {
+      ""title"": ""Score"",
+      ""description"": ""Assign confidence score from 0 to 1 for your name re-identification correctness, where 1 is the most confident"",
+      ""type"": ""number""
+    }
+  },
+  ""required"": [""name"", ""score""]
+}"
+sheeran_466.txt,"{
+  ""properties"": {
+    ""name"": {
+      ""title"": ""Name"",
+      ""description"": ""Name of the person or UNKNOWN"",
+      ""type"": ""string""
+    },
+    ""score"": {
+      ""title"": ""Score"",
+      ""description"": ""Assign confidence score from 0 to 1 for your name re-identification correctness, where 1 is the most confident"",
+      ""type"": ""number""
+    }
+  },
+  ""required"": [""name"", ""score""]
+}"
