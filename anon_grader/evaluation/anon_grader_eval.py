@@ -6,8 +6,6 @@ import numpy as np
 import torch as th
 from torch.utils.data import DataLoader
 
-from transformers import RobertaForSequenceClassification
-
 from clearml import Task
 
 

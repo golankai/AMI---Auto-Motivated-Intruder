@@ -163,7 +163,7 @@ if __name__ == "__main__":
     
     # Read the predictions and results
     predictions, results = _read_predictions_results(NUM_SAMPLES, file_id)
-    # predictions = _predict_pe(predictions, process_ids) # Comment out to run only the metrics
+    predictions = _predict_pe(predictions, process_ids) # Comment out to run only the metrics
 
     # Calculate the overall results for each experiment
     results.update(_calculate_results(predictions))
