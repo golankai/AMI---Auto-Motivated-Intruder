@@ -1,43 +1,26 @@
 # Auto-Intruder
 Automatic Re-identifying tool
 
-## Tasks
 
-### Organization
+The burgeoning demand for expansive text data in social and medical research presents a challenge: while pressing questions necessitate using sensitive data, data protection and ethics raise a barrier.
+A promising solution lies in automated text anonymization, which performs data masking of Personally Identifiable Information ("**PII**"), such as names and locations, at scale.
+This work displays experiments on the topic, utilizing LLMs capabilities, as an off-the-shelf tool.
 
-##### De-Anonymizer
-1. Define 3-5 process with different characteristics.
-2. Eval and analyze the results on adele
-3. Select the top 2-3 and execute on all dataset.
-4. Eval and analyze the results.
+Until today, numerous studies illustrated that text can be anonymized with only minor performance degradation.
+Nevertheless, this approach is not infallible, especially for sensitive sectors such as healthcare.
+### How can we tell if our text is sufficiently anonymized?
+The domain of text anonymization lacks a standardized evaluation method, rendering the challenge multifaceted and open to individual interpretation.
+Traditionally, the most reliable evaluators have been humans attempting to re-identify individuals from anonymized texts, this process is called the \underline{Motivated Intruder Test}.
+There are also some more technical metrics, such as the accuracy of tokens to be redacted, but again, this is prone to biases and personal interpretation.
 
-##### Scores
-1. Try few shots.
-2. eval and compare to roberata fine-tuning results.
-3. maybe we want to think on another way. 
-    we can extract characteristics that makes the prediction harder for the llm (i.e. number of persons in the text)
-    we can think about a (manual) methodology for give approx. score (i.e. number of unique chars, etc.)
+Our aspiration is to surpass human re-identification capabilities, thereby setting a new benchmark for evaluating anonymized data.
+Namely, our approach can be used as an evaluation technique for other anonymization schemes, manual and automatic.
 
+Our motivation is that a spontaneous re-identification process done by humans is indeed a threat, but in the world of Big Data, is not efficient and scalable.
+An automated version is very likely what will be developed and used by a potential Adversary.
 
-##### Report
-1. introduction
-2. related works
-3. data description
-4. solution - general approach (maybe ?)
+### Problem Statement:
+- RQ1. Compete with humans in the task of re-identifying famous persons from anonymized texts.
+- RQ2. Develop a new metric of the anonymization (/re-identification) rate of a single text.
 
-
-# Goals 
-
-1. Intruder that is good as humans
-2. Test the power of aggregation of data (more than one text)
-3. Give a score for a given anonymized text
-
-
-
-### Code
-1. Intruder - prompting about the anonymized text
-1.1 Scoring and identifying key factors
-
-2. Check with other models
-
-3. Enssemble -> Score
+We chose this problem as data collection and data protection are two very relevant and essential topics, and their convergence is not yet close to being fully discovered.
