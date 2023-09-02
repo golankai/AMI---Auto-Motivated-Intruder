@@ -1,8 +1,7 @@
-from dataclasses import dataclass
 import os
 import random
 from de_anonymizer.de_anonymizer import DeAnonymizer
-from evaluation.experiment_evaluation import ExperimentEvaluation
+from de_anonymizer.evaluation.experiment_evaluation import ExperimentEvaluation
 from enum import Enum
 
 from results.paths import ResultsPaths
@@ -99,8 +98,9 @@ def evaluator():
     result_analyzer.to_json()
 
 
-match mode:
-    case Mode.INTRUDER:
-        intruder()
-    case Mode.EVALUATOR:
-        evaluator()
+if __name__ == "__main__":
+    match mode:
+        case Mode.INTRUDER:
+            intruder()
+        case Mode.EVALUATOR:
+            evaluator()

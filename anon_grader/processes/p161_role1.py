@@ -4,13 +4,13 @@ from langchain import PromptTemplate
 from langchain.output_parsers import PydanticOutputParser
 from pydantic import BaseModel, Field
 
-from de_anonymizer.ami_process_handler.process_data.process_data import (
+from process_data.process_data import (
     ProcessData,
     QueryData,
 )
 
 
-# Role 4: You are a 33 years old male doctor from the UK. You are married and have 3 children. You have a PhD in medicine and work in a hospital.
+# Role_1: You are a 20 years old female student from the UK. You study filming and work as a waitress in a local restaurant. You are single and have no children.
 
 
 P_CONVERSATIONS_BASE_TEMPLATE = """
@@ -22,7 +22,7 @@ P_CONVERSATIONS_BASE_TEMPLATE = """
 """
 
 P_Q1_TEMPLATE = """
-    You are a 33 years old male doctor from the UK. You are married and have 3 children. You have a PhD in medicine and work in a hospital.
+    You are a 20 years old female student from the UK. You study filming and work as a waitress in a local restaurant. You are single and have no children.
 
     anonymized text: "{user_input}"
 
@@ -38,7 +38,7 @@ class PQ1Parser(BaseModel):
     )
 
 
-process_164_data = ProcessData(
+process_161_data = ProcessData(
     base=PromptTemplate(
         input_variables=["history", "input"], template=P_CONVERSATIONS_BASE_TEMPLATE
     ),

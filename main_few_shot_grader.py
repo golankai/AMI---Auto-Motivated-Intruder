@@ -4,9 +4,8 @@ import pandas as pd
 import numpy as np
 
 import torch as th
+from anon_grader.grader_handler.grader_handler import GraderHandler
 
-
-from de_anonymizer.de_anonymizer import DeAnonymizer
 from utils import compute_metrics, get_exp_name
 from conversations.conversation_handler import ResponseStatus
 
@@ -56,16 +55,16 @@ def _read_predictions_results(nm_samples, file_id="") -> pd.DataFrame:
     return predictions, results
 
 # Get the score for each text
-def _get_score_for_row(anon_text, de_anonymiser):
+def _get_score_for_row(anon_text, grader):
     for _ in range(5):
-        response = de_anonymiser.re_identify(anon_text=anon_text)
+        response = grader.grade(anon_text=anon_text)
         if response.get("status") == ResponseStatus.SUCCESS:
             return response.get("data").dict()["score"]
     return np.nan
 
 def _get_self_const_score(anon_text, base_process_id):
     # Define the de-anonymizer
-    de_anonymiser = DeAnonymizer(
+    grader = GraderHandler(
         llm_name="chat-gpt",
         process_id=base_process_id,
         should_handle_data=True,
@@ -73,7 +72,7 @@ def _get_self_const_score(anon_text, base_process_id):
     # Run 3 times to get the score
     responses = []
     for _ in range(3):
-        responses.append(_get_score_for_row(anon_text, de_anonymiser))
+        responses.append(_get_score_for_row(anon_text, grader))
     score = np.mean(responses)
     print("Self-Consistency score: ", score)
     return score
@@ -97,7 +96,7 @@ def _predict_pe(predictions: pd.DataFrame, process_ids: list[int]) -> pd.DataFra
             )
         else:
             # Define the de-anonymizer
-            de_anonymiser = DeAnonymizer(
+            grader = GraderHandler(
                 llm_name="chat-gpt",
                 process_id=process_id,
                 should_handle_data=True,
@@ -105,14 +104,14 @@ def _predict_pe(predictions: pd.DataFrame, process_ids: list[int]) -> pd.DataFra
 
             # Get the score for each text
             predictions[EXPERIMENT_NAME] = predictions["text"].apply(
-                _get_score_for_row, args=(de_anonymiser,)
+                _get_score_for_row, args=(grader,)
             )
 
         if file_id != "":  # got the printed results, no need to continue
             print("Predicted the given file, exiting...")
             sys.exit()
 
-        error_files = de_anonymiser.get_error_files()
+        error_files = grader.get_error_files()
         if error_files is not None:
             error_files.to_csv(ERROR_FILE_PATH, index=False)
             print(
@@ -164,7 +163,7 @@ if __name__ == "__main__":
     
     # Read the predictions and results
     predictions, results = _read_predictions_results(NUM_SAMPLES, file_id)
-    # predictions = _predict_pe(predictions, process_ids) # Comment out to run only the metrics
+    predictions = _predict_pe(predictions, process_ids) # Comment out to run only the metrics
 
     # Calculate the overall results for each experiment
     results.update(_calculate_results(predictions))
