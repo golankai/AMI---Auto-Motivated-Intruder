@@ -13,9 +13,11 @@ The domain of text anonymization lacks a standardized evaluation method, renderi
 Traditionally, the most reliable evaluators have been humans attempting to re-identify individuals from anonymized texts, this process is called the \underline{Motivated Intruder Test}.
 There are also some more technical metrics, such as the accuracy of tokens to be redacted, but again, this is prone to biases and personal interpretation.
 
+### Aspiration
 Our aspiration is to surpass human re-identification capabilities, thereby setting a new benchmark for evaluating anonymized data.
 Namely, our approach can be used as an evaluation technique for other anonymization schemes, manual and automatic.
 
+### Motivation
 Our motivation is that a spontaneous re-identification process done by humans is indeed a threat, but in the world of Big Data, is not efficient and scalable.
 An automated version is very likely what will be developed and used by a potential Adversary.
 
