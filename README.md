@@ -1,4 +1,4 @@
-# Auto-Intruder
+# Auto Motivated Intruder (AMI)
 Automatic Re-identifying tool
 
 
